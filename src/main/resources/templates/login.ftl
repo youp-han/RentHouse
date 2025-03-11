@@ -20,5 +20,6 @@
     </div>
 </form>
 <a href="${springMacroRequestContext.contextPath}/oauth2/authorization/naver">Login with Naver</a>
+<a href="${springMacroRequestContext.contextPath}/oauth2/authorization/kakao">Login with Kakao</a>
 </body>
 </html>
