@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.Rent_House;
+package com.jjst.rentManagement.renthouse;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.Rent_House.config;
+package com.jjst.rentManagement.renthouse.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

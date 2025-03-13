@@ -1,6 +1,6 @@
-package com.jjst.rentManagement.Rent_House.config;
+package com.jjst.rentManagement.renthouse.config;
 
-import com.jjst.rentManagement.Rent_House.handler.CustomAuthenticationFailureHandler;
+import com.jjst.rentManagement.renthouse.handler.CustomAuthenticationFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,10 +30,15 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login**", "/error**").permitAll()
+                        .requestMatchers("/", "/login**", "/error**", "/member/**").permitAll()
+                        .requestMatchers("/admin/**").permitAll()
+                        //.requestMatchers("/admin/**").hasRole("ADMIN")  // Add this line to restrict access to /admin/** for admin role
                         .anyRequest().authenticated()
                 )
+
+
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
@@ -49,6 +54,7 @@ public class WebSecurityConfig {
                         .userInfoEndpoint()
                         .userService(oAuth2UserService())
                         .and()
+                        //.successHandler(authenticationSuccessHandler())
                         .failureHandler(authenticationFailureHandler())
                 );
         return http.build();
@@ -64,25 +70,27 @@ public class WebSecurityConfig {
             String userNameAttributeName = userRequest.getClientRegistration()
                     .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-            Map<String, Object> originalAttributes = oAuth2User.getAttributes();
-            Map<String, Object> attributes = new HashMap<>(originalAttributes);
+            Map<String, Object> mappedAttributes = mapAttributes(registrationId, new HashMap<>(oAuth2User.getAttributes()));
 
-            if (OAUTH_NAVER.equals(registrationId)) {
-                Map<String, Object> responseAttributes = (Map<String, Object>) attributes.get("response");
-                if (responseAttributes != null) {
-                    attributes.put("name", responseAttributes.get("name"));
-                }
-            } else if (OAUTH_KAKAO.equals(registrationId)) {
-                Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-                if (kakaoAccount != null) {
-                    attributes.put("nickname", kakaoAccount.get("profile"));
-                }
-            }
+            OAuth2UserAuthority authority = new OAuth2UserAuthority(mappedAttributes);
 
-            OAuth2UserAuthority authority = new OAuth2UserAuthority(attributes);
-
-            return new DefaultOAuth2User(java.util.Collections.singleton(authority), attributes, userNameAttributeName);
+            return new DefaultOAuth2User(java.util.Collections.singleton(authority), mappedAttributes, userNameAttributeName);
         };
+    }
+
+    private Map<String, Object> mapAttributes(String registrationId, Map<String, Object> attributes) {
+        if (OAUTH_NAVER.equals(registrationId)) {
+            Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+            if (response != null) {
+                attributes.put("name", response.get("name"));
+            }
+        } else if (OAUTH_KAKAO.equals(registrationId)) {
+            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
+            if (kakaoAccount != null) {
+                attributes.put("nickname", kakaoAccount.get("profile"));
+            }
+        }
+        return attributes;
     }
 
     @Bean

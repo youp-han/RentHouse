@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.Rent_House.handler;
+package com.jjst.rentManagement.renthouse.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;

@@ -12,6 +12,7 @@
         <a href="${springMacroRequestContext.contextPath}/logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
     <#else>
         <a href="${springMacroRequestContext.contextPath}/login">Login</a>
+        <a href="${springMacroRequestContext.contextPath}/member/join">Join</a>
     </#if>
 </div>
 <form id="logout-form" action="${springMacroRequestContext.contextPath}/logout" method="post" style="display: none;">

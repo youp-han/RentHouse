@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.Rent_House.controller;
+package com.jjst.rentManagement.renthouse.controller;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -39,5 +39,10 @@ public class HomeController {
     public String login() {
         return "login";
 
+    }
+
+    @GetMapping("/error")
+    public String handleError() {
+        return "/error/"; // Ensure 'error.html' or equivalent exists in templates
     }
 }

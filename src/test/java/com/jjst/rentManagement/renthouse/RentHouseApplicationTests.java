@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.Rent_House;
+package com.jjst.rentManagement.renthouse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
