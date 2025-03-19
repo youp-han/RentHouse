@@ -35,6 +35,17 @@ public class WebSecurityConfig {
                         .requestMatchers("/", "/login**", "/error**", "/member/**").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Add this line to restrict access to /admin/** for admin role
+                        .requestMatchers(
+                                "/img/**",
+                                "/css/**",
+                                "/js/**",
+                                "/vendor/**",
+                                "/scss/**",
+                                "/public/**",
+                                "/interface/**",
+                                "/selfservice/**",
+                                "/helpservice/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
 
