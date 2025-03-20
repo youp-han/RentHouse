@@ -32,7 +32,7 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login**", "/error**", "/member/**").permitAll()
+                        .requestMatchers("/", "/login**", "/error**", "/member/**", "/sample").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Add this line to restrict access to /admin/** for admin role
                         .requestMatchers(

@@ -1,4 +1,6 @@
-<#import "/spring.ftl" as spring/>
+<#import "/spring.ftl" as spring />
+<#import "sidebar.ftl" as side />
+<#import "topbar.ftl" as top />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +21,7 @@
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <@sidebar />
+            <@side.sidebar />
         </ul>
         <!-- End of Sidebar -->
 
@@ -29,7 +31,7 @@
             <div id="content">
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                    <@topbar />
+                    <@top.topbar />
                 </nav>
                 <!-- End of Topbar -->
 
@@ -74,11 +76,15 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="${springMacroRequestContext.contextPath}/logout" onclick="preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                 </div>
             </div>
         </div>
     </div>
+
+    <form id="logout-form" action="${springMacroRequestContext.contextPath}/logout" method="post" style="display: none;">
+<#--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
+    </form>
 
     <!-- Bootstrap core JavaScript-->
     <script src="/vendor/jquery/jquery.min.js"></script>

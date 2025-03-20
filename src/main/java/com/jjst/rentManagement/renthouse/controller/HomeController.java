@@ -28,6 +28,23 @@ public class HomeController {
         return "index";
     }
 
+    @GetMapping("/sample")
+    public String sampleHome(@AuthenticationPrincipal OAuth2User user, Model model) {
+        if (user != null) {
+            String name = null;
+            // Kakao 사용자 정보 처리
+            Map<String, Object> nicknameMap = (Map<String, Object>) user.getAttribute("nickname");
+            if (nicknameMap != null) {
+                name = (String) nicknameMap.get("nickname");
+            } else if (user.getAttribute("name") != null) {
+                // Naver 사용자 정보 처리
+                name = user.getAttribute("name");
+            }
+            model.addAttribute("name", name);
+        }
+        return "sample";
+    }
+
     boolean isApplicationUser(OAuth2User user){
 
         //check logged in user
