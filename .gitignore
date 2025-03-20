@@ -49,3 +49,4 @@ build/
 /src/main/resources/static/utilities-color.html
 /src/main/resources/static/utilities-other.html
 /src/main/resources/static
+/src/main/resources/application-prd.properties
