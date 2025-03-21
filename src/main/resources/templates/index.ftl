@@ -2,8 +2,6 @@
 <#import "/spring.ftl" as spring/>
 
 
-
-
 <#macro content>
 
         <div class="container-fluid">

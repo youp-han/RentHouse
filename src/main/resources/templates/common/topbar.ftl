@@ -209,6 +209,11 @@
                         <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                         로그인
                     </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="/member/join">
+                        <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        가입하기
+                    </a>
                 </#if>
 
 

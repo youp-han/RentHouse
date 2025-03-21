@@ -15,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="${rc.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -93,10 +94,12 @@
     <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="/js/sb-admin-2.min.js"></script>
-    <!-- plugins -->
-    <script src="/vendor/chart.js/Chart.min.js"></script>
-    <!-- Page level custom scripts -->
-    <script src="/js/demo/chart-area-demo.js"></script>
-    <script src="/js/demo/chart-pie-demo.js"></script>
+<#--    <!-- plugins &ndash;&gt;-->
+<#--    <script src="/vendor/chart.js/Chart.min.js"></script>-->
+<#--    <!-- Page level custom scripts &ndash;&gt;-->
+<#--    <script src="/js/demo/chart-area-demo.js"></script>-->
+<#--    <script src="/js/demo/chart-pie-demo.js"></script>-->
+
+
 </body>
 </html>
