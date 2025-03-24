@@ -16,6 +16,7 @@
                     <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary">회원 가입</h6>
                     </div>
+
                     <div class="card-body">
                         <form id="joinForm">
                             <!-- Name -->
@@ -115,7 +116,6 @@
             // Match Passwords Validation and save
             $('#joinForm').on('submit', function(event) {
                 event.preventDefault(); // Prevent the default form submission
-                const formData = $(this).serialize(); // Serialize form data
                 const password = $('#password').val();
                 const confirmPassword = $('#confirmPassword').val();
 

@@ -2,7 +2,7 @@ package com.jjst.rentManagement.renthouse.controller;
 
 import com.jjst.rentManagement.renthouse.Service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Room;
+import com.jjst.rentManagement.renthouse.module.Properties.entity.UnitAttribute;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,19 +97,13 @@ public class PropertyController {
             }
 
             // Create and populate the new Room object
-            Room room = new Room();
-            try {
-                room.setType(Room.Type.valueOf(type)); // Handle invalid type
-            } catch (IllegalArgumentException e) {
-                redirectAttributes.addFlashAttribute("error", "Invalid room type: " + type);
-                return "redirect:/admin/property/unit/room/register?unitId=" + unitId;
-            }
-            room.setSize(size);
-            room.setFeatures(features);
-            room.setUnit(unit);
+            UnitAttribute unitAttribute = new UnitAttribute();
+            //UnitAttribute setFeatureKey(key)
+            //unitAttribute.setFeatureValue(value);
+            unitAttribute.setUnit(unit);
 
             // Add room to unit and save
-            unit.getRooms().add(room);
+            unit.getUnitAttributes().add(unitAttribute);
             propertyService.saveUnit(unit);
 
             // Success message

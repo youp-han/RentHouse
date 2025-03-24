@@ -17,6 +17,8 @@
             <span>HOME</span></a>
     </li>
 
+    <#if role?? && role=="ADMIN">
+
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -41,6 +43,8 @@
         </div>
     </li>
 
+
+    </#if>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

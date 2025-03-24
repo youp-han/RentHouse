@@ -3,19 +3,19 @@ package com.jjst.rentManagement.renthouse.controller;
 import com.jjst.rentManagement.renthouse.Service.MemberService;
 import com.jjst.rentManagement.renthouse.dto.LoginDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
@@ -30,9 +30,10 @@ public class HomeController {
     @GetMapping("/")
     public String home(Principal principal, Model model) {
         if (principal != null) {
-            String email = principal.getName(); // Authenticated email
-            Member member = memberService.getMemberByEmail(email); // Fetch user details from DB
+            Member member = (Member) ((Authentication) principal).getPrincipal();
             model.addAttribute("name", member.getName());
+            model.addAttribute("email", member.getEmail());
+            model.addAttribute("role", member.getRole());
         }
         return "index";
     }
@@ -62,24 +63,38 @@ public class HomeController {
         return false;
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login/authenticate")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestBody LoginDto lgDto) {
-
+    public ResponseEntity<String> loginAuthenticate(@RequestBody LoginDto lgDto, HttpServletRequest request) {
         Member member = memberService.getMemberByEmail(lgDto.getEmail());
-        if(member != null) {
-            if(memberService.authenticate(lgDto.getPassword(), member.getPassword())){
+        if (member != null) {
+            if (memberService.authenticate(lgDto.getPassword(), member.getPassword())) {
                 // Create a custom Principal or use Spring Security Authentication
                 UsernamePasswordAuthenticationToken authentication =
                         new UsernamePasswordAuthenticationToken(
-                                member.getEmail(),
+                                member,
                                 null,
                                 Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                // Create a new session and add the security context.
+                HttpSession session = request.getSession(true);
+                session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+
                 return ResponseEntity.ok("success");
             }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
+    }
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(){
+        return "/";
     }
 
     @GetMapping("/error")

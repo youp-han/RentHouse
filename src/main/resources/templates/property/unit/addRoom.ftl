@@ -47,7 +47,7 @@
     <p class="error">${errorMessage}</p>
 </#if>
 
-<form action="/admin/property/unit/room/save" method="POST">
+<form action="/admin/property/unit/unitAttribute/save" method="POST">
     <!-- unitId 전달 -->
     <#if unitId??>
         <input type="hidden" name="unitId" value="${unitId?replace(',', '')}">
@@ -64,7 +64,7 @@
         <!-- Room Type -->
         <label for="type">Room Type:</label>
         <select id="type" name="type" required>
-            <option value="" disabled selected>Select a room type</option>
+            <option value="" disabled selected>Select a unitAttribute type</option>
             <option value="oneRoom">One Room</option>
             <option value="twoRooms">Two Rooms</option>
             <option value="threeRooms">Three Rooms</option>

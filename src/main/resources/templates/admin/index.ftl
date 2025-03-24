@@ -22,16 +22,16 @@
                     <#list property.units as unit>
                         <li>Unit: ${unit.unitNumber!''}</li>
                         <ul>
-                            <#if unit.rooms??>
-                                <#if unit.rooms?size == 0>
-                                    <li>No rooms found. <a href="/admin/property/unit/room/register?unitId=${unit.id?replace(',', '')}">Register Room</a></li>
+                            <#if unit.getUnitAttributes??>
+                                <#if unit.getUnitAttributes?size == 0>
+                                    <li>No rooms found. <a href="/admin/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}">Register Room</a></li>
                                 <#else>
-                                    <#list unit.rooms as room>
-                                        <li>Room: ${room.type}, Size: ${room.size} sqm, Features: ${room.features}</li>
+                                    <#list unit.getUnitAttributes as unitAttribute>
+                                        <li>Room: ${unitAttribute.type}, Size: ${unitAttribute.size} sqm, Features: ${unitAttribute.features}</li>
                                     </#list>
                                 </#if>
                             <#else>
-                                <li>No rooms found. <a href="/admin/property/unit/room/register?unitId=${unit.id?replace(',', '')}">Register Room</a></li>
+                                <li>No rooms found. <a href="/admin/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}">Register Room</a></li>
                             </#if>
                         </ul>
                     </#list>

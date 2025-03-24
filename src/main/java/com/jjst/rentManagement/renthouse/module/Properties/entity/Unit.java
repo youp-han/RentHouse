@@ -18,6 +18,6 @@ public class Unit extends BaseEntity {
     private Property property;
 
     @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Room> rooms = new ArrayList<>();
+    private List<UnitAttribute> unitAttributes = new ArrayList<>();
 
 }

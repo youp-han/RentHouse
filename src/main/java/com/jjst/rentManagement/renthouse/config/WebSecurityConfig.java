@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
@@ -35,7 +36,7 @@ public class WebSecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login**", "/error**", "/member/**", "/sample").permitAll()
+                        .requestMatchers("/", "/login/**", "/error**", "/member/**", "/sample").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Add this line to restrict access to /admin/** for admin role
                         .requestMatchers(
@@ -51,15 +52,15 @@ public class WebSecurityConfig {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin((form) -> form
-                        .loginPage("/login")
-                        .loginProcessingUrl("/login")
-                        .usernameParameter("email") // Map form's "email" field
-                        .passwordParameter("password") // Map form's "password" field
-                        .defaultSuccessUrl("/", true)
-                        .failureUrl("/login?error=true")
-                        .permitAll()
-                )
+//                .formLogin((form) -> form
+//                        .loginPage("/login")
+//                        .loginProcessingUrl("/login/authenticate") // URL 수정
+//                        .usernameParameter("email") // Map form's "email" field
+//                        .passwordParameter("password") // Map form's "password" field
+//                        .defaultSuccessUrl("/", true)
+//                        .failureUrl("/login?error=true")
+//                        .permitAll()
+//                )
                 .logout((logout) -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/")
