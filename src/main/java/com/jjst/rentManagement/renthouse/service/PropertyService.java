@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.Service;
+package com.jjst.rentManagement.renthouse.service;
 
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;

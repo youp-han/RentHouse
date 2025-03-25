@@ -32,13 +32,30 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
            aria-expanded="true" aria-controls="collapseOne">
             <i class="fas fa-fw fa-cog"></i>
-            <span>admin menu</span>
+            <span>Management</span>
         </a>
         <div id="collapseOne" class="collapse" aria-labelledby="headingone" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" href="/admin/home">Admin Home</a>
+                <a class="collapse-item" href="/admin/tenantsList">Tenants</a>
+                <a class="collapse-item" href="/admin/newMembers">New Members</a>
+                <a class="collapse-item" href="/admin/propertyList">Properties</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+           aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Properties</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingone" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">menu:</h6>
+                <a class="collapse-item" href="/admin/propertyList">Properties</a>
             </div>
         </div>
     </li>
@@ -59,16 +76,20 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-           aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+           aria-expanded="true" aria-controls="collapseThree">
             <i class="fas fa-fw fa-cog"></i>
             <span>user menu</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+                <a class="collapse-item" href="/login">Log-in</a>
+                <#if user??>
+                <a class="collapse-item" href="/member/settings">Settings</a>
+
+                </#if>
+                <a class="collapse-item" href="/member/detail">Cards</a>
             </div>
         </div>
     </li>

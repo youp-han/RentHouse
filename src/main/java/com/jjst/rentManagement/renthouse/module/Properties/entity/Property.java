@@ -12,7 +12,6 @@ import java.util.List;
 @Entity
 public class Property extends BaseEntity {
     private String address;
-
     private String nickName;
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units = new ArrayList<>();

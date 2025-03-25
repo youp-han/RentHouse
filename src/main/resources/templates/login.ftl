@@ -51,7 +51,7 @@
                 console.log($('#password').val());
 
                 $.ajax({
-                    url: '/login/authenticate',
+                    url: '/member/authenticate',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({

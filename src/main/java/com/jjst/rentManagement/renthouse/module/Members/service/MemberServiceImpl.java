@@ -1,6 +1,6 @@
 package com.jjst.rentManagement.renthouse.module.Members.service;
 
-import com.jjst.rentManagement.renthouse.Service.MemberService;
+import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Members.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,9 @@ public class MemberServiceImpl implements MemberService {
     public boolean authenticate(String rawPassword, String storedPassword){
         return passwordEncoder.matches(rawPassword, storedPassword);
     }
+
+    @Override
+    public Member getMemberBySnsId(String snsId) {return memberRepository.findBySnsId(snsId);}
 
     @Override
     public Member getMemberByEmail(String email){

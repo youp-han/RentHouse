@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.Service;
+package com.jjst.rentManagement.renthouse.service;
 
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 
@@ -10,6 +10,7 @@ public interface MemberService {
     boolean authenticate(String rawPassword, String storedPassword);
     boolean checkEmail(String email);
     Member getMemberByEmail(String email);
+    Member getMemberBySnsId(String snsId);
 
     //post
     void registerMember(Member member, String rawPassword);

@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.Service;
+package com.jjst.rentManagement.renthouse.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 

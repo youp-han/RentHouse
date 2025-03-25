@@ -15,7 +15,30 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="${rc.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <!-- SB Admin 2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/css/sb-admin-2.min.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <!-- SB Admin 2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.1.3/js/sb-admin-2.min.js"></script>
+
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+    <#--    <!-- plugins &ndash;&gt;-->
+    <#--    <script src="/vendor/chart.js/Chart.min.js"></script>-->
+    <#--    <!-- Page level custom scripts &ndash;&gt;-->
+    <#--    <script src="/js/demo/chart-area-demo.js"></script>-->
+    <#--    <script src="/js/demo/chart-pie-demo.js"></script>-->
 </head>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -86,20 +109,6 @@
     <form id="logout-form" action="${springMacroRequestContext.contextPath}/logout" method="post" style="display: none;">
 <#--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
     </form>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="/js/sb-admin-2.min.js"></script>
-<#--    <!-- plugins &ndash;&gt;-->
-<#--    <script src="/vendor/chart.js/Chart.min.js"></script>-->
-<#--    <!-- Page level custom scripts &ndash;&gt;-->
-<#--    <script src="/js/demo/chart-area-demo.js"></script>-->
-<#--    <script src="/js/demo/chart-pie-demo.js"></script>-->
-
 
 </body>
 </html>
