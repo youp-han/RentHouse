@@ -37,6 +37,9 @@ public class MemberRestController {
                 // Create a new session and add the security context.
                 HttpSession session = request.getSession(true);
                 session.setAttribute("SPRING_SECURITY_CONTEXT", SecurityContextHolder.getContext());
+// 로그 추가
+                System.out.println("Session ID: " + session.getId());
+                System.out.println("SPRING_SECURITY_CONTEXT: " + session.getAttribute("SPRING_SECURITY_CONTEXT"));
 
                 return ResponseEntity.ok("success");
             }
