@@ -32,7 +32,9 @@ public class PropertyServiceImpl implements PropertyService {
                 new RuntimeException("Property not found"));
     }
 
-    public List<Unit> getAllUnits(){return unitRepository.findAll();}
+    public List<Unit> getUnitsByPropertyId(long propertyId){
+        return unitRepository.findByPropertyId(propertyId);
+    }
 
     public Unit getUnitById(Long id) {
         return unitRepository.findById(id).orElseThrow(() ->

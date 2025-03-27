@@ -8,14 +8,10 @@ import java.util.List;
 public interface PropertyService {
 
     List<Property> getAllProperties();
-
     void saveProperty(Property property);
-
     Property getPropertyById(Long id);
     Unit getUnitById(Long id);
     void saveUnit(Unit unit);
-
-    List<Unit> getAllUnits();
-
+    List<Unit> getUnitsByPropertyId(long propertyId);
 
 }

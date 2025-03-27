@@ -1,29 +1,47 @@
 package com.jjst.rentManagement.renthouse.controller;
 
+import com.jjst.rentManagement.renthouse.dto.UnitDto;
+import com.jjst.rentManagement.renthouse.module.Tenancy.entity.Tenancy;
+import com.jjst.rentManagement.renthouse.module.Tenancy.repository.TenancyRepository;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.UnitAttribute;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.service.TenancyService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@Controller
-public class PropertyController {
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+@RestController
+public class AdminRestController {
 
     @Autowired
     private PropertyService propertyService;
 
-    //Register Property
-    @GetMapping("/admin/property/register")
-    public String registerProperty(){
-        return "/property/register";
-    }
+    @Autowired
+    private TenancyService tenancyService;
 
+    @GetMapping("/admin/property/units/{propertyId}")
+    public List<UnitDto> getUnitsByPropertyId(@PathVariable long propertyId) {
+        List<Unit> unitList = propertyService.getUnitsByPropertyId(propertyId);
+        List<UnitDto>dtoList = new ArrayList<>();
+        for(Unit unit : unitList){
+            if(unit.getRentStatus() != "N"){
+                UnitDto unitDto = new UnitDto();
+                unitDto.setId(unit.getId());
+                unitDto.setUnitNumber(unit.getUnitNumber());
+                unitDto.setRentStatus(unit.getRentStatus());
+                dtoList.add(unitDto);
+            }
+        }
+        return dtoList;
+    }
 
     @PostMapping("/admin/property/save")
     public String saveProperty(@RequestParam String address) {
@@ -34,16 +52,6 @@ public class PropertyController {
         propertyService.saveProperty(property);
 
         return "redirect:/admin/home";
-    }
-
-    //Register Units
-    @GetMapping("/admin/property/unit/register")
-    public String registerUnit(@RequestParam long propertyId, Model model){
-        Property property = propertyService.getPropertyById(propertyId);
-        model.addAttribute("property", property);
-
-        return "/property/unit/register";
-
     }
 
     @PostMapping("/admin/property/unit/save")
@@ -58,17 +66,20 @@ public class PropertyController {
         return "redirect:/admin/home";
     }
 
-    // Register Rooms
-    @GetMapping("/admin/property/unit/room/register")
-    public String registerRoom(@RequestParam long unitId, Model model) {
-        Unit unit = propertyService.getUnitById(unitId);
 
-        // Error handling for invalid unitId
-        if (unit == null) {
-            throw new IllegalArgumentException("Invalid Unit ID: " + unitId);
+    @PostMapping("/admin/tenancy/save")
+    @ResponseBody
+    public ResponseEntity<String> saveTenancy(@RequestBody Tenancy tenancy, Principal principal) {
+
+        tenancy.setCreatedBy(principal.getName());
+        tenancy.setLastModifiedBy(principal.getName());
+
+        try {
+            tenancyService.registerTenancy(tenancy);
+            return ResponseEntity.ok("success");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failure");
         }
-        model.addAttribute("unitId", unitId);
-        return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
     }
 
     @PostMapping("/admin/property/unit/room/save")

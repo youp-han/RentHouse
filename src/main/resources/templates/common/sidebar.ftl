@@ -40,7 +40,6 @@
                 <a class="collapse-item" href="/admin/home">Admin Home</a>
                 <a class="collapse-item" href="/admin/tenantsList">Tenants</a>
                 <a class="collapse-item" href="/admin/newMembers">New Members</a>
-                <a class="collapse-item" href="/admin/propertyList">Properties</a>
             </div>
         </div>
     </li>

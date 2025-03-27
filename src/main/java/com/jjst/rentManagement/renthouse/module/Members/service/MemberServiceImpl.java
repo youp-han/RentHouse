@@ -40,6 +40,11 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    @Override
+    public List<Member> getNewMemberByIsNewTrue(){
+        return memberRepository.findByisNewTrue();
+    }
+
     //Post
     @Override
     public void registerMember(Member member, String rawPassword){

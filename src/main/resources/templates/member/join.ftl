@@ -69,8 +69,8 @@
                                 <select id="snsType" name="snsType" class="form-control">
                                     <option value="0">없음</option>
                                     <option value="1">네이버</option>
-                                    <option value="2">카카오</option>
-                                    <option value="3">구글</option>
+<#--                                    <option value="2">카카오</option>-->
+<#--                                    <option value="3">구글</option>-->
                                 </select>
                             </div>
 
@@ -92,23 +92,7 @@
 
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalTitle">알림</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modalMessage"></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- jQuery Script -->
     <script>

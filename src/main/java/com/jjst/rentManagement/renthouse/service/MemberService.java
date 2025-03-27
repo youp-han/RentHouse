@@ -11,7 +11,7 @@ public interface MemberService {
     boolean checkEmail(String email);
     Member getMemberByEmail(String email);
     Member getMemberBySnsId(String snsId);
-
+    List<Member> getNewMemberByIsNewTrue();
     //post
     void registerMember(Member member, String rawPassword);
 

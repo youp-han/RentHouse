@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.handler;
+package com.jjst.rentManagement.renthouse.config;
 
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.service.MemberService;
@@ -16,14 +16,14 @@ import java.security.Principal;
 import java.util.Map;
 
 @Component
-
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
     private MemberService memberService;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
+                             Object handler) throws Exception {
         Principal principal = request.getUserPrincipal();
         if (principal != null) {
             if (principal instanceof OAuth2AuthenticationToken) {
@@ -47,12 +47,16 @@ public class LoginInterceptor implements HandlerInterceptor {
                 request.setAttribute("email", member.getEmail());
                 request.setAttribute("role", member.getRole());
             }
+        } else{
+            //response.sendRedirect("/login"); // 로그인 페이지로 리다이렉트
+            //return false;
         }
         return true;
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void postHandle(HttpServletRequest request, HttpServletResponse response,
+                           Object handler, ModelAndView modelAndView) throws Exception {
         if (modelAndView != null) {
             modelAndView.addObject("name", request.getAttribute("name"));
             modelAndView.addObject("email", request.getAttribute("email"));
