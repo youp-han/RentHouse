@@ -13,6 +13,7 @@ import java.util.List;
 public class Property extends BaseEntity {
     private String address;
     private String nickName;
+    private String registeredTo;
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units = new ArrayList<>();
 

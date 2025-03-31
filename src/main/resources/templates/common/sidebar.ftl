@@ -83,12 +83,14 @@
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="/login">Log-in</a>
-                <#if user??>
-                <a class="collapse-item" href="/member/settings">Settings</a>
-
+                <#if role??>
+                    <a class="collapse-item" href="/member/profile">Profile</a>
+                    <a class="collapse-item" href="/member/settings">Settings</a>
+                    <a class="collapse-item" href="/logout">Log out</a>
+                <#else >
+                    <a class="collapse-item" href="/login">Log In</a>
+                    <a class="collapse-item" href="/member/join">가입하기</a>
                 </#if>
-                <a class="collapse-item" href="/member/detail">Cards</a>
             </div>
         </div>
     </li>

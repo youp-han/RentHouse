@@ -42,63 +42,63 @@
 
     <div class="modal fade" id="tenancyModal" tabindex="-1" role="dialog" aria-labelledby="tenancyModalLabel"
          aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tenancyModalLabel">Add Tenancy</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="tenancyForm">
-                    <input type="hidden" id="memberId" name="memberId">
-                    <div class="form-group">
-                        <label for="propertySelect">Select Property:</label>
-                        <select id="propertySelect" class="form-control" required>
-                            <#list propertyList as property>
-                                <option value="0">선택</option>
-                                <option value="${property.propertyId}">${property.nickname}</option>
-                            </#list>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="unitSelect">Select Unit:</label>
-                        <select id="unitSelect" class="form-control" required></select>
-                    </div>
-                    <div class="form-group">
-                        <label for="startDate">Start Date:</label>
-                        <input type="date" id="startDate" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="endDate">End Date:</label>
-                        <input type="date" id="endDate" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="deposit">Deposit:</label>
-                        <input type="number" id="deposit" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="monthlyRent">Monthly Rent:</label>
-                        <input type="number" id="monthlyRent" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contractNotes">Contract Notes:</label>
-                        <textarea id="contractNotes" class="form-control"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="membershipType">Membership Type:</label>
-                        <select id="membershipType" class="form-control" required>
-                            <option value="MONTHLY">Monthly (월세)</option>
-                            <option value="YEARLY">Yearly (연세)</option>
-                            <option value="JEONSE">Jeonse (전세)</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Tenancy</button>
-                </form>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tenancyModalLabel">Add Tenancy</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="tenancyForm">
+                        <input type="hidden" id="memberId" name="memberId">
+                        <div class="form-group">
+                            <label for="propertySelect">Select Property:</label>
+                            <select id="propertySelect" class="form-control" required>
+                                <#list propertyList as property>
+                                    <option value="0">선택</option>
+                                    <option value="${property.propertyId}">${property.nickname}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="unitSelect">Select Unit:</label>
+                            <select id="unitSelect" class="form-control" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date:</label>
+                            <input type="date" id="startDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date:</label>
+                            <input type="date" id="endDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="deposit">Deposit:</label>
+                            <input type="number" id="deposit" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="monthlyRent">Monthly Rent:</label>
+                            <input type="number" id="monthlyRent" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contractNotes">Contract Notes:</label>
+                            <textarea id="contractNotes" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="membershipType">Membership Type:</label>
+                            <select id="membershipType" class="form-control" required>
+                                <option value="MONTHLY">Monthly (월세)</option>
+                                <option value="YEARLY">Yearly (연세)</option>
+                                <option value="JEONSE">Jeonse (전세)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Tenancy</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 
     <script>
@@ -108,7 +108,7 @@
 
             // Show Tenancy Modal
             $(document).on('click', '.tenancy-btn', function() {
-                const memberId = $(this).data('id');
+                const memberId = $(this).data('id').replace(/,/g, '');
                 $('#memberId').val(memberId);
                 $('#tenancyModal').modal('show');
 
@@ -127,8 +127,17 @@
             $('#tenancyForm').on('submit', function(event) {
                 event.preventDefault();
 
+                console.log('memberId: ' + $('#memberId').val())
+                console.log('unitSelect: ' + $('#unitSelect').val())
+                console.log('startDate: ' + $('#startDate').val())
+                console.log('endDate: ' + $('#endDate').val())
+                console.log('deposit: ' + $('#deposit').val())
+                console.log('monthlyRent: ' + $('#monthlyRent').val())
+                console.log('contractNotes: ' + $('#contractNotes').val())
+                console.log('membershipType: ' + $('#membershipType').val())
+
                 $.ajax({
-                    url: '/admin/tenancy/save/',
+                    url: '/admin/tenancy/save',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
@@ -142,13 +151,17 @@
                         membershipType: $('#membershipType').val()
                     }),
                     success: function(response) {
-                        $('#modalMessage').text('Tenancy created successfully'); // Updated success message for clarity
+                        if (response.status === 'success') {
+                            $('#modalMessage').text('Tenancy created successfully');
+                        } else {
+                            $('#modalMessage').text('Failed to create tenancy');
+                        }
                         $('#statusModal').modal('show');
                         $('#tenancyModal').modal('hide');
                         //memberTable.ajax.reload(); // Reload DataTable
                     },
                     error: function(xhr, status, error) {
-                        $('#modalMessage').text('Failed to create tenancy'); // Updated error message for clarity
+                        $('#modalMessage').text('Failed to create tenancy');
                         $('#statusModal').modal('show');
                     }
                 });
@@ -161,9 +174,9 @@
                 const propertyId = $(this).val();
                 $('#unitSelect').empty(); // Clear previous options
 
-                if(propertyId>0){
+                if(propertyId > 0) {
                     $.ajax({
-                        url: `/admin/property/units/`+propertyId,
+                        url: `/admin/property/units/` + propertyId,
                         type: 'GET',
                         contentType: 'application/json',
                         success: function(data) {
@@ -172,12 +185,11 @@
                             });
                         },
                         error: function(xhr, status, error) {
-                            $('#modalMessage').text('Failed to fetch units'); // Updated error message for clarity
+                            $('#modalMessage').text('Failed to fetch units');
                             $('#statusModal').modal('show');
                         }
                     });
                 }
-
             });
 
             // Update EndDate based on StartDate change

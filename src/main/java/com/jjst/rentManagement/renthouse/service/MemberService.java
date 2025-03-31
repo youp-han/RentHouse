@@ -14,5 +14,5 @@ public interface MemberService {
     List<Member> getNewMemberByIsNewTrue();
     //post
     void registerMember(Member member, String rawPassword);
-
+    Member getById(long id);
 }

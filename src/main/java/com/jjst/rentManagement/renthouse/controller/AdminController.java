@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +45,12 @@ public class AdminController {
     }
 
     @GetMapping("/admin/newMembers")
-    public String applyList(Model model){
+    public String applyList(Model model, Principal principal){
+        String name = principal.getName();
+        Member principalUser = (Member) principal;
+        String myname = principalUser.getName();
+
+
         List<Member> memberList = memberService.getNewMemberByIsNewTrue();
         List<Property> propertyList= propertyService.getAllProperties();
 
@@ -93,4 +99,9 @@ public class AdminController {
         model.addAttribute("unitId", unitId);
         return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
     }
+
+//    @GetMapping("/adsmin/property/home")
+//    public String listProperties(Principal principal){
+//        Property property = propertyService.
+//    }
 }

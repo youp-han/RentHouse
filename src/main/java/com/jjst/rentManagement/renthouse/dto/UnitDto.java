@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class UnitDto {
     private long id;
-    private String unitNumber="";
-    private String rentStatus ="";
+    private String unitNumber;
+    private String rentStatus;
 }

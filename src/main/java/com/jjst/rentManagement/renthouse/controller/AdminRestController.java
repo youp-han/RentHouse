@@ -1,8 +1,11 @@
 package com.jjst.rentManagement.renthouse.controller;
 
+import com.jjst.rentManagement.renthouse.dto.TenancyDto;
 import com.jjst.rentManagement.renthouse.dto.UnitDto;
+import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Tenancy.entity.Tenancy;
 import com.jjst.rentManagement.renthouse.module.Tenancy.repository.TenancyRepository;
+import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.UnitAttribute;
@@ -16,13 +19,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class AdminRestController {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private TenancyService tenancyService;
@@ -69,16 +77,40 @@ public class AdminRestController {
 
     @PostMapping("/admin/tenancy/save")
     @ResponseBody
-    public ResponseEntity<String> saveTenancy(@RequestBody Tenancy tenancy, Principal principal) {
-
+    public ResponseEntity<Map<String, String>> saveTenancy(@RequestBody TenancyDto tenancyDto, Principal principal) {
+        Tenancy tenancy = new Tenancy();
+        Member member = memberService.getById(tenancyDto.getMemberId());
+        Unit unit = propertyService.getUnitById(tenancyDto.getUnitId());
+        if(member!=null){
+            tenancy.setMember(member);
+        }
+        if(unit!=null){
+            tenancy.setUnit(unit);
+        }
+        tenancy.setStartDate(tenancyDto.getStartDate());
+        tenancy.setEndDate(tenancyDto.getEndDate());
+        tenancy.setDeposit(tenancyDto.getDeposit());
+        tenancy.setMonthlyRent(tenancyDto.getMonthlyRent());
+        tenancy.setContractNotes(tenancyDto.getContractNotes());
+        if (tenancyDto.getMembershipType() != null) {
+            try {
+                tenancy.setMembershipType(Tenancy.MembershipType.valueOf(tenancyDto.getMembershipType().toLowerCase()));
+            } catch (IllegalArgumentException e) {
+                throw new RuntimeException("Invalid MembershipType value: " + tenancyDto.getMembershipType());
+            }
+        }
         tenancy.setCreatedBy(principal.getName());
         tenancy.setLastModifiedBy(principal.getName());
 
+
+        Map<String, String> response = new HashMap<>();
         try {
             tenancyService.registerTenancy(tenancy);
-            return ResponseEntity.ok("success");
+            response.put("status", "success");
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failure");
+            response.put("status", "failure");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 

@@ -4,7 +4,10 @@ import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.stereotype.Component;
@@ -13,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Collections;
 import java.util.Map;
 
 @Component
@@ -37,6 +41,16 @@ public class LoginInterceptor implements HandlerInterceptor {
                     request.setAttribute("name", member.getName());
                     request.setAttribute("email", member.getEmail());
                     request.setAttribute("role", member.getRole());
+
+                    // 사용자 권한 설정
+                    SecurityContextHolder.getContext().setAuthentication(
+                            new UsernamePasswordAuthenticationToken(
+                                    member,
+                                    null,
+                                    Collections.singletonList(new SimpleGrantedAuthority(member.getRole()))
+                            )
+                    );
+
                 } else {
                     response.sendRedirect("/member/join");
                     return false;
@@ -46,6 +60,17 @@ public class LoginInterceptor implements HandlerInterceptor {
                 request.setAttribute("name", member.getName());
                 request.setAttribute("email", member.getEmail());
                 request.setAttribute("role", member.getRole());
+
+                // 사용자 권한 설정
+                SecurityContextHolder.getContext().setAuthentication(
+                        new UsernamePasswordAuthenticationToken(
+                                member,
+                                null,
+                                Collections.singletonList(new SimpleGrantedAuthority(member.getRole()))
+                        )
+                );
+
+
             }
         } else{
             //response.sendRedirect("/login"); // 로그인 페이지로 리다이렉트

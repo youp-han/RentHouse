@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
@@ -32,6 +34,7 @@ public class WebSecurityConfig {
     private static final String OAUTH_NAVER = "naver";
     private static final String OAUTH_KAKAO = "kakao";
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -40,6 +43,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/", "/login/**", "/error**", "/member/**", "/sample").permitAll()
                         .requestMatchers("/admin/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Add this line to restrict access to /admin/** for admin role
+
                         .requestMatchers(
                                 "/img/**",
                                 "/css/**",
@@ -48,6 +52,8 @@ public class WebSecurityConfig {
                                 "/scss/**"
 
                         ).permitAll()
+
+
                         .anyRequest().authenticated()
                 )
                 .oauth2Login((oauth2) -> oauth2
@@ -112,5 +118,10 @@ public class WebSecurityConfig {
                 "/favicon.ico",
                 "/static/**"
         );
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 }

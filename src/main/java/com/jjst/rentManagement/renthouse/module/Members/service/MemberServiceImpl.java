@@ -45,6 +45,12 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByisNewTrue();
     }
 
+    @Override
+    public Member getById(long id){
+        return memberRepository.findById(id).orElseThrow(() -> new RuntimeException("Member not found for id: " + id));
+    }
+
+
     //Post
     @Override
     public void registerMember(Member member, String rawPassword){
