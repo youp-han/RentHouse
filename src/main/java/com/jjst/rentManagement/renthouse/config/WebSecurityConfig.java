@@ -78,7 +78,8 @@ public class WebSecurityConfig {
             String userNameAttributeName = userRequest.getClientRegistration()
                     .getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
 
-            Map<String, Object> mappedAttributes = mapAttributes(registrationId, new HashMap<>(oAuth2User.getAttributes()));
+            Map<String, Object> mappedAttributes = mapAttributes(registrationId,
+                    new HashMap<>(oAuth2User.getAttributes()));
 
             OAuth2UserAuthority authority = new OAuth2UserAuthority(mappedAttributes);
 

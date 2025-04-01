@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TenancyRepository extends JpaRepository<Tenancy, Long> {
     List<Tenancy> findAllByEndDate(LocalDate endDate);
+    List<Tenancy> findAll();
 }

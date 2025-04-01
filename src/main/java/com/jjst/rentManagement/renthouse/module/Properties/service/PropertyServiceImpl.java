@@ -22,17 +22,13 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyRepository.findAll();
     }
 
-
-    public void saveProperty(Property property) {
-        propertyRepository.save(property);
-    }
-
     public Property getPropertyById(Long id) {
         return propertyRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Property not found"));
     }
 
     public List<Unit> getUnitsByPropertyId(long propertyId){
+
         return unitRepository.findByPropertyId(propertyId);
     }
 
@@ -41,8 +37,22 @@ public class PropertyServiceImpl implements PropertyService {
                 new RuntimeException("Unit not found"));
     }
 
-    public void saveUnit(Unit unit) {
-        unitRepository.save(unit);
+    public void saveProperty(Property property) throws Exception {
+        try{
+            propertyRepository.save(property);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+    }
+
+    public void saveUnit(Unit unit) throws Exception{
+        try{
+            unitRepository.save(unit);
+        }catch(Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
 
 

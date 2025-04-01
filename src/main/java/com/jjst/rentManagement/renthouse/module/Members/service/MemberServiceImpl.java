@@ -53,13 +53,24 @@ public class MemberServiceImpl implements MemberService {
 
     //Post
     @Override
-    public void registerMember(Member member, String rawPassword){
+    public void registerMember(Member member, String rawPassword) throws Exception {
         String email = member.getEmail().toLowerCase().trim();
         if(memberRepository.existsByEmail(email)){
             throw new IllegalArgumentException("Email Already Exists");
         }
         String encryptgedPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encryptgedPassword);
-        memberRepository.save(member);
+
+        this.save(member);
+    }
+
+    @Override
+    public void save(Member member) throws Exception {
+        try{
+            memberRepository.save(member);
+        }catch(Exception e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 }

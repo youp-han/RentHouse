@@ -13,6 +13,7 @@ public interface MemberService {
     Member getMemberBySnsId(String snsId);
     List<Member> getNewMemberByIsNewTrue();
     //post
-    void registerMember(Member member, String rawPassword);
+    void registerMember(Member member, String rawPassword) throws Exception;
     Member getById(long id);
+    void save(Member member) throws Exception;
 }

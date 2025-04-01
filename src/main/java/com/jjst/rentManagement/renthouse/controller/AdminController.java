@@ -2,11 +2,14 @@ package com.jjst.rentManagement.renthouse.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.jjst.rentManagement.renthouse.dto.PropertyDto;
+import com.jjst.rentManagement.renthouse.dto.TenancyDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.module.Tenancy.entity.Tenancy;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
+import com.jjst.rentManagement.renthouse.service.TenancyService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class AdminController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private TenancyService tenancyService;
+
 
     @GetMapping("/admin/home")
     public String adminHome(HttpServletRequest request, Model model){
@@ -39,17 +45,16 @@ public class AdminController {
     }
 
     @GetMapping("/admin/tenantsList")
-    public String tenantsList(){
+    public String tenantsList(Model model){
+
+        List<TenancyDto> tenancyDtos = tenancyService.getAllTenancyDtos();
+        model.addAttribute("tenantList", tenancyDtos);
 
         return "/admin/tenantsList";
     }
 
     @GetMapping("/admin/newMembers")
-    public String applyList(Model model, Principal principal){
-        String name = principal.getName();
-        Member principalUser = (Member) principal;
-        String myname = principalUser.getName();
-
+    public String applyList(Model model){
 
         List<Member> memberList = memberService.getNewMemberByIsNewTrue();
         List<Property> propertyList= propertyService.getAllProperties();
@@ -63,7 +68,6 @@ public class AdminController {
             propertyDto.setNickname(item.getNickName());
             propertyDtoList.add(propertyDto);
         }
-
 
         model.addAttribute("memberList", memberList);
         model.addAttribute("propertyList", propertyDtoList);

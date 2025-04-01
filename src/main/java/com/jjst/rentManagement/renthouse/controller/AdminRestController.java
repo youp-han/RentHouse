@@ -52,7 +52,7 @@ public class AdminRestController {
     }
 
     @PostMapping("/admin/property/save")
-    public String saveProperty(@RequestParam String address) {
+    public String saveProperty(@RequestParam String address) throws Exception {
 
         Property property = new Property();
         property.setAddress(address);
@@ -63,13 +63,13 @@ public class AdminRestController {
     }
 
     @PostMapping("/admin/property/unit/save")
-    public String saveUnit(@RequestParam Long propertyId, @RequestParam String unitNumber) {
+    public String saveUnit(@RequestParam Long propertyId, @RequestParam String unitNumber) throws Exception {
         Property property = propertyService.getPropertyById(propertyId);
         Unit unit = new Unit();
         unit.setUnitNumber(unitNumber);
-        unit.setProperty(property);
+        //unit.setProperty_id(property_id);
         unit.setRentStatus("n");
-        property.getUnits().add(unit);
+        //property.getUnits().add(unit);
         propertyService.saveProperty(property);
         return "redirect:/admin/home";
     }
@@ -81,12 +81,14 @@ public class AdminRestController {
         Tenancy tenancy = new Tenancy();
         Member member = memberService.getById(tenancyDto.getMemberId());
         Unit unit = propertyService.getUnitById(tenancyDto.getUnitId());
-        if(member!=null){
+
+        if(member!=null && unit!=null){
             tenancy.setMember(member);
-        }
-        if(unit!=null){
             tenancy.setUnit(unit);
+        } else{
+            throw new RuntimeException("Memger or Unit not available.");
         }
+
         tenancy.setStartDate(tenancyDto.getStartDate());
         tenancy.setEndDate(tenancyDto.getEndDate());
         tenancy.setDeposit(tenancyDto.getDeposit());
@@ -102,14 +104,17 @@ public class AdminRestController {
         tenancy.setCreatedBy(principal.getName());
         tenancy.setLastModifiedBy(principal.getName());
 
+        member.setNew(false);
+        member.setApproved(true);
+        unit.setRentStatus("y");
 
         Map<String, String> response = new HashMap<>();
         try {
-            tenancyService.registerTenancy(tenancy);
+            tenancyService.registerTenancy(tenancy, member, unit);
             response.put("status", "success");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            response.put("status", "failure");
+            response.put("status", "failure" + e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
