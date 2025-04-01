@@ -22,6 +22,7 @@ public class Member extends BaseEntity {
     private String role; //admin, user
     private String snsId;
     private String snsType; //0: none: 1:naver, 2:kakao, 3:google
-    private boolean isNew=true;
-    private boolean approved=false; //if approved=true, isNew will be false;
+    private boolean isNew;
+    private boolean approved; //if approved=true, isNew will be false;
+    private boolean deleted=false;
 }

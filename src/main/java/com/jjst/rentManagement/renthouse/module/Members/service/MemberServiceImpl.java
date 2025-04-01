@@ -60,7 +60,6 @@ public class MemberServiceImpl implements MemberService {
         }
         String encryptgedPassword = passwordEncoder.encode(rawPassword);
         member.setPassword(encryptgedPassword);
-
         this.save(member);
     }
 
@@ -69,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
         try{
             memberRepository.save(member);
         }catch(Exception e){
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Error saving member", e);
         }
 
     }

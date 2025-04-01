@@ -30,13 +30,19 @@
                             <td>${member.role}</td>
                             <td>
                                 <#if member.role =="USER">
-                                    <button class="btn btn-primary tenancy-btn" data-id="${member.id}">Tenancy</button>
+                                    <button class="btn btn-primary tenancy-btn" data-id="${member.id!}">Tenancy</button>
+                                    <button class="btn btn-primary user-del-btn" data-id="${member.email!}">DEL</button>
+                                </#if>
+                                <#if member.role =="ADMIN">
+                                    <button class="btn btn-primary admin-ok-btn" data-id="${member.email!}">OK</button>
+                                    <button class="btn btn-primary user-del-btn" data-id="${member.email!}">DEL</button>
                                 </#if>
                             </td>
                         </tr>
                     </#list>
                     </tbody>
                 </table>
+
             </div>
         </div>
 
@@ -123,6 +129,57 @@
                 $('#contractNotes').val('');
             });
 
+            // save Admin Approved
+            $(document).on('click', '.admin-ok-btn', function() {
+                const memberEmail = $(this).data('id');
+                $.ajax({
+                    url: '/member/save',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        email: memberEmail,
+                        role : "ADMIN",
+                        approved : true,
+                        isNew : false
+                    }),
+                    success: function(response) {
+                        $('#modalMessage').text('Admin Saved successfully');
+                        $('#statusModal').modal('show');
+                        $('#tenancyModal').modal('hide');
+                        location.href="/admin/newMembers";
+                    },
+                    error: function(xhr, status, error) {
+                        $('#modalMessage').text('Failed to Save Admin');
+                        $('#statusModal').modal('show');
+                    }
+                });
+
+            });
+            // delete Admin Approved
+            $(document).on('click', '.user-del-btn', function() {
+                const memberEmail = $(this).data('id');
+                $.ajax({
+                    url: '/member/save',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        email: memberEmail,
+                        deleted : true
+                    }),
+                    success: function(response) {
+                        $('#modalMessage').text('Admin Saved successfully');
+                        $('#statusModal').modal('show');
+                        $('#tenancyModal').modal('hide');
+                        location.href="/admin/newMembers";
+                    },
+                    error: function(xhr, status, error) {
+                        $('#modalMessage').text('Failed to Save Admin');
+                        $('#statusModal').modal('show');
+                    }
+                });
+
+            });
+
             // Handle form submission
             $('#tenancyForm').on('submit', function(event) {
                 event.preventDefault();
@@ -148,7 +205,8 @@
                         deposit: $('#deposit').val(),
                         monthlyRent: $('#monthlyRent').val(),
                         contractNotes: $('#contractNotes').val(),
-                        membershipType: $('#membershipType').val()
+                        membershipType: $('#membershipType').val(),
+                        deleted : false
                     }),
                     success: function(response) {
                         if (response.status === 'success') {

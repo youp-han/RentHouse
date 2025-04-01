@@ -5,6 +5,8 @@ import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import java.util.List;
 
 public interface MemberService {
+
+    String ROLE_ADMIN="admin";
     //get
     List<Member> getAll();
     boolean authenticate(String rawPassword, String storedPassword);

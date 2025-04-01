@@ -1,8 +1,10 @@
 package com.jjst.rentManagement.renthouse.controller;
 
+import com.jjst.rentManagement.renthouse.dto.MemberDto;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.dto.LoginDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
+import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +47,52 @@ public class MemberRestController {
 
     @PostMapping("/member/save")
     @ResponseBody
-    public ResponseEntity<String> saveMemberApplication(@RequestBody Member member) {
+    public ResponseEntity<String> saveMemberApplication(@RequestBody MemberDto memberDto) {
         try {
-            memberService.registerMember(member, member.getPassword());
+            if (memberDto.getRole().equalsIgnoreCase(MemberService.ROLE_ADMIN) && memberDto.isApproved()) {
+                approveAdmin(memberDto);
+            } else if (memberDto.isDeleted()){
+                deleteUser(memberDto);
+            }
+            else {
+                registerUser(memberDto);
+            }
             return ResponseEntity.ok("success");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("failure");
         }
     }
+
+
+    private void approveAdmin(MemberDto memberDto) throws Exception {
+        Member member = memberService.getMemberByEmail(memberDto.getEmail());
+        if (member != null) {
+            member.setNew(false);
+            member.setApproved(true);
+            memberService.save(member);
+        } else {
+            throw new IllegalStateException("Member not found");
+        }
+    }
+
+    private void deleteUser(MemberDto memberDto) throws Exception {
+        Member member = memberService.getMemberByEmail(memberDto.getEmail());
+        if (member != null) {
+            member.setNew(false);
+            member.setApproved(false);
+            member.setDeleted(true);
+            memberService.save(member);
+        } else {
+            throw new IllegalStateException("Member not found");
+        }
+    }
+
+    private void registerUser(MemberDto memberDto) throws Exception {
+        EntityConverter converter = new EntityConverter();
+        Member member = converter.convertToEntity(memberDto, Member.class);
+        memberService.registerMember(member, member.getPassword());
+    }
+
 
     @GetMapping("/member/check-email")
     public boolean checkEmail(@RequestParam String email){

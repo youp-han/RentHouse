@@ -119,15 +119,22 @@
                 </div>
                 <div class="modal-body" id="modalMessage"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-secondary btn-modal-close" data-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
     <form id="logout-form" action="${springMacroRequestContext.contextPath}/logout" method="post" style="display: none;">
 <#--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
     </form>
 
+<script>
+    $(document).on('click', '.btn-modal-close', function() {
+        location.reload();
+    });
+</script>
 </body>
 </html>
