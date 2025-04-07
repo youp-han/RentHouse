@@ -24,7 +24,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public boolean authenticate(String rawPassword, String storedPassword){
-        return passwordEncoder.matches(rawPassword, storedPassword);
+        boolean result = passwordEncoder.matches(rawPassword, storedPassword);
+        return result;
     }
 
     @Override

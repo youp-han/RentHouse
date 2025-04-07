@@ -104,8 +104,13 @@ public class AdminController {
         return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
     }
 
-//    @GetMapping("/adsmin/property/home")
-//    public String listProperties(Principal principal){
-//        Property property = propertyService.
-//    }
+    @GetMapping("/admin/propertyList")
+    public String listProperties(Model model){
+        List<Property> propertyList = propertyService.getAllProperties();
+        model.addAttribute("properties", propertyList);
+
+        return "/property/propertyList";
+    }
+
+
 }
