@@ -29,6 +29,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object handler) throws Exception {
         Principal principal = request.getUserPrincipal();
+        if (principal== null){
+            //response.sendRedirect("/");
+            //return false;
+        }
         if (principal != null) {
             if (principal instanceof OAuth2AuthenticationToken) {
                 OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) principal;
@@ -72,9 +76,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
             }
-        } else{
-            //response.sendRedirect("/login"); // 로그인 페이지로 리다이렉트
-            //return false;
+
         }
         return true;
     }

@@ -126,7 +126,6 @@
     </div>
 
 
-
     <form id="logout-form" action="${springMacroRequestContext.contextPath}/logout" method="post" style="display: none;">
 <#--        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>-->
     </form>
