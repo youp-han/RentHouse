@@ -1,25 +1,20 @@
 package com.jjst.rentManagement.renthouse.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.jjst.rentManagement.renthouse.dto.PropertyDto;
 import com.jjst.rentManagement.renthouse.dto.TenancyDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
-import com.jjst.rentManagement.renthouse.module.Tenancy.entity.Tenancy;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
 import com.jjst.rentManagement.renthouse.service.TenancyService;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
