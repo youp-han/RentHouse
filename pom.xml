@@ -11,7 +11,7 @@
 	<groupId>com.jjst.rentManagement</groupId>
 	<artifactId>renthouse</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging> <!-- JAR로 빌드 -->
+	<packaging>jar</packaging> <!-- JAR로 빌드 -->
 	<name>Rent-House</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
@@ -42,7 +42,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -83,11 +82,23 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.xerial</groupId>
+			<artifactId>sqlite-jdbc</artifactId>
+			<version>3.45.1.0</version>
+		</dependency>
 <!--		<dependency>-->
 <!--			<groupId>org.postgresql</groupId>-->
 <!--			<artifactId>postgresql</artifactId>-->
 <!--		</dependency>-->
+
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>5.0.0</version>  <!-- Adjust version if needed -->
+			<scope>provided</scope>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -104,7 +115,13 @@
             <artifactId>modelmapper</artifactId>
             <version>3.1.1</version>
         </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-community-dialects</artifactId>
+			<version>6.4.4.Final</version> <!-- 또는 현재 Hibernate 버전에 맞는 버전 -->
+		</dependency>
+
+	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
