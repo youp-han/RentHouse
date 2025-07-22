@@ -31,7 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/application.properties
 /src/main/resources/static/404.html
 /src/main/resources/static/blank.html
 /src/main/resources/static/buttons.html
@@ -49,4 +48,3 @@ build/
 /src/main/resources/static/utilities-color.html
 /src/main/resources/static/utilities-other.html
 /src/main/resources/static
-/src/main/resources/application-prd.properties
