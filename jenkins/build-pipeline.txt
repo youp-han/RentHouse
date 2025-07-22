@@ -1,0 +1,51 @@
+pipeline {
+  agent any
+
+  tools {
+    jdk 'openJdk-17.0.0.1'
+  }
+
+  environment {
+    DEPLOY_DIR   = 'D:\\RentHouse'
+    APP_JAR      = "${DEPLOY_DIR}\\RentHouse.jar"
+    SERVICE_NAME = 'RentHouseService'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        git credentialsId: 'git-key',
+            url: 'https://github.com/youp-han/RentHouse.git',
+            branch: 'main'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        bat 'mvn clean package -DskipTests'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        bat """
+          REM 1) 서비스 중지
+          sc stop %SERVICE_NAME%
+          REM 서비스가 완전히 멈출 때까지 최대 10초 대기
+          for /L %%i in (1,1,10) do (
+            sc query %SERVICE_NAME% | findstr /R /C:"STATE *: *1  STOPPED" && goto :stopped
+            timeout /t 1 /nobreak >nul
+          )
+          :stopped
+
+          REM 2) 새 JAR 복사
+          if not exist "%DEPLOY_DIR%" mkdir "%DEPLOY_DIR%"
+          copy /Y target\\RentHouse-0.0.1-SNAPSHOT.jar "%APP_JAR%"
+
+          REM 3) 서비스 재시작
+          sc start %SERVICE_NAME%
+        """
+      }
+    }
+  }
+}
