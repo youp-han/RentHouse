@@ -3,20 +3,20 @@ package com.jjst.rentManagement.renthouse.config;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.util.Utility;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
 import java.util.Collections;
 import java.util.Map;
-
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 /**
  * Interceptor to handle user authentication and set user attributes in the request.
  */

@@ -82,20 +82,20 @@
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+
+		<!-- <dependency>
 			<groupId>org.xerial</groupId>
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.45.1.0</version>
-		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.postgresql</groupId>-->
-<!--			<artifactId>postgresql</artifactId>-->
-<!--		</dependency>-->
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+	    </dependency> -->
 
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>5.0.0</version>  <!-- Adjust version if needed -->
 			<scope>provided</scope>
 		</dependency>
 
