@@ -5,7 +5,7 @@
 - spring boot 3.4.3
 - java : 17
 - H2 db
-- to run in windows server, use NSSM to register a run-RentHouseService batch file
+- to run in the windows Env, use NSSM to register a run-RentHouseService batch file
 
 ## What's done
 
