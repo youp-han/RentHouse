@@ -3,7 +3,7 @@ package com.jjst.rentManagement.renthouse.restController;
 import com.jjst.rentManagement.renthouse.dto.MemberDto;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.dto.LoginDto;
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
 import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

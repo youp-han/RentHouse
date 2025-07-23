@@ -17,7 +17,7 @@
             <span>HOME</span></a>
     </li>
 
-    <#if role?? && role=="ADMIN">
+    <#if role?? && (role == "ADMIN" || role == "LANDLORD")>
 
     <!-- Divider -->
     <hr class="sidebar-divider">

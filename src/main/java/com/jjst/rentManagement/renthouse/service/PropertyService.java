@@ -1,7 +1,7 @@
 package com.jjst.rentManagement.renthouse.service;
 
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 
 import java.util.List;
 

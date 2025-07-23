@@ -1,6 +1,6 @@
 package com.jjst.rentManagement.renthouse.config;
 
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.util.Utility;
 import java.security.Principal;
@@ -8,7 +8,6 @@ import java.util.Collections;
 import java.util.Map;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.HandlerInterceptor;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;

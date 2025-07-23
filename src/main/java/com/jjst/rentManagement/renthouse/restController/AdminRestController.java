@@ -2,14 +2,14 @@ package com.jjst.rentManagement.renthouse.restController;
 
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
 import com.jjst.rentManagement.renthouse.dto.UnitDto;
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
-import com.jjst.rentManagement.renthouse.module.Leases.entity.Lease;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
 
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

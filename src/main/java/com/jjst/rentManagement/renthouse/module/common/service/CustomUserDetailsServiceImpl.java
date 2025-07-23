@@ -1,8 +1,8 @@
 package com.jjst.rentManagement.renthouse.module.common.service;
 
 import com.jjst.rentManagement.renthouse.service.CustomUserDetailsService;
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
-import com.jjst.rentManagement.renthouse.module.Members.repository.MemberRepository;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.members.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

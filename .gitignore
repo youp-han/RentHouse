@@ -31,20 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-/src/main/resources/static/404.html
-/src/main/resources/static/blank.html
-/src/main/resources/static/buttons.html
-/src/main/resources/static/cards.html
-/src/main/resources/static/charts.html
-/src/main/resources/static/forgot-password.html
-/src/main/resources/static/gulpfile.js
-/src/main/resources/static/index.html
-/src/main/resources/static/login.html
-/src/main/resources/static/README.md
-/src/main/resources/static/register.html
-/src/main/resources/static/tables.html
-/src/main/resources/static/utilities-animation.html
-/src/main/resources/static/utilities-border.html
-/src/main/resources/static/utilities-color.html
-/src/main/resources/static/utilities-other.html
-/src/main/resources/static

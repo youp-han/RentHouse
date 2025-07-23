@@ -1,6 +1,6 @@
 package com.jjst.rentManagement.renthouse.service;
 
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
 
 import java.util.List;
 

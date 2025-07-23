@@ -2,12 +2,12 @@ package com.jjst.rentManagement.renthouse.controller;
 
 import com.jjst.rentManagement.renthouse.dto.PropertyDto;
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
-import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.module.members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
