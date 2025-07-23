@@ -2,7 +2,7 @@ package com.jjst.rentManagement.renthouse.module.Bills.entity;
 
 import com.jjst.rentManagement.renthouse.module.Leases.entity.Lease;
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
-import com.jjst.rentManagement.renthouse.module.common.entity.BillCategory;
+import com.jjst.rentManagement.renthouse.module.common.enums.BillCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 

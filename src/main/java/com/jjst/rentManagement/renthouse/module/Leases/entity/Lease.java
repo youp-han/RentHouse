@@ -1,9 +1,9 @@
 package com.jjst.rentManagement.renthouse.module.Leases.entity;
 
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
-import com.jjst.rentManagement.renthouse.module.common.entity.LeaseStatus;
-import com.jjst.rentManagement.renthouse.module.common.entity.LeaseType;
-import com.jjst.rentManagement.renthouse.module.common.entity.MembershipType;
+import com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus;
+import com.jjst.rentManagement.renthouse.module.common.enums.LeaseType;
+import com.jjst.rentManagement.renthouse.module.common.enums.MembershipType;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
 import jakarta.persistence.*;

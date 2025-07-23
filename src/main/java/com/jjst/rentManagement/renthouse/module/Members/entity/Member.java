@@ -1,7 +1,7 @@
 package com.jjst.rentManagement.renthouse.module.Members.entity;
 
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
-import com.jjst.rentManagement.renthouse.module.common.entity.RoleType;
+import com.jjst.rentManagement.renthouse.module.common.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.Data;
 

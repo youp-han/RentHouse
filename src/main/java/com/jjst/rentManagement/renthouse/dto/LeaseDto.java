@@ -1,6 +1,6 @@
 package com.jjst.rentManagement.renthouse.dto;
 
-import com.jjst.rentManagement.renthouse.module.common.entity.MembershipType;
+import com.jjst.rentManagement.renthouse.module.common.enums.MembershipType;
 import lombok.Data;
 
 import java.math.BigDecimal;

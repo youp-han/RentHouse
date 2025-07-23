@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.module.common.entity;
+package com.jjst.rentManagement.renthouse.module.common.enums;
 
 public enum PropertyType {
     APARTMENT,
