@@ -58,8 +58,8 @@
                             <div class="form-group">
                                 <label for="role">역할:</label>
                                 <select id="role" name="role" class="form-control" required>
-                                    <option value="USER" selected>사용자</option>
-                                    <option value="ADMIN">관리자</option>
+                                    <option value="LANDLORD" selected>소유주 (LANDLORD)</option>
+                                    <option value="ADMIN">관리자 (ADMIN)</option>
                                 </select>
                             </div>
 
