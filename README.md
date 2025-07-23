@@ -16,8 +16,15 @@
 ## what's new
 
 - in progress
+- Member -> owner, admin etc
+- tenants -> tenants.. (no role)
+- lease -> contract
+- properties -> buildings, homes, lands etc
+- units -> units, rooms, etc
+- bills -> water, electricity, monthly payment etc
 
 ## hosting
 
-https://vercel.com
+https://vercel.com (x)
+
 https://supabase.com/
