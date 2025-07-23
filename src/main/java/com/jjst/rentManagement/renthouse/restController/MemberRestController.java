@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.controller;
+package com.jjst.rentManagement.renthouse.restController;
 
 import com.jjst.rentManagement.renthouse.dto.MemberDto;
 import com.jjst.rentManagement.renthouse.service.MemberService;
