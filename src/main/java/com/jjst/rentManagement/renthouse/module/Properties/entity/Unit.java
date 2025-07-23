@@ -15,7 +15,8 @@ public class Unit extends BaseEntity {
     private String unitNumber = "";;
     private Boolean rentStatus = false;
 
-    private Double area;          // 면적(㎡)
+    private Double size_meter;          // 면적(㎡)
+    private Double size_korea;
     private String useType;       // 사무실/상가/주거
     //private BigDecimal monthlyRent; //
     private String description; // extra info

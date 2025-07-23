@@ -2,8 +2,10 @@ package com.jjst.rentManagement.renthouse.module.common.enums;
 
 public enum PropertyType {
     APARTMENT,
-    BUILDING,
+    WKUp_VILLA,
     OFFICE,
     HOUSE,
-    SHOP
+    SHOP,
+    LAND,
+    FACTORY
 }

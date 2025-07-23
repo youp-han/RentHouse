@@ -26,10 +26,10 @@
                             </div>
 
                             <!-- rentPayer -->
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="rentPayer">송금인:</label>
                                 <input type="text" id="rentPayer" name="rentPayer" class="form-control" required>
-                            </div>
+                            </div> -->
 
                             <!-- Phone -->
                             <div class="form-group">
@@ -113,7 +113,7 @@
                         contentType: 'application/json', // Specify JSON
                         data: JSON.stringify({
                             name: $('#name').val(),
-                            rentPayer: $('#rentPayer').val(),
+                            //rentPayer: $('#rentPayer').val(),
                             phone: $('#phone').val(),
                             email: $('#email').val(),
                             password: $('#password').val(),
