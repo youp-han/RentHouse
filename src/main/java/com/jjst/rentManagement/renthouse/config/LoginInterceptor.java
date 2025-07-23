@@ -130,7 +130,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 new UsernamePasswordAuthenticationToken(
                         member,
                         null,
-                        Collections.singletonList(new SimpleGrantedAuthority(member.getRole()))
+                        Collections.singletonList(new SimpleGrantedAuthority(member.getRole().name()))
                 )
         );
     }

@@ -1,23 +1,23 @@
 package com.jjst.rentManagement.renthouse.module.Properties.entity;
 
-import com.jjst.rentManagement.renthouse.entity.BaseEntity;
+import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
 public class Unit extends BaseEntity {
 
-    private String unitNumber = "";;
-    private String rentStatus = "N";
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
 
-    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<UnitAttribute> unitAttributes = new ArrayList<>();
+    private String unitNumber = "";;
+    private Boolean rentStatus = false;
+
+    private Double area;          // 면적(㎡)
+    private String useType;       // 사무실/상가/주거
+    //private BigDecimal monthlyRent; //
+    private String description; // extra info
 
 }

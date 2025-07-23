@@ -6,5 +6,5 @@ import lombok.Data;
 public class UnitDto {
     private long id;
     private String unitNumber;
-    private String rentStatus;
+    private boolean rentStatus;
 }

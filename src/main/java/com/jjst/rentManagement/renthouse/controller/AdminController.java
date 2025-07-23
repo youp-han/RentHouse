@@ -1,13 +1,13 @@
 package com.jjst.rentManagement.renthouse.controller;
 
 import com.jjst.rentManagement.renthouse.dto.PropertyDto;
-import com.jjst.rentManagement.renthouse.dto.TenancyDto;
+import com.jjst.rentManagement.renthouse.dto.LeaseDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
-import com.jjst.rentManagement.renthouse.service.TenancyService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class AdminController {
     private MemberService memberService;
 
     @Autowired
-    private TenancyService tenancyService;
+    private LeaseService leaseService;
 
 
     @GetMapping("/admin/home")
@@ -42,8 +42,8 @@ public class AdminController {
     @GetMapping("/admin/tenantsList")
     public String tenantsList(Model model){
 
-        List<TenancyDto> tenancyDtos = tenancyService.getAllTenancyDtos();
-        model.addAttribute("tenantList", tenancyDtos);
+        List<LeaseDto> leaseDtos = leaseService.getAllLeaseDtos();
+        model.addAttribute("tenantList", leaseDtos);
 
         return "/admin/tenantsList";
     }
@@ -60,7 +60,7 @@ public class AdminController {
             PropertyDto propertyDto = new PropertyDto();
             propertyDto.setPropertyId(item.getId());
             propertyDto.setAddress(item.getAddress());
-            propertyDto.setNickname(item.getNickName());
+            propertyDto.setName(item.getName());
             propertyDtoList.add(propertyDto);
         }
 

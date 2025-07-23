@@ -5,7 +5,8 @@ import lombok.Data;
 @Data
 public class PropertyDto {
     private long propertyId;
-    private String nickname;
+    private String name;
     private String address;
     private String registerdTo;
 }
+

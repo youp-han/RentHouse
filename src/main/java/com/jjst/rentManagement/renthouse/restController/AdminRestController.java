@@ -1,16 +1,15 @@
 package com.jjst.rentManagement.renthouse.controller;
 
-import com.jjst.rentManagement.renthouse.dto.TenancyDto;
+import com.jjst.rentManagement.renthouse.dto.LeaseDto;
 import com.jjst.rentManagement.renthouse.dto.UnitDto;
 import com.jjst.rentManagement.renthouse.module.Members.entity.Member;
-import com.jjst.rentManagement.renthouse.module.Tenancy.entity.Tenancy;
-import com.jjst.rentManagement.renthouse.module.Tenancy.repository.TenancyRepository;
+import com.jjst.rentManagement.renthouse.module.Leases.entity.Lease;
+
+import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Property;
-import com.jjst.rentManagement.renthouse.module.Properties.entity.UnitAttribute;
 import com.jjst.rentManagement.renthouse.module.Properties.entity.Unit;
-import com.jjst.rentManagement.renthouse.service.TenancyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,14 +32,14 @@ public class AdminRestController {
     private MemberService memberService;
 
     @Autowired
-    private TenancyService tenancyService;
+    private LeaseService leaseService;
 
     @GetMapping("/admin/property/units/{propertyId}")
     public List<UnitDto> getUnitsByPropertyId(@PathVariable long propertyId) {
         List<Unit> unitList = propertyService.getUnitsByPropertyId(propertyId);
         List<UnitDto>dtoList = new ArrayList<>();
         for(Unit unit : unitList){
-            if(unit.getRentStatus() != "N"){
+            if(unit.getRentStatus() != false){
                 UnitDto unitDto = new UnitDto();
                 unitDto.setId(unit.getId());
                 unitDto.setUnitNumber(unit.getUnitNumber());
@@ -68,7 +67,7 @@ public class AdminRestController {
         Unit unit = new Unit();
         unit.setUnitNumber(unitNumber);
         //unit.setProperty_id(property_id);
-        unit.setRentStatus("n");
+        unit.setRentStatus(false);
         //property.getUnits().add(unit);
         propertyService.saveProperty(property);
         return "redirect:/admin/home";
@@ -77,40 +76,40 @@ public class AdminRestController {
 
     @PostMapping("/admin/tenancy/save")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> saveTenancy(@RequestBody TenancyDto tenancyDto, Principal principal) {
-        Tenancy tenancy = new Tenancy();
-        Member member = memberService.getById(tenancyDto.getMemberId());
-        Unit unit = propertyService.getUnitById(tenancyDto.getUnitId());
+    public ResponseEntity<Map<String, String>> savelease(@RequestBody LeaseDto leaseDto, Principal principal) {
+        Lease lease = new Lease();
+        Member member = memberService.getById(leaseDto.getMemberId());
+        Unit unit = propertyService.getUnitById(leaseDto.getUnitId());
 
         if(member!=null && unit!=null){
-            tenancy.setMember(member);
-            tenancy.setUnit(unit);
+            lease.setMember(member);
+            lease.setUnit(unit);
         } else{
             throw new RuntimeException("Memger or Unit not available.");
         }
 
-        tenancy.setStartDate(tenancyDto.getStartDate());
-        tenancy.setEndDate(tenancyDto.getEndDate());
-        tenancy.setDeposit(tenancyDto.getDeposit());
-        tenancy.setMonthlyRent(tenancyDto.getMonthlyRent());
-        tenancy.setContractNotes(tenancyDto.getContractNotes());
-        if (tenancyDto.getMembershipType() != null) {
+        lease.setStartDate(leaseDto.getStartDate());
+        lease.setEndDate(leaseDto.getEndDate());
+        lease.setDeposit(leaseDto.getDeposit());
+        lease.setMonthlyRent(leaseDto.getMonthlyRent());
+        lease.setContractNotes(leaseDto.getContractNotes());
+        if (leaseDto.getMembershipType() != null) {
             try {
-                tenancy.setMembershipType(Tenancy.MembershipType.valueOf(tenancyDto.getMembershipType().toLowerCase()));
+                lease.setMembershipType(leaseDto.getMembershipType());
             } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Invalid MembershipType value: " + tenancyDto.getMembershipType());
+                throw new RuntimeException("Invalid MembershipType value: " + leaseDto.getMembershipType());
             }
         }
-        tenancy.setCreatedBy(principal.getName());
-        tenancy.setLastModifiedBy(principal.getName());
+        lease.setCreatedBy(principal.getName());
+        lease.setLastModifiedBy(principal.getName());
 
         member.setNew(false);
         member.setApproved(true);
-        unit.setRentStatus("y");
+        unit.setRentStatus(true);
 
         Map<String, String> response = new HashMap<>();
         try {
-            tenancyService.registerTenancy(tenancy, member, unit);
+            leaseService.registerLease(lease, member, unit);
             response.put("status", "success");
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -144,14 +143,7 @@ public class AdminRestController {
                 return "redirect:/admin/property/unit/room/register?unitId=" + unitId;
             }
 
-            // Create and populate the new Room object
-            UnitAttribute unitAttribute = new UnitAttribute();
-            //UnitAttribute setFeatureKey(key)
-            //unitAttribute.setFeatureValue(value);
-            unitAttribute.setUnit(unit);
 
-            // Add room to unit and save
-            unit.getUnitAttributes().add(unitAttribute);
             propertyService.saveUnit(unit);
 
             // Success message

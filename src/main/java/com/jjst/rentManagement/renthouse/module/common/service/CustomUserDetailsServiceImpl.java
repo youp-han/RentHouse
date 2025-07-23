@@ -27,7 +27,7 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
         return User.builder()
                 .username(member.getEmail())
                 .password(member.getPassword()) // Password is hashed
-                .roles(member.getRole()) // Role from Member
+                .roles(member.getRole().name()) // Role from Member
                 .build();
     }
 }
