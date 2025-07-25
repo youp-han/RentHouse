@@ -73,4 +73,36 @@ public class MemberServiceImpl implements MemberService {
         }
 
     }
+
+    @Override
+    public void updateMember(Member member) throws Exception {
+        Member existingMember = memberRepository.findById(member.getId())
+                .orElseThrow(() -> new RuntimeException("Member not found for id: " + member.getId()));
+
+        // Update only allowed fields
+        existingMember.setName(member.getName());
+        existingMember.setPhoneNumber(member.getPhoneNumber());
+        // Email and Role should not be updated via this method.
+
+        try {
+            memberRepository.save(existingMember);
+        } catch (Exception e) {
+            throw new RuntimeException("Error updating member", e);
+        }
+    }
+
+    @Override
+    public void changePassword(Member member, String newPassword) throws Exception {
+        Member existingMember = memberRepository.findById(member.getId())
+                .orElseThrow(() -> new RuntimeException("Member not found for id: " + member.getId()));
+
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        existingMember.setPassword(encodedPassword);
+
+        try {
+            memberRepository.save(existingMember);
+        } catch (Exception e) {
+            throw new RuntimeException("Error changing password", e);
+        }
+    }
 }

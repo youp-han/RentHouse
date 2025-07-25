@@ -54,7 +54,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         // Define public paths that do not require authentication.
                         .requestMatchers("/", "/login/**", "/error**", "/member/**", "/sample").permitAll()
-                        .requestMatchers("/admin/**").permitAll() // Allow access to admin paths (can be restricted later).
+                        .requestMatchers("/admin/**").hasRole("ADMIN")  // Restrict admin paths to ADMIN role.
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Uncomment to restrict admin paths to ADMIN role.
 
                         // Allow access to static resources.

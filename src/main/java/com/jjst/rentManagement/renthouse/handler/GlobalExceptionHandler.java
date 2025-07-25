@@ -10,13 +10,13 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public String handleTypeMismatchException(MethodArgumentTypeMismatchException ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", "Invalid input provided: " + ex.getValue());
-        return "redirect:/"; // Or redirect back to a suitable page
+        return "redirect:/error"; // Redirect to a generic error page
     }
 
     @ExceptionHandler(Exception.class)
     public String handleGenericException(Exception ex, RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("error", "An unexpected error occurred: " + ex.getMessage());
-        return "redirect:/";
+        return "redirect:/error";
     }
 
 }

@@ -30,8 +30,11 @@
     </style>
 </head>
 <body>
-<h1>Oops! Something went wrong.</h1>
-<p>We're sorry for the inconvenience. Please try again later or contact support if the issue persists.</p>
+<h1>오류 발생!</h1>
+<p>죄송합니다. 문제가 발생했습니다. 잠시 후 다시 시도하거나 문제가 계속되면 지원팀에 문의하십시오.</p>
+<#if error??>
+    <p>오류 메시지: ${error}</p>
+</#if>
 <a href="/">Go back to Home</a>
 </body>
 </html>
