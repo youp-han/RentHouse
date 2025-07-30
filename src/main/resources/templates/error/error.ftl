@@ -31,10 +31,18 @@
 </head>
 <body>
 <h1>오류 발생!</h1>
-<p>죄송합니다. 문제가 발생했습니다. 잠시 후 다시 시도하거나 문제가 계속되면 지원팀에 문의하십시오.</p>
-<#if error??>
-    <p>오류 메시지: ${error}</p>
+<#if statusCode??>
+    <p>상태 코드: ${statusCode}</p>
 </#if>
+<#if errorMessage??>
+    <p>오류 메시지: ${errorMessage}</p>
+</#if>
+<#if exception??>
+    <p>예외: ${exception}</p>
+</#if>
+<p>죄송합니다. 문제가 발생했습니다. 잠시 후 다시 시도하거나 문제가 계속되면 지원팀에 문의하십시오.</p>
 <a href="/">Go back to Home</a>
 </body>
+
 </html>
+

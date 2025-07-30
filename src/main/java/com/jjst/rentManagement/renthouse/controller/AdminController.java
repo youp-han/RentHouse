@@ -1,21 +1,15 @@
 package com.jjst.rentManagement.renthouse.controller;
 
-import com.jjst.rentManagement.renthouse.dto.PropertyDto;
-import com.jjst.rentManagement.renthouse.dto.LeaseDto;
-import com.jjst.rentManagement.renthouse.module.members.entity.Member;
-import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
-import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -38,74 +32,4 @@ public class AdminController {
 
         return "/admin/adminHome";
     }
-
-    @GetMapping("/admin/tenantsList")
-    public String tenantsList(Model model){
-
-        List<LeaseDto> leaseDtos = leaseService.getAllLeaseDtos();
-        model.addAttribute("tenantList", leaseDtos);
-
-        return "/admin/tenantsList";
-    }
-
-    @GetMapping("/admin/newMembers")
-    public String applyList(Model model){
-
-        List<Member> memberList = memberService.getNewMemberByIsNewTrue();
-        List<Property> propertyList= propertyService.getAllProperties();
-
-        List<PropertyDto> propertyDtoList = new ArrayList<>();
-
-        for (Property item : propertyList){
-            PropertyDto propertyDto = new PropertyDto();
-            propertyDto.setPropertyId(item.getId());
-            propertyDto.setAddress(item.getAddress());
-            propertyDto.setName(item.getName());
-            propertyDtoList.add(propertyDto);
-        }
-
-        model.addAttribute("memberList", memberList);
-        model.addAttribute("propertyList", propertyDtoList);
-        return "/admin/applyList";
-    }
-
-
-    //Register Property
-    @GetMapping("/admin/property/register")
-    public String registerProperty(){
-        return "/property/register";
-    }
-
-    //Register Units
-    @GetMapping("/admin/property/unit/register")
-    public String registerUnit(@RequestParam long propertyId, Model model){
-        Property property = propertyService.getPropertyById(propertyId);
-        model.addAttribute("property", property);
-
-        return "/property/unit/register";
-
-    }
-
-    // Register Rooms
-    @GetMapping("/admin/property/unit/room/register")
-    public String registerRoom(@RequestParam long unitId, Model model) {
-        Unit unit = propertyService.getUnitById(unitId);
-
-        // Error handling for invalid unitId
-        if (unit == null) {
-            throw new IllegalArgumentException("Invalid Unit ID: " + unitId);
-        }
-        model.addAttribute("unitId", unitId);
-        return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
-    }
-
-    @GetMapping("/admin/propertyList")
-    public String listProperties(Model model){
-        List<Property> propertyList = propertyService.getAllProperties();
-        model.addAttribute("properties", propertyList);
-
-        return "/property/propertyList";
-    }
-
-
 }

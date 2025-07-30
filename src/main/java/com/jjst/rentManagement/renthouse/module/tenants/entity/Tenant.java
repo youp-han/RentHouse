@@ -16,7 +16,7 @@ public class Tenant extends BaseEntity {
     @Column(length = 14)
     private String socialNo;
 
-    private String CurrentAddress;
+    private String currentAddress;
 
 
 }

@@ -38,8 +38,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
                 <a class="collapse-item" href="/admin/home">Admin Home</a>
-                <a class="collapse-item" href="/admin/tenantsList">Tenants</a>
-                <a class="collapse-item" href="/admin/newMembers">New Members</a>
+                <a class="collapse-item" href="/admin/tenants">Tenants</a>
+                <a class="collapse-item" href="/admin/members">All Members</a>
             </div>
         </div>
     </li>

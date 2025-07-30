@@ -1,16 +1,22 @@
 package com.jjst.rentManagement.renthouse.module.members.service;
 
+import com.jjst.rentManagement.renthouse.dto.MemberDto;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.module.members.entity.Member;
 import com.jjst.rentManagement.renthouse.module.members.repository.MemberRepository;
+import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
+
+    private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 
     @Autowired
     private MemberRepository memberRepository;
@@ -42,8 +48,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> getNewMemberByIsNewTrue(){
-        return memberRepository.findByisNewTrue();
+    public List<Member> getNewMemberByNewUserTrue(){
+        return memberRepository.findByNewUserTrue();
     }
 
     @Override
@@ -104,5 +110,73 @@ public class MemberServiceImpl implements MemberService {
         } catch (Exception e) {
             throw new RuntimeException("Error changing password", e);
         }
+    }
+
+    @Override
+    public void deleteMember(Member member) throws Exception {
+        Member existingMember = memberRepository.findById(member.getId())
+                .orElseThrow(() -> new RuntimeException("Member not found for id: " + member.getId()));
+        existingMember.setDeleted(true);
+        try {
+            memberRepository.save(existingMember);
+        } catch (Exception e) {
+            throw new RuntimeException("Error deleting member", e);
+        }
+    }
+
+    @Override
+    public void resetPassword(Long memberId, String newPassword) throws Exception {
+        Member existingMember = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("Member not found for id: " + memberId));
+
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        existingMember.setPassword(encodedPassword);
+
+        try {
+            memberRepository.save(existingMember);
+        } catch (Exception e) {
+            throw new RuntimeException("Error resetting password", e);
+        }
+    }
+
+    @Override
+    public void processMemberApplication(MemberDto memberDto) throws Exception {
+        if (memberDto.getRole().equalsIgnoreCase(MemberService.ROLE_ADMIN) && memberDto.isApproved()) {
+            approveAdmin(memberDto);
+        } else if (memberDto.isDeleted()){
+            deleteUser(memberDto);
+        }
+        else {
+            registerUser(memberDto);
+        }
+    }
+
+    private void approveAdmin(MemberDto memberDto) throws Exception {
+        Member member = getMemberByEmail(memberDto.getEmail());
+        if (member != null) {
+            member.setNewUser(false);
+            member.setApproved(true);
+            save(member);
+        } else {
+            throw new IllegalStateException("Member not found");
+        }
+    }
+
+    private void deleteUser(MemberDto memberDto) throws Exception {
+        Member member = getMemberByEmail(memberDto.getEmail());
+        if (member != null) {
+            member.setNewUser(false);
+            member.setApproved(false);
+            member.setDeleted(true);
+            save(member);
+        } else {
+            throw new IllegalStateException("Member not found");
+        }
+    }
+
+    private void registerUser(MemberDto memberDto) throws Exception {
+        EntityConverter converter = new EntityConverter();
+        Member member = converter.convertToEntity(memberDto, Member.class);
+        registerMember(member, member.getPassword());
     }
 }

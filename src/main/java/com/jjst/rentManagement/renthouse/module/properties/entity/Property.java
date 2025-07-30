@@ -3,7 +3,7 @@ package com.jjst.rentManagement.renthouse.module.properties.entity;
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.modelmapper.spi.PropertyType;
+import com.jjst.rentManagement.renthouse.module.common.enums.PropertyType;
 
 import java.util.ArrayList;
 import java.util.List;

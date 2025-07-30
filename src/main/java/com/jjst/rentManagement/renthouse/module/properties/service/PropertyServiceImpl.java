@@ -55,5 +55,56 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
+    @Override
+    public void updateProperty(Property property) throws Exception {
+        Property existingProperty = propertyRepository.findById(property.getId())
+                .orElseThrow(() -> new RuntimeException("Property not found for id: " + property.getId()));
+
+        existingProperty.setName(property.getName());
+        existingProperty.setAddress(property.getAddress());
+        existingProperty.setType(property.getType());
+        existingProperty.setTotalFloors(property.getTotalFloors());
+
+        try {
+            propertyRepository.save(existingProperty);
+        } catch (Exception e) {
+            throw new Exception("Error updating property", e);
+        }
+    }
+
+    @Override
+    public void deleteProperty(Long id) throws Exception {
+        if (!propertyRepository.existsById(id)) {
+            throw new RuntimeException("Property not found for id: " + id);
+        }
+        propertyRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateUnit(Unit unit) throws Exception {
+        Unit existingUnit = unitRepository.findById(unit.getId())
+                .orElseThrow(() -> new RuntimeException("Unit not found for id: " + unit.getId()));
+
+        existingUnit.setUnitNumber(unit.getUnitNumber());
+        existingUnit.setRentStatus(unit.getRentStatus());
+        existingUnit.setSize_meter(unit.getSize_meter());
+        existingUnit.setSize_korea(unit.getSize_korea());
+        existingUnit.setUseType(unit.getUseType());
+        existingUnit.setDescription(unit.getDescription());
+
+        try {
+            unitRepository.save(existingUnit);
+        } catch (Exception e) {
+            throw new Exception("Error updating unit", e);
+        }
+    }
+
+    @Override
+    public void deleteUnit(Long id) throws Exception {
+        if (!unitRepository.existsById(id)) {
+            throw new RuntimeException("Unit not found for id: " + id);
+        }
+        unitRepository.deleteById(id);
+    }
 
 }

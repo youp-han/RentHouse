@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="card-body">
-                        <form id="loginForm">
+                        <form id="loginForm" action="/member/authenticate" method="post">
                             <div class="-group">
                                 <label for="email">email:</label>
                                 <input type="text" id="email" name="email" class="form-control" required>

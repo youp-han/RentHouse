@@ -8,5 +8,7 @@ public class PropertyDto {
     private String name;
     private String address;
     private String registerdTo;
+    private String type;
+    private Integer totalFloors;
 }
 
