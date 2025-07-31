@@ -42,7 +42,7 @@
                 <hr>
 
                 <h6 class="m-0 font-weight-bold text-primary">유닛 목록</h6>
-                <a href="/admin/property/unit/register?propertyId=${property.id!}" class="btn btn-success btn-sm mb-3">새 유닛 추가</a>
+                <a href="/property/unit/register?propertyId=${property.id!}" class="btn btn-success btn-sm mb-3">새 유닛 추가</a>
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
@@ -69,7 +69,7 @@
                                     <td>${unit.useType!}</td>
                                     <td>${unit.description!}</td>
                                     <td>
-                                        <a href="/admin/property/unit/detail/${unit.id!}" class="btn btn-info btn-sm">편집</a>
+                                        <a href="/property/unit/detail/${unit.id!}" class="btn btn-info btn-sm">편집</a>
                                         <button class="btn btn-danger btn-sm delete-unit-btn" data-unit-id="${unit.id!}">삭제</button>
                                     </td>
                                 </tr>
@@ -108,7 +108,7 @@
                     totalFloors: document.getElementById('totalFloors').value
                 };
 
-                fetch(`/api/properties/${propertyId}`, {
+                fetch(`/property/properties/${propertyId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -134,7 +134,7 @@
             deletePropertyBtn.addEventListener('click', function() {
                 const propertyId = this.dataset.propertyId;
                 if (confirm('이 부동산을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/api/properties/${propertyId}`, {
+                    fetch(`/property/properties/${propertyId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
@@ -143,7 +143,7 @@
                     .then(response => {
                         if (response.ok) {
                             alert('부동산이 성공적으로 삭제되었습니다.');
-                            window.location.href = '/admin/propertyList';
+                            window.location.href = '/property/propertyList';
                         } else {
                             alert('부동산 삭제 실패.');
                         }
@@ -158,7 +158,7 @@
             if (event.target.classList.contains('delete-unit-btn')) {
                 const unitId = event.target.dataset.unitId;
                 if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/api/units/${unitId}`, {
+                    fetch(`/property/units/${unitId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'

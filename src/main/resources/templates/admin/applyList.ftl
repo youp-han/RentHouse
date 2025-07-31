@@ -59,7 +59,7 @@
             button.addEventListener('click', function() {
                 const memberId = this.dataset.memberId;
                 if (confirm('이 회원을 승인하시겠습니까?')) {
-                    fetch(`/admin/member/approve/${memberId}`, {
+                    fetch(`/member/approve/${memberId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -83,7 +83,7 @@
             button.addEventListener('click', function() {
                 const memberId = this.dataset.memberId;
                 if (confirm('이 회원을 거절하고 삭제하시겠습니까?')) {
-                    fetch(`/admin/member/reject/${memberId}`, {
+                    fetch(`/member/reject/${memberId}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

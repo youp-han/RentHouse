@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/admin/tenants")
+@RequestMapping("/tenants")
 public class TenantController {
 
     @Autowired

@@ -13,7 +13,7 @@
             <h6 class="m-0 font-weight-bold text-primary">등록된 세입자</h6>
         </div>
         <div class="card-body">
-            <a href="/admin/tenants/register" class="btn btn-primary btn-sm mb-3">새 세입자 등록</a>
+            <a href="/tenants/register" class="btn btn-primary btn-sm mb-3">새 세입자 등록</a>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -40,7 +40,7 @@
                                 <td>${tenant.currentAddress!}</td>
                                 <td>${tenant.createdDate?string("yyyy-MM-dd HH:mm")!}</td>
                                 <td>
-                                    <a href="/admin/tenants/edit/${tenant.id!}" class="btn btn-info btn-sm">편집</a>
+                                    <a href="/tenants/edit/${tenant.id!}" class="btn btn-info btn-sm">편집</a>
                                     <button class="btn btn-danger btn-sm delete-tenant-btn" data-tenant-id="${tenant.id!}">삭제</button>
                                 </td>
                             </tr>

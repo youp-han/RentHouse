@@ -6,7 +6,7 @@
         <h1 class="h3 mb-4 text-gray-800">List of Property</h1>
         <#if properties?size == 0>
             <div class="alert alert-warning" role="alert">
-                No properties found. <a href="/admin/property/register" class="alert-link">Register Property</a>
+                No properties found. <a href="/property/register" class="alert-link">Register Property</a>
             </div>
         <#else>
             <div class="card shadow mb-4">
@@ -31,7 +31,7 @@
                                         <ul>
                                             <#if property.units?size == 0>
                                                 <li>No units found.
-                                                    <a href="/admin/property/unit/register?propertyId=${property.id?replace(',', '')}"
+                                                    <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}"
                                                        class="alert-link">Register Unit</a></li>
                                             <#else>
                                                 <#list property.units as unit>
@@ -42,7 +42,7 @@
                                                             <#assign unitAttributes = unit.unitAttributes>
                                                             <#if unitAttributes?size == 0>
                                                                 <li>No rooms found.
-                                                                    <a href="/admin/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}"
+                                                                    <a href="/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}"
                                                                        class="alert-link">Register Room</a></li>
                                                             <#else>
                                                                 <#list unitAttributes as unitAttribute>
@@ -57,7 +57,7 @@
                                         </ul>
                                     </td>
                                     <td>
-<#--                                        <a href="/admin/property/unit/register?propertyId=${property.id?replace(',', '')}"-->
+<#--                                        <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}"-->
 <#--                                           class="btn btn-primary btn-sm">Register Unit</a>-->
                                         <a href="javascript:void(0);" class="btn btn-primary btn-sm register-unit-btn"
                                            data-property-id="${property.id}" data-property-address="${property.address}">Register Unit</a>
@@ -88,7 +88,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="registerUnitForm" action="/admin/property/unit/save" method="post">
+                    <form id="registerUnitForm" action="/property/unit/save" method="post">
                         <input type="hidden" id="propertyId" name="propertyId" value="">
                         <p>Property:</p>  <label id="propertyAddress" name="propertyAddress" value="" />
                         <label for="unitNumber">Unit Number:</label>

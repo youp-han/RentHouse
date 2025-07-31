@@ -64,7 +64,7 @@
             .then(data => {
                 if (data.id) {
                     alert('세입자가 성공적으로 등록되었습니다.');
-                    window.location.href = '/admin/tenants'; // Redirect to tenant list
+                    window.location.href = '/tenants'; // Redirect to tenant list
                 } else {
                     alert('세입자 등록 실패.');
                 }

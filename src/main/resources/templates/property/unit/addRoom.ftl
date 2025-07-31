@@ -47,7 +47,7 @@
     <p class="error">${errorMessage}</p>
 </#if>
 
-<form action="/admin/property/unit/unitAttribute/save" method="POST">
+<form action="/property/unit/unitAttribute/save" method="POST">
     <!-- unitId 전달 -->
     <#if unitId??>
         <input type="hidden" name="unitId" value="${unitId?replace(',', '')}">

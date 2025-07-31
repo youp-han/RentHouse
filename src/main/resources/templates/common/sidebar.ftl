@@ -38,8 +38,8 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
                 <a class="collapse-item" href="/admin/home">Admin Home</a>
-                <a class="collapse-item" href="/admin/tenants">Tenants</a>
-                <a class="collapse-item" href="/admin/members">All Members</a>
+                <a class="collapse-item" href="/tenants">Tenants</a>
+                <a class="collapse-item" href="/member/members">All Members</a>
             </div>
         </div>
     </li>
@@ -54,7 +54,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingone" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="/admin/propertyList">Properties</a>
+                <a class="collapse-item" href="/property/propertyList">Properties</a>
             </div>
         </div>
     </li>

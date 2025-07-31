@@ -125,7 +125,7 @@
             const memberId = $(this).data('id');
             console.log("Member ID:", memberId); // 추가
             if (memberId) {
-                    fetch(`/admin/member/` + memberId)
+                    fetch(`/member/` + memberId)
                     .then(response => response.json())
                     .then(data => {
                         $('#memberId').val(data.id);
@@ -179,7 +179,7 @@
         $('#deleteMemberBtn').on('click', function() {
             if (confirm('정말로 이 회원을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
                 const memberId = $('#memberId').val();
-                fetch(`/admin/member/reject/` + memberId, {
+                fetch(`/member/reject/` + memberId, {
 
                     method: 'POST',
                     headers: {
@@ -203,7 +203,7 @@
         $('#resetPasswordBtn').on('click', function() {
             if (confirm('정말로 이 회원의 비밀번호를 초기화하시겠습니까? 초기화된 비밀번호는 \'password\' 입니다.')) {
                 const memberId = $('#memberId').val();
-                fetch(`/admin/member/reset-password/` + memberId, {
+                fetch(`/member/reset-password/` + memberId, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

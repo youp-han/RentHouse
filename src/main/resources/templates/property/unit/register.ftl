@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Register Unit</h1>
-<form action="/admin/property/unit/save" method="post">
+<form action="/property/unit/save" method="post">
     <input type="hidden" id="propertyId" name="propertyId" value="${property.id}" />
     <p>Property: ${property.address}</p>
     <label for="unitNumber">Unit Number:</label>

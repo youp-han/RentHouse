@@ -92,7 +92,7 @@
                 .then(response => {
                     if (response.ok) {
                         alert('세입자가 성공적으로 삭제되었습니다.');
-                        window.location.href = '/admin/tenants'; // Redirect to tenant list after deletion
+                        window.location.href = '/tenants'; // Redirect to tenant list after deletion
                     } else {
                         alert('세입자 삭제 실패.');
                     }

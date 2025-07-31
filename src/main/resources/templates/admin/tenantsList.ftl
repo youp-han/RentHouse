@@ -106,7 +106,7 @@
         $(document).on('click', '.tenant-row, .view-tenant', function() {
             const tenantId = $(this).data('id');
             if (tenantId) {
-                fetch(`/admin/tenants/${tenantId}`)
+                fetch(`/tenants/${tenantId}`)
                     .then(response => response.json())
                     .then(data => {
                         $('#tenantId').val(data.id);
@@ -133,7 +133,7 @@
                 currentAddress: $('#tenantCurrentAddress').val()
             };
 
-            fetch(`/admin/tenants/${tenantId}`, {
+            fetch(`/tenants/${tenantId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

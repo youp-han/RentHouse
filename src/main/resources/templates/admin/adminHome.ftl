@@ -6,7 +6,7 @@
         <h1 class="h3 mb-4 text-gray-800">List of Property</h1>
         <#if properties?size == 0>
             <div class="alert alert-warning" role="alert">
-                No properties found. <a href="/admin/property/register" class="alert-link">Register Property</a>
+                No properties found. <a href="/property/register" class="alert-link">Register Property</a>
             </div>
         <#else>
             <div class="card shadow mb-4">
@@ -30,7 +30,7 @@
                                     <td>
                                         <ul>
                                             <#if property.units?size == 0>
-                                                <li>No units found. <a href="/admin/property/unit/register?propertyId=${property.id?replace(',', '')}" class="alert-link">Register Unit</a></li>
+                                                <li>No units found. <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}" class="alert-link">Register Unit</a></li>
                                             <#else>
                                                 <#list property.units as unit>
                                                     <li>
@@ -38,7 +38,7 @@
                                                         <ul id="unitAttributes-${unit.id}" style="display: none;">
                                                             <#assign unitAttributes = unit.unitAttributes>
                                                             <#if unitAttributes?size == 0>
-                                                                <li>No rooms found. <a href="/admin/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}" class="alert-link">Register Room</a></li>
+                                                                <li>No rooms found. <a href="/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}" class="alert-link">Register Room</a></li>
                                                             <#else>
                                                                 <#list unitAttributes as unitAttribute>
                                                                     <li>Room: ${unitAttribute.featureKey}, Value: ${unitAttribute.featureValue}</li>
@@ -51,7 +51,7 @@
                                         </ul>
                                     </td>
                                     <td>
-                                        <a href="/admin/property/unit/register?propertyId=${property.id?replace(',', '')}" class="btn btn-primary btn-sm">Register Unit</a>
+                                        <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}" class="btn btn-primary btn-sm">Register Unit</a>
                                         <a href="/admin/unitInfo?propertyId=${property.id?replace(',', '')}" class="btn btn-info btn-sm">Unit Information (rooms)</a>
                                     </td>
                                 </tr>

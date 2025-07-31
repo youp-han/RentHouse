@@ -72,7 +72,7 @@
                     description: document.getElementById('description').value
                 };
 
-                fetch(`/api/units/${unitId}`, {
+                fetch(`/property/units/${unitId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'
@@ -98,7 +98,7 @@
             deleteUnitBtn.addEventListener('click', function() {
                 const unitId = this.dataset.unitId;
                 if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/api/units/${unitId}`, {
+                    fetch(`/property/units/${unitId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'
@@ -107,7 +107,7 @@
                     .then(response => {
                         if (response.ok) {
                             alert('유닛이 성공적으로 삭제되었습니다.');
-                            window.location.href = '/admin/property/detail/' + unitId; // Redirect to property detail after deletion
+                            window.location.href = '/property/detail/' + unitId; // Redirect to property detail after deletion
                         } else {
                             alert('유닛 삭제 실패.');
                         }
