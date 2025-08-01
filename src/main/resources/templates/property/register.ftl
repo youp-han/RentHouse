@@ -33,18 +33,23 @@
                     <label for="detailAddress">상세 주소</label>
                     <input type="text" class="form-control" id="detailAddress" name="detailAddress" placeholder="상세 주소">
                 </div>
-                <input type="hidden" id="fullAddress" name="address">
 
                 <div class="form-group">
                     <label for="type">유형</label>
                     <select class="form-control" id="type" name="type" required>
                         <option value="">유형 선택</option>
                         <option value="APARTMENT">아파트</option>
-                        <option value="BUILDING">빌딩</option>
+                        <option value="WKUp_VILLA">빌라</option>
+                        <option value="OFFICE">오피스</option>
                         <option value="HOUSE">주택</option>
-                        <option value="OFFICETEL">오피스텔</option>
-                        <option value="COMMERCIAL">상업용</option>
+                        <option value="SHOP">상가</option>
+                        <option value="LAND">토지</option>
+                        <option value="FACTORY">공장</option>
                     </select>
+                </div>
+                <div class="form-group" id="totalUnitsInputGroup" style="display: none;">
+                    <label for="totalUnits">총 세대수</label>
+                    <input type="number" class="form-control" id="totalUnits" name="totalUnits" min="1">
                 </div>
                 <div class="form-group">
                     <label for="totalFloorsSelect">총 층수</label>
@@ -81,8 +86,30 @@ console.log("jusoCallBack 호출:", fullAddr, zipNo);
 document.getElementById("zipCode").value      = zipNo;
   document.getElementById("roadAddress").value   = roadAddr + (extraAddr? " "+ extraAddr : "");
   document.getElementById("detailAddress").value = detailAddr;
-  document.getElementById("fullAddress").value   = fullAddr;
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    var typeSelect = document.getElementById('type');
+    var totalUnitsInputGroup = document.getElementById('totalUnitsInputGroup');
+    var totalFloorsSelect = document.getElementById('totalFloorsSelect');
+    var totalFloorsInputGroup = document.getElementById('totalFloorsInputGroup');
+
+    typeSelect.addEventListener('change', function () {
+        if (this.value === 'WKUp_VILLA') {
+            totalUnitsInputGroup.style.display = 'block';
+        } else {
+            totalUnitsInputGroup.style.display = 'none';
+        }
+    });
+
+    totalFloorsSelect.addEventListener('change', function () {
+        if (this.value === 'other') {
+            totalFloorsInputGroup.style.display = 'block';
+        } else {
+            totalFloorsInputGroup.style.display = 'none';
+        }
+    });
+});
 </script>
 
 </#macro>

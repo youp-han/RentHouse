@@ -42,9 +42,24 @@ public class PropertyController {
         try {
             Property property = new Property();
             property.setName(propertyDto.getName());
-            property.setAddress(propertyDto.getAddress());
+
+            String address = propertyDto.getRoadAddress() + " " + propertyDto.getDetailAddress() + " (" + propertyDto.getZipCode() + ")";
+            property.setAddress(address);
+
             property.setType(com.jjst.rentManagement.renthouse.module.common.enums.PropertyType.valueOf(propertyDto.getType()));
-            property.setTotalFloors(Integer.valueOf(propertyDto.getTotalFloorsSelect()));
+
+            if ("other".equals(propertyDto.getTotalFloorsSelect())) {
+                property.setTotalFloors(propertyDto.getTotalFloors());
+            } else {
+                property.setTotalFloors(Integer.valueOf(propertyDto.getTotalFloorsSelect()));
+            }
+
+            if (com.jjst.rentManagement.renthouse.module.common.enums.PropertyType.valueOf(propertyDto.getType()) == com.jjst.rentManagement.renthouse.module.common.enums.PropertyType.WKUp_VILLA) {
+                property.setTotalUnits(propertyDto.getTotalUnits());
+            } else {
+                property.setTotalUnits(1);
+            }
+
             propertyService.saveProperty(property);
             return "redirect:/property/propertyList";
         } catch (Exception e) {
@@ -155,6 +170,12 @@ public class PropertyController {
         }
     }
 
+    @GetMapping("/units/{id}")
+    @ResponseBody
+    public Unit getUnit(@PathVariable Long id) {
+        return propertyService.getUnitById(id);
+    }
+
     // Update Property
     @PutMapping("/properties/{id}")
     public ResponseEntity<Map<String, Object>> updateProperty(@PathVariable Long id, @RequestBody PropertyDto propertyDto) {
@@ -168,10 +189,11 @@ public class PropertyController {
             }
 
             existingProperty.setName(propertyDto.getName());
-            existingProperty.setAddress(propertyDto.getAddress());
-            // Assuming PropertyDto.type is String and Property.type is Enum
+            // 주소는 변경하지 않음
+            // existingProperty.setAddress(propertyDto.getAddress());
             existingProperty.setType(com.jjst.rentManagement.renthouse.module.common.enums.PropertyType.valueOf(propertyDto.getType()));
             existingProperty.setTotalFloors(propertyDto.getTotalFloors());
+            existingProperty.setTotalUnits(propertyDto.getTotalUnits());
 
             propertyService.updateProperty(existingProperty);
             response.put("status", "success");

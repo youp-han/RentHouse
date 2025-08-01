@@ -29,11 +29,18 @@
 - `property/unit/detail.ftl`: 유닛 상세
 
 ### 개발 할 일:
-- **부동산 상세 정보/수정 화면:** (완료 - `PropertyController`에 `/properties/{id}` PUT 구현)
-- **유닛 상세 정보/수정 화면:** (완료 - `PropertyController`에 `/units/{id}` PUT 구현)
-- **부동산/유닛 삭제 기능:** (완료 - `PropertyController`에 `/properties/{id}` DELETE 및 `/units/{id}` DELETE 구현)
-- **부동산 등록 화면 개선:** (완료 - `property/register.ftl`에 `name`, `type`, `totalFloors` 필드 추가 및 '총 층수' 입력 방식 개선, `PropertyController`의 `saveProperty` 메서드 업데이트)
-- **유닛 등록 화면 개선:** (완료 - `property/unit/register.ftl`에 `rentStatus`, `size_meter`, `size_korea`, `useType`, `description` 필드 추가 및 `PropertyController`의 `saveUnit` 메서드 업데이트)
+- **부동산 등록 화면 개선:** (완료)
+    - `property/register.ftl`에서 유형(enums/PropertyType) 리스트를 한글로 번역하여 표시하고, 총 층수 선택 시 '직접 입력' 옵션을 추가하여 동적으로 입력 필드를 표시하도록 개선했습니다.
+    - 주소 저장을 위해 `roadAddress`, `detailAddress`, `zipCode`를 조합하여 `address` 필드에 저장하도록 `PropertyController`를 수정했습니다.
+    - `WKUp_VILLA` 유형일 때만 `totalUnits`를 입력받고, 나머지 유형은 1로 고정하도록 기능을 추가했습니다.
+- **부동산 목록 화면 개선:** (완료)
+    - `propertyList.ftl`에 각 부동산의 상세 정보를 볼 수 있는 '상세 보기' 버튼을 추가했습니다.
+- **부동산 상세 정보/수정 화면:** (완료)
+    - `property/detail.ftl`에서 부동산 정보를 수정하고 삭제할 수 있는 기능을 추가했습니다.
+    - 주소는 변경할 수 없도록 `readonly` 속성을 추가하고, 업데이트 로직에서 제외했습니다.
+    - 해당 부동산에 속한 Unit 정보를 함께 표시하고, 팝업을 통해 Unit을 추가/수정/삭제할 수 있도록 개선했습니다.
+- **유닛 상세 정보/수정 화면:** (완료 - `property/detail.ftl`의 팝업에서 처리)
+- **부동산/유닛 삭제 기능:** (완료 - `property/detail.ftl`에서 구현)
 - **부동산 검색 및 필터링 기능:** (미구현)
 - **이미지 업로드 및 관리:** (미구현)
 

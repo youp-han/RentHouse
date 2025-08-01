@@ -18,36 +18,20 @@
                         <table id="propertyTable" class="table table-bordered" width="100%" cellspacing="0">
                             <thead>
                             <tr>
+                                <th>Name</th>
                                 <th>Address</th>
-                                <th>Units</th>
+                                <th>Type</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <#list properties as property>
                                 <tr>
+                                    <td>${property.name}</td>
                                     <td>${property.address}</td>
+                                    <td>${property.type}</td>
                                     <td>
-                                        <ul>
-                                            <#if property.units?size == 0>
-                                                <li>No units found.
-                                                    <a href="/property/unit/register?propertyId=${property.id?replace(',','')}"
-                                                       class="alert-link">Register Unit</a></li>
-                                            <#else>
-                                                <#list property.units as unit>
-                                                    <li>
-                                                        Unit: ${unit.unitNumber!''}
-                                                        <#if unit.description?? && unit.description?has_content>
-                                                            (Description: ${unit.description!})
-                                                        </#if>
-                                                    </li>
-                                                </#list>
-                                            </#if>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <a href="javascript:void(0);" class="btn btn-primary btn-sm register-unit-btn"
-                                           data-property-id="${property.id}" data-property-address="${property.address}">Register Unit</a>
+                                        <a href="/property/property/detail/${property.id}" class="btn btn-info btn-sm">상세</a>
                                     </td>
                                 </tr>
                             </#list>

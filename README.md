@@ -1,124 +1,67 @@
-# 기능 개발 할 일 목록
+# RentHouse - 부동산 임대 관리 시스템
 
-이 문서는 RentHouse 프로젝트의 기능 개발에 대한 할 일 목록을 제공합니다. 현재 구현된 화면과 향후 구현되어야 할 화면을 중심으로 분석했습니다.
+RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 임대인, 임차인, 관리자 등 다양한 사용자가 시스템을 통해 부동산, 유닛, 임대 계약, 결제 등을 효율적으로 관리할 수 있습니다.
 
-## 1. 회원 관리 (Member Module)
+## 주요 기능
 
-### 현재 화면:
-- `member/join.ftl`: 회원 가입
-- `member/memberList.ftl`: 회원 목록 (모든 프로그램 사용자)
-- `member/settings.ftl`: 회원 정보 설정 (개인 정보 수정, 비밀번호 변경)
-- `member/profile.ftl`: 내 프로필 (회원 탈퇴)
+- **회원 관리:** 사용자 등록, 로그인, 정보 수정, 회원 등급(관리자, 임대인, 임차인) 관리
+- **부동산 관리:** 부동산 정보(주소, 유형, 층수 등) 등록, 수정, 삭제 및 유닛(세대) 관리
+- **임대 관리:** 임대 계약 등록, 수정, 삭제 및 계약 상태 관리
+- **청구 및 결제 관리:** 임대료 청구서 자동 생성, 결제 내역 관리
+- **관리자 기능:** 전체 시스템 현황 모니터링, 사용자 관리, 시스템 설정
 
-### 개발 할 일:
-- **회원 상세 정보/수정 화면:** (완료 - `member/settings.ftl`에서 개인 정보 수정 및 비밀번호 변경 구현)
-- **비밀번호 변경 기능:** (완료 - `member/settings.ftl`에서 구현)
-- **회원 탈퇴 기능:** (완료 - `member/profile.ftl`에서 구현)
-- **관리자용 회원 관리 기능 강화:** (완료 - `member/memberList.ftl` 및 `AdminRestController`를 통해 회원 정보 편집 모달 구현)
-  - `MemberController`에 관리자용 회원 정보 조회 (`/admin/member/{id}`) 및 업데이트 (`/admin/member/{id}` PUT), 승인 (`/admin/member/approve/{id}`), 거절 (`/admin/member/reject/{id}`) 기능 구현 완료.
+## 최근 업데이트 내용 (2025-08-01)
 
-## 2. 부동산 관리 (Property Module)
+- **부동산 등록 기능 개선:**
+    - 부동산 유형(아파트, 빌라 등)을 한글로 표시하고, `enums/PropertyType`과 연동했습니다.
+    - '총 층수'를 직접 입력할 수 있는 옵션을 추가하여 사용자 편의성을 높였습니다.
+    - 주소 API와 연동하여 `roadAddress`, `detailAddress`, `zipCode`를 조합 후 `address` 필드에 저장하도록 개선했습니다.
+    - 빌라(`WKUp_VILLA`) 유형일 경우에만 '총 세대수'(`totalUnits`)를 입력받도록 하여 데이터의 정확성을 높였습니다.
 
-### 현재 화면:
-- `property/propertyList.ftl`: 부동산 목록
-- `property/register.ftl`: 부동산 등록
-- `property/unit/addRoom.ftl`: 유닛에 방 추가
-- `property/unit/register.ftl`: 유닛 등록
-- `property/detail.ftl`: 부동산 상세 (AdminController에서 `/admin/property/detail/{id}`로 연결)
-- `property/unit/detail.ftl`: 유닛 상세 (AdminController에서 `/admin/property/unit/detail/{id}`로 연결)
+- **부동산 목록 및 상세 화면 개선:**
+    - 부동산 목록(`propertyList`)에서 각 항목의 '상세 보기' 버튼을 통해 상세 페이지로 이동할 수 있도록 개선했습니다.
+    - 상세 페이지(`property/detail`)에서 부동산 정보 수정 및 삭제 기능을 추가했습니다. (단, 주소는 변경 불가)
+    - 상세 페이지 내에서 해당 부동산에 속한 유닛(Unit) 정보를 확인하고, 팝업을 통해 유닛을 추가/수정/삭제할 수 있도록 하여 관리 효율성을 높였습니다.
 
-### 개발 할 일:
-- **부동산 상세 정보/수정 화면:**
-  - `property/detail.ftl` (또는 `property/edit.ftl`) 구현 (완료 - `AdminController`에서 `property/detail`로 연결)
-  - 부동산 정보 조회 및 수정 기능 (완료 - `PropertyRestController`에 `/api/properties/{id}` PUT 구현)
-- **유닛 상세 정보/수정 화면:**
-  - `property/unit/detail.ftl` (또는 `property/unit/edit.ftl`) 구현 (완료 - `AdminController`에서 `property/unit/detail`로 연결)
-  - 유닛 정보 조회 및 수정 기능 (완료 - `PropertyRestController`에 `/api/units/{id}` PUT 구현)
-- **부동산/유닛 삭제 기능:**
-  - 부동산 및 유닛 삭제 기능 구현 (연관된 임대/청구 정보 처리 로직 포함) (완료 - `PropertyRestController`에 `/api/properties/{id}` DELETE 및 `/api/units/{id}` DELETE 구현)
-- **부동산 검색 및 필터링 기능:**
-  - 부동산 목록 페이지에 검색 및 필터링 옵션 추가 (미구현)
-- **이미지 업로드 및 관리:**
-  - 부동산 및 유닛 이미지 업로드, 표시, 관리 기능 구현 (미구현)
+## 기술 스택
 
-## 3. 임대 관리 (Lease Module)
+- **Backend:** Java, Spring Boot, Spring Security
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap, FreeMarker, SB Admin 2
+- **Database:** H2 (개발용), PostgreSQL 또는 MySQL (운영용 권장)
+- **Build Tool:** Maven
 
-### 현재 화면:
-- `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
+## 시작하기
 
-### 개발 할 일:
-- **임대 계약 목록 화면:**
-  - `lease/leaseList.ftl` 구현 (세입자 목록과 별개로 임대 계약 자체의 목록) (미구현)
-  - 임대 계약 정보 조회 및 검색 기능 (미구현)
-- **임대 계약 등록/수정 화면:**
-  - `lease/register.ftl` (또는 `lease/edit.ftl`) 구현 (미구현 - `AdminRestController`에 `/admin/tenancy/save` API는 존재하나, 이를 위한 프론트엔드 화면은 명확히 보이지 않음)
-  - 임대 계약 등록 및 수정 기능 (부동산, 유닛, 회원 연동) (등록 API는 존재)
-- **임대 계약 상세 화면:**
-  - `lease/detail.ftl` 구현 (미구현)
-  - 임대 계약 상세 정보 및 관련 청구/결제 내역 표시 (미구현)
-- **임대 계약 상태 변경 기능:**
-  - 계약 활성화/비활성화, 만료 처리 등 상태 변경 기능 (미구현)
-- **임대료 계산 및 알림:**
-  - 임대료 자동 계산 및 납부 기한 알림 기능 (미구현)
+### 요구 사항
 
-## 4. 청구 및 결제 관리 (Bill Module)
+- Java 17 또는 그 이상
+- Maven 3.2 또는 그 이상
 
-### 현재 화면:
-- (명시된 청구/결제 관련 화면 없음)
+### 실행 방법
 
-### 개발 할 일:
-- **청구서 목록 화면:**
-  - `bill/billList.ftl` 구현 (미구현)
-  - 청구서 정보 조회 및 검색 기능 (미구현)
-- **청구서 생성/수정 화면:**
-  - `bill/create.ftl` (또는 `bill/edit.ftl`) 구현 (미구현)
-  - 청구서 생성 및 수정 기능 (임대 계약, 유닛, 회원 연동) (미구현)
-- **청구서 상세 화면:**
-  - `bill/detail.ftl` 구현 (미구현)
-  - 청구서 상세 정보 및 결제 상태 표시 (미구현)
-- **결제 처리 기능:**
-  - 결제 상태 업데이트, 결제 내역 기록 기능 (미구현)
-- **자동 청구서 생성:**
-  - 정기적인 임대료 청구서 자동 생성 기능 (미구현)
+1.  **저장소 복제:**
+    ```bash
+    git clone https://github.com/your-username/renthouse.git
+    cd renthouse
+    ```
 
-## 5. 관리자 기능 (Admin Module)
+2.  **애플리케이션 빌드:**
+    ```bash
+    ./mvnw clean install
+    ```
 
-### 현재 화면:
-- `admin/adminHome.ftl`: 관리자 홈
-- `admin/applyList.ftl`: 신청 목록 (신규 회원 승인/거절)
-- `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
-- `tenant/tenantList.ftl`: 세입자 관리 (세입자 정보 CRUD)
-- `tenant/register.ftl`: 세입자 등록
-- `tenant/detail.ftl`: 세입자 상세/편집
+3.  **애플리케이션 실행:**
+    ```bash
+    java -jar target/renthouse-0.0.1-SNAPSHOT.jar
+    ```
+    또는 Maven 플러그인을 사용하여 실행할 수 있습니다:
+    ```bash
+    ./mvnw spring-boot:run
+    ```
 
-### 개발 할 일:
-- **관리자 대시보드 강화:**
-  - 주요 통계, 최신 활동, 알림 등 대시보드 위젯 추가 (미구현)
-- **신청 관리 기능 강화:** (완료 - `admin/applyList.ftl`에서 신규 회원 승인/거절 기능 구현)
-- **세입자 관리 기능 강화:** (완료 - `tenant/tenantList.ftl`, `tenant/register.ftl`, `tenant/detail.ftl` 및 관련 컨트롤러/REST 컨트롤러 구현)
-  - `TenantController`에 세입자 목록 (`/admin/tenants`), 상세 조회 (`/admin/tenants/{id}`), 생성 (`/admin/tenants` POST), 수정 (`/admin/tenants/{id}` PUT), 삭제 (`/admin/tenants/{id}` DELETE) 기능 구현 완료.
-  - `TenantController`의 `convertToDto` 및 `convertToEntity` 메서드를 `EntityConverter`를 사용하도록 리팩토링 완료.
-- **사용자 권한 관리:**
-  - 사용자 역할(ADMIN, MEMBER 등)을 관리할 수 있는 화면 및 기능 (미구현)
-- **시스템 설정 관리:**
-  - 애플리케이션 전반의 설정을 관리할 수 있는 화면 및 기능 (미구현)
+4.  **애플리케이션 접속:**
+    웹 브라우저에서 `http://localhost:8080`으로 접속합니다.
 
-## 6. 공통 기능 및 개선
+## 라이선스
 
-### 개발 할 일:
-- **알림 시스템:**
-  - 임대료 납부, 계약 만료, 새로운 신청 등 다양한 알림 기능 구현 (미구현)
-- **검색 기능 통합:**
-  - 전역 검색 기능 구현 (부동산, 회원, 임대 계약 등) (미구현)
-- **보고서 기능:**
-  - 월별/연간 임대 수익, 공실률 등 다양한 보고서 생성 기능 (미구현)
-- **사용자 친화적인 URL:**
-  - RESTful API 설계 및 URL 구조 개선 (일부 RESTful API 구현됨)
-- **성능 최적화:**
-  - 데이터 로딩 속도 개선, 쿼리 최적화 (미구현)
-
-## 출시 전 우선순위:
-- **보안 강화:**
-  - CSRF 보호 활성화 (미확인)
-  - `/admin/**` 엔드포인트에 대한 적절한 역할 기반 접근 제어 구현 (일부 구현됨 - Spring Security 사용)
-  - 기타 보안 취약점 점검 및 개선 (미확인)
+이 프로젝트는 [MIT 라이선스](LICENSE)에 따라 배포됩니다.

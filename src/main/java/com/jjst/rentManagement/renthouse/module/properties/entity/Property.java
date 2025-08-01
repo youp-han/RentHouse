@@ -17,6 +17,7 @@ public class Property extends BaseEntity {
     private String address;
     private String name;
     private Integer totalFloors;
+    private Integer totalUnits; // 총 세대수
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Unit> units = new ArrayList<>();
 
