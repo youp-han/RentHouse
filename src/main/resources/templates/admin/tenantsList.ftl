@@ -51,6 +51,7 @@
             </div>
         </div>
     </div>
+    <a href="/tenant/register" class="btn btn-primary">세입자 등록</a>
 
 </div>
 

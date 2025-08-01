@@ -50,6 +50,7 @@
                     </#if>
                     </tbody>
                 </table>
+                <a href="/member/join" class="btn btn-primary">회원 등록</a>
             </div>
         </div>
     </div>

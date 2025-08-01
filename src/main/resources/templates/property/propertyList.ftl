@@ -40,6 +40,7 @@
                     </div>
                 </div>
             </div>
+            <a href="/property/register" class="btn btn-primary">부동산 등록</a>
         </#if>
     </div>
     <!-- /.container-fluid -->

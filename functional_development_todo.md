@@ -18,6 +18,8 @@
 - **관리자용 회원 관리 기능 강화:** (완료)
     - `MemberController` 내의 RESTful API 엔드포인트 (`/member/{id}` GET/PUT, `/member/approve/{id}` POST, `/member/reject/{id}` POST, `/member/reset-password/{id}` POST)를 통해 회원 정보 조회, 업데이트, 승인, 거절, 비밀번호 초기화 기능 구현 완료.
     - `admin/memberList.ftl`에서 모달 창을 통해 위 기능들을 사용할 수 있도록 구현 완료.
+- **UI 개선:** (완료)
+    - `admin/memberList.ftl` 화면의 데이터 테이블 하단에 '회원 등록' 버튼을 추가하여 사용자 편의성을 개선했습니다.
 
 ## 2. 부동산 관리 (Property Module)
 
@@ -35,6 +37,7 @@
     - `WKUp_VILLA` 유형일 때만 `totalUnits`를 입력받고, 나머지 유형은 1로 고정하도록 기능을 추가했습니다.
 - **부동산 목록 화면 개선:** (완료)
     - `propertyList.ftl`에 각 부동산의 상세 정보를 볼 수 있는 '상세 보기' 버튼을 추가했습니다.
+    - 데이터 테이블 하단에 '부동산 등록' 버튼을 추가하여 신규 등록 접근성을 높였습니다.
 - **부동산 상세 정보/수정 화면:** (완료)
     - `property/detail.ftl`에서 부동산 정보를 수정하고 삭제할 수 있는 기능을 추가했습니다.
     - 주소는 변경할 수 없도록 `readonly` 속성을 추가하고, 업데이트 로직에서 제외했습니다.
@@ -50,6 +53,8 @@
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
 
 ### 개발 할 일:
+- **UI 개선:** (완료)
+    - `admin/tenantsList.ftl` 화면의 데이터 테이블 하단에 '세입자 등록' 버튼을 추가했습니다.
 - **임대 계약 목록 화면:** (백엔드 로직 구현 완료 - `LeaseServiceImpl.getAllLeaseDtos()`, 프론트엔드 화면 미구현)
 - **임대 계약 등록/수정 화면:** (백엔드 로직 구현 완료 - `LeaseServiceImpl.registerLease()`, 프론트엔드 화면 미구현)
 - **임대 계약 상세 화면:** (미구현)
@@ -75,17 +80,12 @@
 - `admin/applyList.ftl`: 신청 목록 (신규 회원 승인/거절)
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
 - `admin/memberList.ftl`: 전체 회원 목록
-- `tenant/tenantList.ftl`: 세입자 관리 (세입자 정보 CRUD)
-- `tenant/register.ftl`: 세입자 등록
-- `tenant/detail.ftl`: 세입자 상세/편집
 
 ### 개발 할 일:
 - **관리자 대시보드 강화:**
   - 주요 통계, 최신 활동, 알림 등 대시보드 위젯 추가 (미구현)
 - **신청 관리 기능 강화:** (완료 - `admin/applyList.ftl`에서 신규 회원 승인/거절 기능 구현)
-- **세입자 관리 기능 강화:** (완료 - `tenant/tenantList.ftl`, `tenant/register.ftl`, `tenant/detail.ftl` 및 관련 컨트롤러/REST 컨트롤러 구현)
-  - `TenantController`에 세입자 목록 (`/admin/tenants`), 상세 조회 (`/admin/tenants/{id}`), 생성 (`/admin/tenants` POST), 수정 (`/admin/tenants/{id}` PUT), 삭제 (`/admin/tenants/{id}` DELETE) 기능 구현 완료.
-  - `TenantController`의 `convertToDto` 및 `convertToEntity` 메서드를 `EntityConverter`를 사용하도록 리팩토링 완료.
+- **세입자 관리 기능 강화:** (완료 - `TenantController` 및 관련 REST 컨트롤러 구현)
 - **사용자 권한 관리:**
   - 사용자 역할(ADMIN, MEMBER 등)을 관리할 수 있는 화면 및 기능 (미구현)
 - **시스템 설정 관리:**
@@ -99,6 +99,8 @@
 - **보고서 기능:** (미구현)
 - **사용자 친화적인 URL:** (일부 RESTful API 구현됨)
 - **성능 최적화:** (미구현)
+- **코드 정리:** (완료)
+    - 사용하지 않는 `.ftl` 파일(`common/layout-sample.ftl`, `sample.ftl`, `tenant/detail.ftl`, `tenant/register.ftl`, `tenant/tenantList.ftl`)을 삭제하여 프로젝트 구조를 정리했습니다.
 
 ## 출시 전 우선순위:
 - **보안 강화:**
