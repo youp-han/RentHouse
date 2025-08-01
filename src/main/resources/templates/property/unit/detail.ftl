@@ -1,7 +1,6 @@
 <#include "../../common/layout.ftl">
 
-<@layout "유닛 상세 정보">
-
+<#macro content>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -54,69 +53,63 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
         // Unit Update Form Submission
-        const unitDetailForm = document.getElementById('unitDetailForm');
-        if (unitDetailForm) {
-            unitDetailForm.addEventListener('submit', function(event) {
-                event.preventDefault();
+        $('#unitDetailForm').on('submit', function(event) {
+            event.preventDefault();
 
-                const unitId = document.getElementById('unitId').value;
-                const formData = {
-                    id: unitId,
-                    unitNumber: document.getElementById('unitNumber').value,
-                    rentStatus: document.getElementById('rentStatus').checked,
-                    size_meter: document.getElementById('size_meter').value,
-                    size_korea: document.getElementById('size_korea').value,
-                    useType: document.getElementById('useType').value,
-                    description: document.getElementById('description').value
-                };
+            const unitId = $('#unitId').val();
+            const formData = {
+                id: unitId,
+                unitNumber: $('#unitNumber').val(),
+                rentStatus: $('#rentStatus').val() === 'true',
+                size_meter: $('#size_meter').val(),
+                size_korea: $('#size_korea').val(),
+                useType: $('#useType').val(),
+                description: $('#description').val()
+            };
 
-                fetch(`/property/units/${unitId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.id) {
-                        alert('유닛 정보가 성공적으로 업데이트되었습니다.');
-                        // Optionally redirect or update UI
-                    } else {
-                        alert('유닛 정보 업데이트 실패.');
-                    }
-                })
-                .catch(error => console.error('Error updating unit:', error));
-            });
-        }
+            fetch(`/property/units/${unitId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+                    alert('유닛 정보가 성공적으로 업데이트되었습니다.');
+                    // Optionally redirect or update UI
+                } else {
+                    alert('유닛 정보 업데이트 실패.');
+                }
+            })
+            .catch(error => console.error('Error updating unit:', error));
+        });
 
         // Unit Delete Button
-        const deleteUnitBtn = document.getElementById('deleteUnitBtn');
-        if (deleteUnitBtn) {
-            deleteUnitBtn.addEventListener('click', function() {
-                const unitId = this.dataset.unitId;
-                if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/property/units/${unitId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('유닛이 성공적으로 삭제되었습니다.');
-                            window.location.href = '/property/detail/' + unitId; // Redirect to property detail after deletion
-                        } else {
-                            alert('유닛 삭제 실패.');
-                        }
-                    })
-                    .catch(error => console.error('Error deleting unit:', error));
-                }
-            });
-        }
+        $('#deleteUnitBtn').on('click', function() {
+            const unitId = $(this).data('unit-id');
+            if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+                fetch(`/property/units/${unitId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('유닛이 성공적으로 삭제되었습니다.');
+                        window.location.href = '/property/detail/' + unitId; // Redirect to property detail after deletion
+                    } else {
+                        alert('유닛 삭제 실패.');
+                    }
+                })
+                .catch(error => console.error('Error deleting unit:', error));
+            }
+        });
     });
 </script>
 
-</@layout>
+</#macro>

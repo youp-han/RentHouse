@@ -1,7 +1,6 @@
 <#include "../common/layout.ftl">
 
-<@layout "부동산 상세 정보">
-
+<#macro content>
 <div class="container-fluid">
 
     <!-- Page Heading -->
@@ -92,91 +91,83 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
         // Property Update Form Submission
-        const propertyDetailForm = document.getElementById('propertyDetailForm');
-        if (propertyDetailForm) {
-            propertyDetailForm.addEventListener('submit', function(event) {
-                event.preventDefault();
+        $('#propertyDetailForm').on('submit', function(event) {
+            event.preventDefault();
 
-                const propertyId = document.getElementById('propertyId').value;
-                const formData = {
-                    id: propertyId,
-                    name: document.getElementById('name').value,
-                    address: document.getElementById('address').value,
-                    type: document.getElementById('type').value,
-                    totalFloors: document.getElementById('totalFloors').value
-                };
+            const propertyId = $('#propertyId').val();
+            const formData = {
+                id: propertyId,
+                name: $('#name').val(),
+                address: $('#address').val(),
+                type: $('#type').val(),
+                totalFloors: $('#totalFloors').val()
+            };
 
-                fetch(`/property/properties/${propertyId}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(formData)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.id) {
-                        alert('부동산 정보가 성공적으로 업데이트되었습니다.');
-                        location.reload();
-                    } else {
-                        alert('부동산 정보 업데이트 실패.');
-                    }
-                })
-                .catch(error => console.error('Error updating property:', error));
-            });
-        }
+            fetch(`/property/properties/${propertyId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.id) {
+                    alert('부동산 정보가 성공적으로 업데이트되었습니다.');
+                    location.reload();
+                } else {
+                    alert('부동산 정보 업데이트 실패.');
+                }
+            })
+            .catch(error => console.error('Error updating property:', error));
+        });
 
         // Property Delete Button
-        const deletePropertyBtn = document.getElementById('deletePropertyBtn');
-        if (deletePropertyBtn) {
-            deletePropertyBtn.addEventListener('click', function() {
-                const propertyId = this.dataset.propertyId;
-                if (confirm('이 부동산을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/property/properties/${propertyId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('부동산이 성공적으로 삭제되었습니다.');
-                            window.location.href = '/property/propertyList';
-                        } else {
-                            alert('부동산 삭제 실패.');
-                        }
-                    })
-                    .catch(error => console.error('Error deleting property:', error));
-                }
-            });
-        }
+        $('#deletePropertyBtn').on('click', function() {
+            const propertyId = $(this).data('property-id');
+            if (confirm('이 부동산을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+                fetch(`/property/properties/${propertyId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('부동산이 성공적으로 삭제되었습니다.');
+                        window.location.href = '/property/propertyList';
+                    } else {
+                        alert('부동산 삭제 실패.');
+                    }
+                })
+                .catch(error => console.error('Error deleting property:', error));
+            }
+        });
 
         // Unit Delete Button (Delegation for dynamically added elements)
-        document.body.addEventListener('click', function(event) {
-            if (event.target.classList.contains('delete-unit-btn')) {
-                const unitId = event.target.dataset.unitId;
-                if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
-                    fetch(`/property/units/${unitId}`, {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => {
-                        if (response.ok) {
-                            alert('유닛이 성공적으로 삭제되었습니다.');
-                            location.reload();
-                        } else {
-                            alert('유닛 삭제 실패.');
-                        }
-                    })
-                    .catch(error => console.error('Error deleting unit:', error));
-                }
+        $(document).on('click', '.delete-unit-btn', function() {
+            const unitId = $(this).data('unit-id');
+            if (confirm('이 유닛을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+                fetch(`/property/units/${unitId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('유닛이 성공적으로 삭제되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('유닛 삭제 실패.');
+                    }
+                })
+                .catch(error => console.error('Error deleting unit:', error));
             }
         });
     });
 </script>
 
-</@layout>
+</#macro>

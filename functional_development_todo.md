@@ -16,23 +16,24 @@
 - **비밀번호 변경 기능:** (완료 - `member/settings.ftl`에서 구현)
 - **회원 탈퇴 기능:** (완료 - `member/profile.ftl`에서 구현)
 - **관리자용 회원 관리 기능 강화:** (완료)
-    - `AdminRestController`를 통해 회원 정보 조회 (`/admin/member/{id}`), 업데이트 (`/admin/member/{id}` PUT), 승인 (`/admin/member/approve/{id}`), 거절 (`/admin/member/reject/{id}`), 비밀번호 초기화 (`/admin/member/reset-password/{id}`) 기능 구현 완료.
+    - `MemberController` 내의 RESTful API 엔드포인트 (`/member/{id}` GET/PUT, `/member/approve/{id}` POST, `/member/reject/{id}` POST, `/member/reset-password/{id}` POST)를 통해 회원 정보 조회, 업데이트, 승인, 거절, 비밀번호 초기화 기능 구현 완료.
     - `admin/memberList.ftl`에서 모달 창을 통해 위 기능들을 사용할 수 있도록 구현 완료.
 
 ## 2. 부동산 관리 (Property Module)
 
 ### 현재 화면:
 - `property/propertyList.ftl`: 부동산 목록
-- `property/register.ftl`: 부동산 등록
-- `property/unit/addRoom.ftl`: 유닛에 방 추가
-- `property/unit/register.ftl`: 유닛 등록
+- `property/register.ftl`: 부동산 등록 (Property 엔티티의 모든 필드 포함)
+- `property/unit/register.ftl`: 유닛 등록 (Unit 엔티티의 모든 필드 포함)
 - `property/detail.ftl`: 부동산 상세
 - `property/unit/detail.ftl`: 유닛 상세
 
 ### 개발 할 일:
-- **부동산 상세 정보/수정 화면:** (완료)
-- **유닛 상세 정보/수정 화면:** (완료)
-- **부동산/유닛 삭제 기능:** (미구현)
+- **부동산 상세 정보/수정 화면:** (완료 - `PropertyController`에 `/properties/{id}` PUT 구현)
+- **유닛 상세 정보/수정 화면:** (완료 - `PropertyController`에 `/units/{id}` PUT 구현)
+- **부동산/유닛 삭제 기능:** (완료 - `PropertyController`에 `/properties/{id}` DELETE 및 `/units/{id}` DELETE 구현)
+- **부동산 등록 화면 개선:** (완료 - `property/register.ftl`에 `name`, `type`, `totalFloors` 필드 추가 및 '총 층수' 입력 방식 개선, `PropertyController`의 `saveProperty` 메서드 업데이트)
+- **유닛 등록 화면 개선:** (완료 - `property/unit/register.ftl`에 `rentStatus`, `size_meter`, `size_korea`, `useType`, `description` 필드 추가 및 `PropertyController`의 `saveUnit` 메서드 업데이트)
 - **부동산 검색 및 필터링 기능:** (미구현)
 - **이미지 업로드 및 관리:** (미구현)
 
@@ -42,8 +43,8 @@
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
 
 ### 개발 할 일:
-- **임대 계약 목록 화면:** (미구현)
-- **임대 계약 등록/수정 화면:** (미구현)
+- **임대 계약 목록 화면:** (백엔드 로직 구현 완료 - `LeaseServiceImpl.getAllLeaseDtos()`, 프론트엔드 화면 미구현)
+- **임대 계약 등록/수정 화면:** (백엔드 로직 구현 완료 - `LeaseServiceImpl.registerLease()`, 프론트엔드 화면 미구현)
 - **임대 계약 상세 화면:** (미구현)
 - **임대 계약 상태 변경 기능:** (미구현)
 - **임대료 계산 및 알림:** (미구현)
@@ -54,11 +55,11 @@
 - (명시된 청구/결제 관련 화면 없음)
 
 ### 개발 할 일:
-- **청구서 목록 화면:** (미구현)
-- **청구서 생성/수정 화면:** (미구현)
-- **청구서 상세 화면:** (미구현)
-- **결제 처리 기능:** (미구현)
-- **자동 청구서 생성:** (미구현)
+- **청구서 목록 화면:** (백엔드 로직 미구현)
+- **청구서 생성/수정 화면:** (백엔드 로직 미구현)
+- **청구서 상세 화면:** (백엔드 로직 미구현)
+- **결제 처리 기능:** (백엔드 로직 미구현)
+- **자동 청구서 생성:** (백엔드 로직 미구현)
 
 ## 5. 관리자 기능 (Admin Module)
 
@@ -67,11 +68,21 @@
 - `admin/applyList.ftl`: 신청 목록 (신규 회원 승인/거절)
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
 - `admin/memberList.ftl`: 전체 회원 목록
+- `tenant/tenantList.ftl`: 세입자 관리 (세입자 정보 CRUD)
+- `tenant/register.ftl`: 세입자 등록
+- `tenant/detail.ftl`: 세입자 상세/편집
 
 ### 개발 할 일:
-- **관리자 대시보드 강화:** (미구현)
-- **사용자 권한 관리:** (미구현)
-- **시스템 설정 관리:** (미구현)
+- **관리자 대시보드 강화:**
+  - 주요 통계, 최신 활동, 알림 등 대시보드 위젯 추가 (미구현)
+- **신청 관리 기능 강화:** (완료 - `admin/applyList.ftl`에서 신규 회원 승인/거절 기능 구현)
+- **세입자 관리 기능 강화:** (완료 - `tenant/tenantList.ftl`, `tenant/register.ftl`, `tenant/detail.ftl` 및 관련 컨트롤러/REST 컨트롤러 구현)
+  - `TenantController`에 세입자 목록 (`/admin/tenants`), 상세 조회 (`/admin/tenants/{id}`), 생성 (`/admin/tenants` POST), 수정 (`/admin/tenants/{id}` PUT), 삭제 (`/admin/tenants/{id}` DELETE) 기능 구현 완료.
+  - `TenantController`의 `convertToDto` 및 `convertToEntity` 메서드를 `EntityConverter`를 사용하도록 리팩토링 완료.
+- **사용자 권한 관리:**
+  - 사용자 역할(ADMIN, MEMBER 등)을 관리할 수 있는 화면 및 기능 (미구현)
+- **시스템 설정 관리:**
+  - 애플리케이션 전반의 설정을 관리할 수 있는 화면 및 기능 (미구현)
 
 ## 6. 공통 기능 및 개선
 

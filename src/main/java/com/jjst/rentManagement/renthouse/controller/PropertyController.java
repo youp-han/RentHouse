@@ -5,7 +5,9 @@ import com.jjst.rentManagement.renthouse.dto.UnitDto;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// ... (기존 import 문 유지)
+
 @Controller
 @RequestMapping("/property")
 public class PropertyController {
@@ -23,20 +27,60 @@ public class PropertyController {
     @Autowired
     private PropertyService propertyService;
 
+    @Value("${system.juso.search.api}")
+    private String jusoApiKey;
+
     //Register Property
-    @GetMapping("/property/register")
-    public String registerProperty(){
+    @GetMapping("/register")
+    public String registerProperty(Model model){
+        model.addAttribute("jusoApiKey", jusoApiKey);
         return "/property/register";
     }
 
+    @PostMapping("/save")
+    public String saveProperty(@ModelAttribute PropertyDto propertyDto) {
+        try {
+            Property property = new Property();
+            property.setName(propertyDto.getName());
+            property.setAddress(propertyDto.getAddress());
+            property.setType(com.jjst.rentManagement.renthouse.module.common.enums.PropertyType.valueOf(propertyDto.getType()));
+            property.setTotalFloors(Integer.valueOf(propertyDto.getTotalFloorsSelect()));
+            propertyService.saveProperty(property);
+            return "redirect:/property/propertyList";
+        } catch (Exception e) {
+            // Handle error, e.g., add error message to model and return to form
+            return "redirect:/property/register";
+        }
+    }
+
     //Register Units
-    @GetMapping("/property/unit/register")
+    @GetMapping("/unit/register")
     public String registerUnit(@RequestParam long propertyId, Model model){
         Property property = propertyService.getPropertyById(propertyId);
         model.addAttribute("property", property);
 
         return "/property/unit/register";
 
+    }
+
+    @PostMapping("/unit/save")
+    public String saveUnit(@ModelAttribute UnitDto unitDto, @RequestParam Long propertyId) {
+        try {
+            Property property = propertyService.getPropertyById(propertyId);
+            Unit unit = new Unit();
+            unit.setProperty(property);
+            unit.setUnitNumber(unitDto.getUnitNumber());
+            unit.setRentStatus(unitDto.isRentStatus());
+            unit.setSize_meter(unitDto.getSize_meter());
+            unit.setSize_korea(unitDto.getSize_korea());
+            unit.setUseType(unitDto.getUseType());
+            unit.setDescription(unitDto.getDescription());
+            propertyService.saveUnit(unit);
+            return "redirect:/property/detail/" + propertyId;
+        } catch (Exception e) {
+            // Handle error
+            return "redirect:/property/unit/register?propertyId=" + propertyId;
+        }
     }
 
     // Register Rooms
@@ -51,6 +95,35 @@ public class PropertyController {
         model.addAttribute("unitId", unitId);
         return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
     }
+
+    // GET, POST 둘 다 받도록
+    @RequestMapping(value = "/jusoPopup", method = {RequestMethod.GET, RequestMethod.POST})
+    public String jusoPopup(
+            @RequestParam(required = false) String inputYn,
+            @RequestParam Map<String,String> params,
+            Model model,
+            HttpServletRequest request
+    ) {
+        // 최초 호출인지 검사 (inputYn=Y 면 콜백)
+
+        boolean isCallback = "Y".equals(inputYn);
+
+        model.addAttribute("jusoApiKey", jusoApiKey);
+        model.addAttribute("inputYn",       isCallback ? "Y" : "N");
+
+        // API가 주소 검색 후 돌려줄 URL: jusoPopup 자체로, 반드시 inputYn=Y 쿼리 포함
+        //String callbackUrl = request.getRequestURL() + "?inputYn=Y";
+        String callbackUrl = String.valueOf(request.getRequestURL());
+        model.addAttribute("returnUrl", callbackUrl);
+
+        // 콜백일 때만 API 응답 파라미터를 모델에 담아 넘김
+        if (isCallback) {
+            params.forEach(model::addAttribute);
+        }
+
+        return "common/jusoPopup";
+    }
+
 
     @GetMapping("/propertyList")
     public String listProperties(Model model){

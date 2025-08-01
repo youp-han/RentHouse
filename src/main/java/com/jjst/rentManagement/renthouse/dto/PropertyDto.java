@@ -10,5 +10,6 @@ public class PropertyDto {
     private String registerdTo;
     private String type;
     private Integer totalFloors;
+    private String totalFloorsSelect;
 }
 

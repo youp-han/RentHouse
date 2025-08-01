@@ -31,39 +31,23 @@
                                         <ul>
                                             <#if property.units?size == 0>
                                                 <li>No units found.
-                                                    <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}"
+                                                    <a href="/property/unit/register?propertyId=${property.id?replace(',','')}"
                                                        class="alert-link">Register Unit</a></li>
                                             <#else>
                                                 <#list property.units as unit>
                                                     <li>
-                                                        <a href="javascript:void(0);" class="toggle-unit"
-                                                           data-unit-id="${unit.id}">Unit: ${unit.unitNumber!''}</a>
-                                                        <ul id="unitAttributes-${unit.id}" style="display: none;">
-                                                            <#assign unitAttributes = unit.unitAttributes>
-                                                            <#if unitAttributes?size == 0>
-                                                                <li>No rooms found.
-                                                                    <a href="/property/unit/unitAttribute/register?unitId=${unit.id?replace(',', '')}"
-                                                                       class="alert-link">Register Room</a></li>
-                                                            <#else>
-                                                                <#list unitAttributes as unitAttribute>
-                                                                    <li>Room: ${unitAttribute.featureKey},
-                                                                        Value: ${unitAttribute.featureValue}</li>
-                                                                </#list>
-                                                            </#if>
-                                                        </ul>
+                                                        Unit: ${unit.unitNumber!''}
+                                                        <#if unit.description?? && unit.description?has_content>
+                                                            (Description: ${unit.description!})
+                                                        </#if>
                                                     </li>
                                                 </#list>
                                             </#if>
                                         </ul>
                                     </td>
                                     <td>
-<#--                                        <a href="/property/unit/register?propertyId=${property.id?replace(',', '')}"-->
-<#--                                           class="btn btn-primary btn-sm">Register Unit</a>-->
                                         <a href="javascript:void(0);" class="btn btn-primary btn-sm register-unit-btn"
                                            data-property-id="${property.id}" data-property-address="${property.address}">Register Unit</a>
-
-                                        <a href="/admin/unitInfo?propertyId=${property.id?replace(',', '')}"
-                                           class="btn btn-info btn-sm">Unit Information (rooms)</a>
                                     </td>
                                 </tr>
                             </#list>
@@ -104,12 +88,6 @@
     <script>
         $(document).ready(function() {
             $('#propertyTable').DataTable();
-
-            $('.toggle-unit').on('click', function() {
-                var unitId = $(this).data('unit-id');
-                console.log('Toggling attributes for unit:', unitId); // Debugging line
-                $('#unitAttributes-' + unitId).toggle();
-            });
 
             // Register Unit 버튼 클릭 이벤트
             $('.register-unit-btn').on('click', function () {
