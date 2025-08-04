@@ -1,0 +1,181 @@
+### 1) 전체 유닛 조회
+GET http://localhost:8085/api/units
+Accept: application/json
+
+### 2) 새 유닛 등록
+POST http://localhost:8085/api/units
+Content-Type: application/json
+
+[
+    {
+      "propertyId": 1,
+      "unitNumber": "101호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "102호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "103호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "104호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "105호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "106호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "201호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "202호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "203호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "204호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "205호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "206호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "301호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "302호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "303호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "304호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "305호",
+      "rentStatus": false,
+      "size_meter": 66.12,
+      "size_korea": 20,
+      "useType": "주거용",
+      "description": "방 2개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "501호",
+      "rentStatus": false,
+      "size_meter": 29.75,
+      "size_korea": 9,
+      "useType": "주거용",
+      "description": "방 1개, 화장실 1개, 부엌 1개"
+    },
+    {
+      "propertyId": 1,
+      "unitNumber": "502호",
+      "rentStatus": false,
+      "size_meter": 119,
+      "size_korea": 36,
+      "useType": "주거용",
+      "description": "방 2개, 화장실 3개, 부엌 1개"
+    }
+  ]

@@ -11,4 +11,5 @@ public class UnitDto {
     private Double size_korea;
     private String useType;
     private String description;
+    private Long propertyId;
 }
