@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface LeaseService {
 
-    void registerLease(Lease tenancy, Member member, Unit unit) throws Exception;
-    List<LeaseDto> getAllLeaseDtos();
+    Lease registerLease(LeaseDto leaseDto) throws Exception;
+    List<Lease> getAllLeases();
 }

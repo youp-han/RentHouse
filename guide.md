@@ -49,7 +49,7 @@
     *   `TenantController`는 또한 세입자 상세 정보 조회(`GET /admin/tenants/{id}`), 생성(`POST /admin/tenants`), 수정(`PUT /admin/tenants/{id}`), 삭제(`DELETE /admin/tenants/{id}`)를 위한 RESTful API 엔드포인트를 제공합니다.
     *   `EntityConverter`를 사용하여 `Tenant` 엔티티와 `TenantDto` 간의 데이터 변환을 처리하여 코드의 재사용성과 유지보수성을 높였습니다.
 *   **프론트엔드 (FreeMarker, HTML, CSS, JavaScript):**
-    *   `admin/tenantsList.ftl` 템플릿은 `common/layout.ftl`을 포함하여 전체적인 레이아웃을 구성합니다.
+    *   `tenant/tenantsList.ftl` 템플릿은 `common/layout.ftl`을 포함하여 전체적인 레이아웃을 구성합니다.
     *   테이블은 FreeMarker의 반복문(`list`)을 사용하여 `tenants` 모델 데이터를 기반으로 동적으로 생성됩니다.
     *   JavaScript (jQuery 및 Fetch API)를 사용하여 세입자 상세 정보 모달을 제어하고, 모달 내에서 세입자 정보를 조회하거나 수정할 때 백엔드 API와 비동기적으로 통신합니다.
 
@@ -83,11 +83,11 @@
 
 *   **백엔드 (Java Spring Boot):**
     *   `MemberController`의 `getAllMembers()` 메서드가 모든 회원 목록을 조회하여 `admin/memberList.ftl` 템플릿으로 전달합니다.
-    *   `AdminRestController`는 회원 관리를 위한 RESTful API 엔드포인트를 제공합니다.
-        *   `GET /admin/member/{id}`: 회원 상세 정보 조회
-        *   `PUT /admin/member/{id}`: 회원 정보 업데이트
-        *   `POST /admin/member/reject/{id}`: 회원 삭제 (논리적 삭제)
-        *   `POST /admin/member/reset-password/{id}`: 비밀번호 초기화
+    *   `MemberController`는 회원 관리를 위한 RESTful API 엔드포인트를 제공합니다.
+        *   `GET /member/{id}`: 회원 상세 정보 조회
+        *   `PUT /member/{id}`: 회원 정보 업데이트
+        *   `POST /member/reject/{id}`: 회원 삭제 (논리적 삭제)
+        *   `POST /member/reset-password/{id}`: 비밀번호 초기화
 *   **프론트엔드 (FreeMarker, HTML, CSS, JavaScript):**
     *   `admin/memberList.ftl` 템플릿은 `common/layout.ftl`을 사용하여 공통 레이아웃을 구성합니다.
     *   FreeMarker의 `<#list>`를 사용하여 `members` 모델 데이터를 기반으로 테이블을 동적으로 생성합니다.

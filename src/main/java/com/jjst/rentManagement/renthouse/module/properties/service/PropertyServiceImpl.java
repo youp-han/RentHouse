@@ -1,10 +1,13 @@
 package com.jjst.rentManagement.renthouse.module.properties.service;
 
+import com.jjst.rentManagement.renthouse.dto.PropertyDto;
+import com.jjst.rentManagement.renthouse.dto.UnitDto;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.module.properties.repository.PropertyRepository;
 import com.jjst.rentManagement.renthouse.module.properties.repository.UnitRepository;
+import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,9 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     private UnitRepository unitRepository;
+
+    @Autowired
+    private EntityConverter entityConverter;
 
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
@@ -44,6 +50,16 @@ public class PropertyServiceImpl implements PropertyService {
             throw new Exception(e.getMessage());
         }
 
+    }
+
+    public Property saveProperty(PropertyDto propertyDto) {
+        Property property = entityConverter.convertToEntity(propertyDto, Property.class);
+        return propertyRepository.save(property);
+    }
+
+    public Unit saveUnit(UnitDto unitDto) {
+        Unit unit = entityConverter.convertToEntity(unitDto, Unit.class);
+        return unitRepository.save(unit);
     }
 
     public void saveUnit(Unit unit) throws Exception{
@@ -105,6 +121,11 @@ public class PropertyServiceImpl implements PropertyService {
             throw new RuntimeException("Unit not found for id: " + id);
         }
         unitRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Unit> getAllUnits() {
+        return unitRepository.findAll();
     }
 
 }

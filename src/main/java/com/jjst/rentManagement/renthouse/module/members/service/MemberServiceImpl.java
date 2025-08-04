@@ -24,6 +24,9 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private EntityConverter entityConverter;
+
     //Get
     @Override
     public List<Member> getAll(){ return memberRepository.findAll(); }
@@ -71,9 +74,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void save(Member member) throws Exception {
+    public Member save(Member member) throws Exception {
         try{
-            memberRepository.save(member);
+            return memberRepository.save(member);
         }catch(Exception e){
             throw new RuntimeException("Error saving member", e);
         }
@@ -175,8 +178,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private void registerUser(MemberDto memberDto) throws Exception {
-        EntityConverter converter = new EntityConverter();
-        Member member = converter.convertToEntity(memberDto, Member.class);
+        Member member = entityConverter.convertToEntity(memberDto, Member.class);
         registerMember(member, member.getPassword());
     }
 }

@@ -3,6 +3,7 @@ package com.jjst.rentManagement.renthouse.module.tenants.service;
 import com.jjst.rentManagement.renthouse.module.tenants.entity.Tenant;
 import com.jjst.rentManagement.renthouse.module.tenants.repository.TenantRepository;
 import com.jjst.rentManagement.renthouse.service.TenantService;
+import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ public class TenantServiceImpl implements TenantService {
 
     @Autowired
     private TenantRepository tenantRepository;
+
+    @Autowired
+    private EntityConverter entityConverter;
 
     @Override
     public List<Tenant> getAllTenants() {

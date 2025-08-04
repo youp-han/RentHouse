@@ -1,13 +1,13 @@
 package com.jjst.rentManagement.renthouse.module.leases.service;
 
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
-import com.jjst.rentManagement.renthouse.module.members.entity.Member;
+import com.jjst.rentManagement.renthouse.module.tenants.entity.Tenant;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
+import com.jjst.rentManagement.renthouse.service.TenantService;
 import com.jjst.rentManagement.renthouse.util.EntityConverter;
-import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,27 +26,37 @@ public class LeaseServiceImpl implements LeaseService {
     private PropertyService propertyService;
 
     @Autowired
-    private MemberService memberService;
+    private TenantService tenantService;
+
+    @Autowired
+    private EntityConverter entityConverter;
 
     @Override
-    public List<LeaseDto> getAllLeaseDtos(){
-
-        List<Lease> leases= leaseRepository.findAll();
-        List<LeaseDto> leaseDtos = new ArrayList<>();
-        EntityConverter converter = new EntityConverter();
-
-        for(Lease lease: leases){
-            leaseDtos.add(converter.convertToDto(lease, LeaseDto.class));
-        }
-        return leaseDtos;
-
+    public List<Lease> getAllLeases(){
+        return leaseRepository.findAll();
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    public void registerLease(Lease lease, Member member, Unit unit) throws Exception {
-        propertyService.saveUnit(unit);
-        memberService.save(member);
-        save(lease);
+    @Transactional
+    @Override
+    public Lease registerLease(LeaseDto leaseDto) throws Exception {
+        Tenant tenant = tenantService.getTenantById(leaseDto.getTenantId());
+        Unit unit = propertyService.getUnitById(leaseDto.getUnitId());
+
+        if (tenant == null || unit == null) {
+            throw new Exception("Tenant or Unit not found");
+        }
+
+        Lease lease = new Lease();
+        lease.setTenant(tenant);
+        lease.setUnit(unit);
+        lease.setStartDate(leaseDto.getStartDate());
+        lease.setEndDate(leaseDto.getEndDate());
+        lease.setDeposit(leaseDto.getDeposit());
+        lease.setMonthlyRent(leaseDto.getMonthlyRent());
+        lease.setContractNotes(leaseDto.getContractNotes());
+        lease.setLeaseStatus(leaseDto.getLeaseType());
+
+        return leaseRepository.save(lease);
     }
 
     void save (Lease lease) throws Exception{

@@ -31,7 +31,12 @@ public class TenantController {
                 .map(tenant -> entityConverter.convertToDto(tenant, TenantDto.class))
                 .collect(Collectors.toList());
         model.addAttribute("tenants", tenantDtos);
-        return "admin/tenantsList";
+        return "tenant/tenantsList";
+    }
+
+    @GetMapping("/register")
+    public String registerTenantForm() {
+        return "tenant/register";
     }
 
     @GetMapping("/{id}")

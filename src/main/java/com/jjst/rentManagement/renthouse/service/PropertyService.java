@@ -17,5 +17,9 @@ public interface PropertyService {
     void updateUnit(Unit unit) throws Exception;
     void deleteUnit(Long id) throws Exception;
     List<Unit> getUnitsByPropertyId(long propertyId);
+    List<Unit> getAllUnits();
 
+    Property saveProperty(com.jjst.rentManagement.renthouse.dto.PropertyDto propertyDto);
+
+    Unit saveUnit(com.jjst.rentManagement.renthouse.dto.UnitDto unitDto);
 }

@@ -24,72 +24,55 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Admin
+        MANAGEMENT
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
            aria-expanded="true" aria-controls="collapseOne">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Management</span>
+            <i class="fas fa-fw fa-building"></i>
+            <span>SITE</span>
         </a>
         <div id="collapseOne" class="collapse" aria-labelledby="headingone" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="/admin/home">Admin Home</a>
-                <a class="collapse-item" href="/tenants">Tenants</a>
-                <a class="collapse-item" href="/member/members">All Members</a>
+                <h6 class="collapse-header">Management Menu:</h6>
+                <a class="collapse-item" href="/admin/home">Dashboard</a>
+                <a class="collapse-item" href="/member/members">Member</a>
+                <a class="collapse-item" href="/tenants">Tenant</a>
+                <a class="collapse-item" href="/leases">Lease</a>
+                <a class="collapse-item" href="/property/propertyList">Property</a>
             </div>
         </div>
     </li>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-           aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Properties</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingone" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">menu:</h6>
-                <a class="collapse-item" href="/property/propertyList">Properties</a>
-            </div>
-        </div>
-    </li>
-
-
     </#if>
 
     <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
-
-
-
+    <hr class="sidebar-divider">
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        USER
+        My Page
     </div>
+
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
            aria-expanded="true" aria-controls="collapseThree">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>user menu</span>
+            <i class="fas fa-fw fa-user"></i>
+            <span>My Page</span>
         </a>
         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">menu:</h6>
+                <h6 class="collapse-header">User Menu:</h6>
                 <#if role??>
                     <a class="collapse-item" href="/member/profile">Profile</a>
                     <a class="collapse-item" href="/member/settings">Settings</a>
                     <a class="collapse-item" href="/logout">Log out</a>
                 <#else >
                     <a class="collapse-item" href="/login">Log In</a>
-                    <a class="collapse-item" href="/member/join">가입하기</a>
+                    <a class="collapse-item" href="/member/join">Join</a>
                 </#if>
             </div>
         </div>

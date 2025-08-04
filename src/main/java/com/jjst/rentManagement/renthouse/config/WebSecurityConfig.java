@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                 .csrf().disable() // Disable CSRF protection for simplicity (not recommended for production).
                 .authorizeHttpRequests((requests) -> requests
                         // Define public paths that do not require authentication.
-                        .requestMatchers("/", "/login/**", "/error**", "/member/**", "/sample").permitAll()
+                        .requestMatchers("/", "/login/**", "/error**", "/member/**", "/tenants/**", "/leases/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Restrict admin paths to ADMIN role.
 
                         // Allow access to static resources.

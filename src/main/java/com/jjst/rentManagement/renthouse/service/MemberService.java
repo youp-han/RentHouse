@@ -18,7 +18,7 @@ public interface MemberService {
     //post
     void registerMember(Member member, String rawPassword) throws Exception;
     Member getById(long id);
-    void save(Member member) throws Exception;
+    Member save(Member member) throws Exception;
     void updateMember(Member member) throws Exception;
     void changePassword(Member member, String newPassword) throws Exception;
     void deleteMember(Member member) throws Exception;

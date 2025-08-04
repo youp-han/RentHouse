@@ -62,7 +62,7 @@ public class MemberController {
 
         model.addAttribute("newMembers", memberList);
         model.addAttribute("propertyList", propertyDtoList);
-        return "/admin/applyList";
+        return "/lease/applyList";
     }
 
     @GetMapping("/members")
@@ -72,7 +72,7 @@ public class MemberController {
                 .map(member -> entityConverter.convertToDto(member, MemberDto.class))
                 .collect(Collectors.toList());
         model.addAttribute("members", memberDtos);
-        return "admin/memberList";
+        return "member/memberList";
     }
 
     @PostMapping("/authenticate")
