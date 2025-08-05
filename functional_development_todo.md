@@ -102,6 +102,13 @@
 - **코드 정리:** (완료)
     - 사용하지 않는 `.ftl` 파일(`common/layout-sample.ftl`, `sample.ftl`, `tenant/detail.ftl`, `tenant/register.ftl`, `tenant/tenantList.ftl`)을 삭제하여 프로젝트 구조를 정리했습니다.
 
+## 7. API 개발
+
+### 개발 할 일:
+- **데이터 일괄 등록 API:** (완료)
+    - 여러 개의 부동산, 유닛, 회원, 임차인 정보를 한 번의 요청으로 생성할 수 있는 API 엔드포인트를 추가했습니다. (`/api/properties`, `/api/units`, `/api/members`, `/api/tenants`)
+    - `api-data.http` 파일에 새로운 API를 테스트할 수 있는 샘플 요청을 추가했습니다.
+
 ## 출시 전 우선순위:
 - **보안 강화:**
     - CSRF 보호 활성화 (미확인)
