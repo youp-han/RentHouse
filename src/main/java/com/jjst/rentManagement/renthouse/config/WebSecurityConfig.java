@@ -5,6 +5,7 @@ import com.jjst.rentManagement.renthouse.handler.CustomAuthenticationFailureHand
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -55,7 +56,7 @@ public class WebSecurityConfig {
                         // Define public paths that do not require authentication.
                         .requestMatchers("/", "/login/**", "/error**", "/member/**", "/tenants/**", "/leases/**").permitAll()
                         //.requestMatchers("/admin/**").hasRole("ADMIN")  // Restrict admin paths to ADMIN role.
-
+                        .requestMatchers("/api/**").permitAll()
                         // Allow access to static resources.
                         .requestMatchers(
                                 "/img/**",
@@ -68,6 +69,10 @@ public class WebSecurityConfig {
                         // All other requests require authentication.
                         .anyRequest().authenticated()
                 )
+
+                // ★ API는 HTTP Basic 인증을 사용하도록 추가
+                .httpBasic(Customizer.withDefaults())
+
                 // Configure OAuth2 login settings.
                 .oauth2Login((oauth2) -> oauth2
                         .loginPage("/login") // Custom login page.

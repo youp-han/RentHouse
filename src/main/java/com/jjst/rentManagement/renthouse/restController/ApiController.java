@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class ApiController {
@@ -36,7 +39,7 @@ public class ApiController {
     @Autowired
     private EntityConverter entityConverter;
 
-    @PostMapping("/properties")
+    @PostMapping("/property")
     public ResponseEntity<PropertyDto> createProperty(@RequestBody PropertyDto propertyDto) {
         try {
             Property property = propertyService.saveProperty(propertyDto);
@@ -46,7 +49,7 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/units")
+    @PostMapping("/unit")
     public ResponseEntity<UnitDto> createUnit(@RequestBody UnitDto unitDto) {
         try {
             Unit unit = propertyService.saveUnit(unitDto);
@@ -55,8 +58,24 @@ public class ApiController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+    @PostMapping("/units")
+    public ResponseEntity<List<UnitDto>> createUnits(@RequestBody List<UnitDto> dtos) {       // List로 변경
+        List<UnitDto> saved = new ArrayList<>();
+        try{
+            for (UnitDto dto : dtos) {
+                // 하나씩 저장
+                Unit unit = propertyService.saveUnit(dto);
+                saved.add(entityConverter.convertToDto(unit, UnitDto.class));
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
 
-    @PostMapping("/members")
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+    @PostMapping("/member")
     public ResponseEntity<MemberDto> createMember(@RequestBody MemberDto memberDto) {
         try {
             Member member = memberService.save(entityConverter.convertToEntity(memberDto, Member.class));
@@ -66,11 +85,39 @@ public class ApiController {
         }
     }
 
-    @PostMapping("/tenants")
+    @PostMapping("/members")
+    public ResponseEntity<List<MemberDto>> createMembers(@RequestBody List<MemberDto> memberDtos) {
+        List<MemberDto> saved = new ArrayList<>();
+        try {
+            for (MemberDto dto : memberDtos){
+                Member member = memberService.save(entityConverter.convertToEntity(dto, Member.class));
+                saved.add(dto);
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/tenant")
     public ResponseEntity<TenantDto> createTenant(@RequestBody TenantDto tenantDto) {
         try {
             Tenant tenant = tenantService.saveTenant(entityConverter.convertToEntity(tenantDto, Tenant.class));
             return ResponseEntity.status(HttpStatus.CREATED).body(entityConverter.convertToDto(tenant, TenantDto.class));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/tenants")
+    public ResponseEntity<List<TenantDto>> createTenants(@RequestBody List<TenantDto> tenantDtos) {
+        List<TenantDto> saved = new ArrayList<>();
+        try {
+            for (TenantDto dto : tenantDtos){
+                Tenant tenantDto = tenantService.saveTenant(entityConverter.convertToEntity(dto, Tenant.class));
+                saved.add(dto);
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(saved);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

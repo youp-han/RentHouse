@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class UnitDto {
-    private long id;
+    private Long id;
     private String unitNumber;
     private boolean rentStatus;
     private Double size_meter;

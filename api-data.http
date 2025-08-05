@@ -1,13 +1,29 @@
-### 1) 전체 유닛 조회
+### 1) 새 프로퍼티 등록
+POST http://localhost:8085/api/property
+Content-Type: application/json
+
+  {
+    "name": "논현동16-35",
+    "address": "서울특별시 강남구 도산대로4길 19 (논현동)",
+    "zipCode": "06038",
+    "roadAddress": "서울특별시 강남구 도산대로4길 19 (논현동)",
+    "type": "WKUp_VILLA",
+    "totalFloors": 4,
+    "totalUnits": 19
+  }
+
+
+
+### 2) 전체 유닛 조회
 GET http://localhost:8085/api/units
 Accept: application/json
 
-### 2) 새 유닛 등록
+
+### 3) 새 유닛 등록
 POST http://localhost:8085/api/units
 Content-Type: application/json
 
-[
-    {
+    [{
       "propertyId": 1,
       "unitNumber": "101호",
       "rentStatus": false,
@@ -177,5 +193,147 @@ Content-Type: application/json
       "size_korea": 36,
       "useType": "주거용",
       "description": "방 2개, 화장실 3개, 부엌 1개"
-    }
-  ]
+    }]
+  
+
+
+
+### 3) 새 테넌트 19명 일괄 등록
+POST http://localhost:8085/api/tenants
+Content-Type: application/json
+
+[
+  {
+    "name": "홍길동",
+    "phone": "010-0000-0001",
+    "email": "hong.gildong@example.com",
+    "socialNo": "900101-1234567",
+    "currentAddress": ""
+  },
+  {
+    "name": "김민수",
+    "phone": "010-0000-0002",
+    "email": "kim.minsu@example.com",
+    "socialNo": "900202-2345678",
+    "currentAddress": ""
+  },
+  {
+    "name": "이영희",
+    "phone": "010-0000-0003",
+    "email": "lee.younghee@example.com",
+    "socialNo": "900303-3456789",
+    "currentAddress": ""
+  },
+  {
+    "name": "박철수",
+    "phone": "010-0000-0004",
+    "email": "park.cheolsu@example.com",
+    "socialNo": "900404-4567890",
+    "currentAddress": ""
+  },
+  {
+    "name": "최수진",
+    "phone": "010-0000-0005",
+    "email": "choi.sujin@example.com",
+    "socialNo": "900505-5678901",
+    "currentAddress": ""
+  },
+  {
+    "name": "윤정환",
+    "phone": "010-0000-0006",
+    "email": "yoon.jeonghwan@example.com",
+    "socialNo": "900606-6789012",
+    "currentAddress": ""
+  },
+  {
+    "name": "장미영",
+    "phone": "010-0000-0007",
+    "email": "jang.miyoung@example.com",
+    "socialNo": "900707-7890123",
+    "currentAddress": ""
+  },
+  {
+    "name": "한지훈",
+    "phone": "010-0000-0008",
+    "email": "han.jihoon@example.com",
+    "socialNo": "900808-8901234",
+    "currentAddress": ""
+  },
+  {
+    "name": "신다은",
+    "phone": "010-0000-0009",
+    "email": "shin.daeun@example.com",
+    "socialNo": "900909-9012345",
+    "currentAddress": ""
+  },
+  {
+    "name": "오민재",
+    "phone": "010-0000-0010",
+    "email": "oh.minjae@example.com",
+    "socialNo": "901010-0123456",
+    "currentAddress": ""
+  },
+  {
+    "name": "서은지",
+    "phone": "010-0000-0011",
+    "email": "seo.eunji@example.com",
+    "socialNo": "901111-1234567",
+    "currentAddress": ""
+  },
+  {
+    "name": "권혁재",
+    "phone": "010-0000-0012",
+    "email": "kwon.hyukjae@example.com",
+    "socialNo": "901212-2345678",
+    "currentAddress": ""
+  },
+  {
+    "name": "배수정",
+    "phone": "010-0000-0013",
+    "email": "bae.sujeong@example.com",
+    "socialNo": "901313-3456789",
+    "currentAddress": ""
+  },
+  {
+    "name": "전우치",
+    "phone": "010-0000-0014",
+    "email": "jeon.woochi@example.com",
+    "socialNo": "901414-4567890",
+    "currentAddress": ""
+  },
+  {
+    "name": "백지현",
+    "phone": "010-0000-0015",
+    "email": "baek.jihyun@example.com",
+    "socialNo": "901515-5678901",
+    "currentAddress": ""
+  },
+  {
+    "name": "임도현",
+    "phone": "010-0000-0016",
+    "email": "lim.dohyun@example.com",
+    "socialNo": "901616-6789012",
+    "currentAddress": ""
+  },
+  {
+    "name": "구하늘",
+    "phone": "010-0000-0017",
+    "email": "koo.haneul@example.com",
+    "socialNo": "901717-7890123",
+    "currentAddress": ""
+  },
+  {
+    "name": "손민호",
+    "phone": "010-0000-0018",
+    "email": "son.minho@example.com",
+    "socialNo": "901818-8901234",
+    "currentAddress": ""
+  },
+  {
+    "name": "조혜진",
+    "phone": "010-0000-0019",
+    "email": "cho.hyejin@example.com",
+    "socialNo": "901919-9012345",
+    "currentAddress": ""
+  }
+]
