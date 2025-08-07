@@ -32,9 +32,9 @@ public class Lease extends BaseEntity {
     private String contractNotes;
 
     @Enumerated(EnumType.STRING)
-    public LeaseType LeaseStatus;
+    public LeaseType leaseType;
 
     @Enumerated(EnumType.STRING)
-    private LeaseStatus status;         // ACTIVE, TERMINATED, EXPIRED
+    private LeaseStatus leaseStatus;         // ACTIVE, TERMINATED, EXPIRED
 
 }

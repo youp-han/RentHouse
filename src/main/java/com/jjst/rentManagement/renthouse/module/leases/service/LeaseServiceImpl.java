@@ -9,6 +9,7 @@ import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.TenantService;
 import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
+import com.jjst.rentManagement.renthouse.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,12 +50,13 @@ public class LeaseServiceImpl implements LeaseService {
         Lease lease = new Lease();
         lease.setTenant(tenant);
         lease.setUnit(unit);
-        lease.setStartDate(leaseDto.getStartDate());
-        lease.setEndDate(leaseDto.getEndDate());
+        lease.setStartDate(Utility.formatStringToLocalDate(leaseDto.getStartDate()));
+        lease.setEndDate(Utility.formatStringToLocalDate(leaseDto.getEndDate()));
         lease.setDeposit(leaseDto.getDeposit());
         lease.setMonthlyRent(leaseDto.getMonthlyRent());
         lease.setContractNotes(leaseDto.getContractNotes());
-        lease.setLeaseStatus(leaseDto.getLeaseType());
+        lease.setLeaseType(leaseDto.getLeaseType());
+        lease.setLeaseStatus(com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus.PENDING);
 
         return leaseRepository.save(lease);
     }

@@ -33,10 +33,10 @@
                                 <td>${lease.id!}</td>
                                 <td>${lease.tenant.name!}</td>
                                 <td>${lease.unit.property.name} - ${lease.unit.unitNumber}</td>
-                                <td>${lease.startDate?string("yyyy-MM-dd")}</td>
-                                <td>${lease.endDate?string("yyyy-MM-dd")}</td>
+                                <td>${lease.startDate}</td>
+                                <td>${lease.endDate}</td>
+                                <td>${lease.leaseType.name()}</td>
                                 <td>${lease.leaseStatus.name()}</td>
-                                <td>${lease.status.name()}</td>
                                 <td>
                                     <a href="/leases/${lease.id}" class="btn btn-info btn-sm">상세</a>
                                 </td>

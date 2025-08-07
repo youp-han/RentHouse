@@ -82,12 +82,13 @@
             unitSelect.empty().append('<option value="">불러오는 중...</option>');
 
             if (propertyId) {
-                fetch(`/leases/units/`+ propertyId)
+                    fetch(`/property/getUnitList/`+ propertyId)
                     .then(response => response.json())
                     .then(units => {
                         unitSelect.empty().append('<option value="">임대 유닛을 선택하세요</option>');
-                        units.forEach(unit => {
-                            unitSelect.append(`<option value="${unit.id}">${unit.unitNumber}</option>`);
+                        units.forEach(function(unit) {
+                            var option = $('<option></option>').val(unit.id).text(unit.unitNumber);
+                            unitSelect.append(option);
                         });
                     })
                     .catch(error => {

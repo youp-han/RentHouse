@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -52,11 +53,7 @@ public class LeaseController {
         return "lease/register";
     }
 
-    @GetMapping("/units/{propertyId}")
-    @ResponseBody
-    public List<Unit> getUnitsByProperty(@PathVariable Long propertyId) {
-        return propertyService.getUnitsByPropertyId(propertyId);
-    }
+    
 
     @PostMapping
     @ResponseBody

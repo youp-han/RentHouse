@@ -44,26 +44,7 @@ public class MemberController {
     @Autowired
     private EntityConverter entityConverter;
 
-    @GetMapping("/newMembers")
-    public String applyList(Model model){
-
-        List<Member> memberList = memberService.getNewMemberByNewUserTrue();
-        List<Property> propertyList= propertyService.getAllProperties();
-
-        List<PropertyDto> propertyDtoList = new ArrayList<>();
-
-        for (Property item : propertyList){
-            PropertyDto propertyDto = new PropertyDto();
-            propertyDto.setPropertyId(item.getId());
-            propertyDto.setAddress(item.getAddress());
-            propertyDto.setName(item.getName());
-            propertyDtoList.add(propertyDto);
-        }
-
-        model.addAttribute("newMembers", memberList);
-        model.addAttribute("propertyList", propertyDtoList);
-        return "/lease/applyList";
-    }
+    
 
     @GetMapping("/members")
     public String getAllMembers(Model model) {
