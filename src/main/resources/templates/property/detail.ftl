@@ -183,12 +183,13 @@ $(document).ready(function() {
     // Save or Update Unit
     $('#saveUnitBtn').on('click', function() {
         var unitId = $('#unitId').val();
+        console.log("unitid=" + unitId);
         var method = unitId ? 'PUT' : 'POST';
-        var url = unitId ? `/property/units/` + unitId : '/property/unit/save';
+        var url=unitId ? `/property/unit/`+unitId : '/property/unit/save';
 
         var formData = {
             id: unitId,
-            propertyId: $('#propertyIdForUnit').val(),
+            propertyId: $('#propertyId').val(),
             unitNumber: $('#unitNumber').val(),
             rentStatus: $('#rentStatus').val() === 'true',
             size_meter: $('#size_meter').val(),
@@ -261,7 +262,7 @@ $(document).ready(function() {
 
     // Delete Property
     $('#deletePropertyBtn').on('click', function() {
-        var propertyId = $(this).data('property-id');
+        var propertyId = $('#propertyId').val();
         if (confirm('이 부동산을 삭제하시겠습니까?')) {
             fetch(`/property/properties/`+ propertyId, {
                 method: 'DELETE'

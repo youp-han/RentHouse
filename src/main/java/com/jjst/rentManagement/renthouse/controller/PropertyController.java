@@ -68,58 +68,6 @@ public class PropertyController {
         }
     }
 
-    
-
-    @PostMapping("/unit/save")
-    public String saveUnit(@ModelAttribute UnitDto unitDto, @RequestParam Long propertyId) {
-        try {
-            Property property = propertyService.getPropertyById(propertyId);
-            Unit unit = new Unit();
-            unit.setProperty(property);
-            unit.setUnitNumber(unitDto.getUnitNumber());
-            unit.setRentStatus(unitDto.isRentStatus());
-            unit.setSize_meter(unitDto.getSize_meter());
-            unit.setSize_korea(unitDto.getSize_korea());
-            unit.setUseType(unitDto.getUseType());
-            unit.setDescription(unitDto.getDescription());
-            propertyService.saveUnit(unit);
-            return "redirect:/property/detail/" + propertyId;
-        } catch (Exception e) {
-            // Handle error
-            return "redirect:/property/unit/register?propertyId=" + propertyId;
-        }
-    }
-
-    
-
-    // GET, POST 둘 다 받도록
-    @RequestMapping(value = "/jusoPopup", method = {RequestMethod.GET, RequestMethod.POST})
-    public String jusoPopup(
-            @RequestParam(required = false) String inputYn,
-            @RequestParam Map<String,String> params,
-            Model model,
-            HttpServletRequest request
-    ) {
-        // 최초 호출인지 검사 (inputYn=Y 면 콜백)
-
-        boolean isCallback = "Y".equals(inputYn);
-
-        model.addAttribute("jusoApiKey", jusoApiKey);
-        model.addAttribute("inputYn",       isCallback ? "Y" : "N");
-
-        // API가 주소 검색 후 돌려줄 URL: jusoPopup 자체로, 반드시 inputYn=Y 쿼리 포함
-        //String callbackUrl = request.getRequestURL() + "?inputYn=Y";
-        String callbackUrl = String.valueOf(request.getRequestURL());
-        model.addAttribute("returnUrl", callbackUrl);
-
-        // 콜백일 때만 API 응답 파라미터를 모델에 담아 넘김
-        if (isCallback) {
-            params.forEach(model::addAttribute);
-        }
-
-        return "common/jusoPopup";
-    }
-
 
     @GetMapping("/propertyList")
     public String listProperties(Model model){
@@ -129,7 +77,7 @@ public class PropertyController {
         return "/property/propertyList";
     }
 
-    @GetMapping("/property/detail/{id}")
+    @GetMapping("/detail/{id}")
     public String propertyDetail(@PathVariable Long id, Model model) {
         Property property = propertyService.getPropertyById(id);
         if (property != null) {
@@ -140,23 +88,7 @@ public class PropertyController {
         }
     }
 
-    @GetMapping("/property/unit/detail/{id}")
-    public String unitDetail(@PathVariable Long id, Model model) {
-        Unit unit = propertyService.getUnitById(id);
-        if (unit != null) {
-            model.addAttribute("unit", unit);
-            return "property/unit/detail";
-        } else {
-            return "redirect:/property/propertyList"; // Or handle error
-        }
-    }
 
-    @GetMapping("/units/{id}")
-    @ResponseBody
-    public Unit getUnit(@PathVariable Long id) {
-
-        return propertyService.getUnitById(id);
-    }
 
     // Update Property
     @PutMapping("/properties/{id}")
@@ -204,8 +136,76 @@ public class PropertyController {
         }
     }
 
+    // 주소 팝업
+    // GET, POST 둘 다 받도록
+    @RequestMapping(value = "/jusoPopup", method = {RequestMethod.GET, RequestMethod.POST})
+    public String jusoPopup(
+            @RequestParam(required = false) String inputYn,
+            @RequestParam Map<String,String> params,
+            Model model,
+            HttpServletRequest request
+    ) {
+        // 최초 호출인지 검사 (inputYn=Y 면 콜백)
+
+        boolean isCallback = "Y".equals(inputYn);
+
+        model.addAttribute("jusoApiKey", jusoApiKey);
+        model.addAttribute("inputYn",       isCallback ? "Y" : "N");
+
+        // API가 주소 검색 후 돌려줄 URL: jusoPopup 자체로, 반드시 inputYn=Y 쿼리 포함
+        //String callbackUrl = request.getRequestURL() + "?inputYn=Y";
+        String callbackUrl = String.valueOf(request.getRequestURL());
+        model.addAttribute("returnUrl", callbackUrl);
+
+        // 콜백일 때만 API 응답 파라미터를 모델에 담아 넘김
+        if (isCallback) {
+            params.forEach(model::addAttribute);
+        }
+
+        return "common/jusoPopup";
+    }
+
+
+//    @GetMapping("/property/unit/detail/{id}")
+//    public String unitDetail(@PathVariable Long id, Model model) {
+//        Unit unit = propertyService.getUnitById(id);
+//        if (unit != null) {
+//            model.addAttribute("unit", unit);
+//            return "property/unit/detail";
+//        } else {
+//            return "redirect:/property/propertyList"; // Or handle error
+//        }
+//    }
+
+    //get an unit data
+    @GetMapping("/units/{id}")
+    @ResponseBody
+    public Unit getUnit(@PathVariable Long id) {
+        return propertyService.getUnitById(id);
+    }
+
+    //save unit
+    @PostMapping("/unit/save")
+    public String saveUnit(@RequestBody UnitDto unitDto) {
+        try {
+            Property property = propertyService.getPropertyById(unitDto.getPropertyId());
+            Unit unit = new Unit();
+            unit.setProperty(property);
+            unit.setUnitNumber(unitDto.getUnitNumber());
+            unit.setRentStatus(unitDto.isRentStatus());
+            unit.setSize_meter(unitDto.getSize_meter());
+            unit.setSize_korea(unitDto.getSize_korea());
+            unit.setUseType(unitDto.getUseType());
+            unit.setDescription(unitDto.getDescription());
+            propertyService.saveUnit(unit);
+            return "redirect:/property/detail/" + unitDto.getPropertyId();
+        } catch (Exception e) {
+            // Handle error
+            return "redirect:/property/unit/register?propertyId=" + unitDto.getPropertyId();
+        }
+    }
     // Update Unit
-    @PutMapping("/units/{id}")
+    @PutMapping("/unit/{id}")
     public ResponseEntity<Map<String, Object>> updateUnit(@PathVariable Long id, @RequestBody UnitDto unitDto) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -249,5 +249,7 @@ public class PropertyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+
 
 }

@@ -31,7 +31,7 @@
                                     <td>${property.address}</td>
                                     <td>${property.type}</td>
                                     <td>
-                                        <a href="/property/property/detail/${property.id}" class="btn btn-info btn-sm">상세</a>
+                                        <a href="/property/detail/${property.id}" class="btn btn-info btn-sm">상세</a>
                                     </td>
                                 </tr>
                             </#list>
