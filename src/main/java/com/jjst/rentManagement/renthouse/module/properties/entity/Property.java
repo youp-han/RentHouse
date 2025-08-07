@@ -1,5 +1,6 @@
 package com.jjst.rentManagement.renthouse.module.properties.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class Property extends BaseEntity {
     private Integer totalFloors;
     private Integer totalUnits; // 총 세대수
     @OneToMany(mappedBy = "property", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Unit> units = new ArrayList<>();
 
 }

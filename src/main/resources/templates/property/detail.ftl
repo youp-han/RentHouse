@@ -162,8 +162,7 @@ $(document).ready(function() {
     // Show Edit Unit Modal
     $('.edit-unit-btn').on('click', function() {
         var unitId = $(this).data('unit-id');
-
-        
+        console.log(unitId);
         // Fetch unit data from server
         fetch(`/property/units/` + unitId)
             .then(response => response.json())

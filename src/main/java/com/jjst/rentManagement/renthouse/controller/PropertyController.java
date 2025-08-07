@@ -68,15 +68,7 @@ public class PropertyController {
         }
     }
 
-    //Register Units
-    @GetMapping("/unit/register")
-    public String registerUnit(@RequestParam long propertyId, Model model){
-        Property property = propertyService.getPropertyById(propertyId);
-        model.addAttribute("property", property);
-
-        return "/property/unit/register";
-
-    }
+    
 
     @PostMapping("/unit/save")
     public String saveUnit(@ModelAttribute UnitDto unitDto, @RequestParam Long propertyId) {
@@ -98,18 +90,7 @@ public class PropertyController {
         }
     }
 
-    // Register Rooms
-    @GetMapping("/property/unit/room/register")
-    public String registerRoom(@RequestParam long unitId, Model model) {
-        Unit unit = propertyService.getUnitById(unitId);
-
-        // Error handling for invalid unitId
-        if (unit == null) {
-            throw new IllegalArgumentException("Invalid Unit ID: " + unitId);
-        }
-        model.addAttribute("unitId", unitId);
-        return "/property/unit/addRoom"; // Ensure this is the correct Freemarker template path
-    }
+    
 
     // GET, POST 둘 다 받도록
     @RequestMapping(value = "/jusoPopup", method = {RequestMethod.GET, RequestMethod.POST})
@@ -173,6 +154,7 @@ public class PropertyController {
     @GetMapping("/units/{id}")
     @ResponseBody
     public Unit getUnit(@PathVariable Long id) {
+
         return propertyService.getUnitById(id);
     }
 

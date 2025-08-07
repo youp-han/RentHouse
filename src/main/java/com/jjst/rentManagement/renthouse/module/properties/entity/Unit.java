@@ -1,5 +1,6 @@
 package com.jjst.rentManagement.renthouse.module.properties.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -10,6 +11,7 @@ public class Unit extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "property_id")
+    @JsonBackReference
     private Property property;
 
     private String unitNumber = "";;
