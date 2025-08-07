@@ -17,6 +17,7 @@
                     <label for="tenantId">임차인</label>
                     <select class="form-control" id="tenantId" name="tenantId" required>
                         <option value="">임차인을 선택하세요</option>
+                        <option value="newTenant">-- 신규 임차인 등록 --</option>
                         <#list tenants as tenant>
                             <option value="${tenant.id}">${tenant.name} (${tenant.email})</option>
                         </#list>
@@ -76,6 +77,13 @@
 
 <script>
     $(document).ready(function() {
+        $('#tenantId').on('change', function() {
+            if ($(this).val() === 'newTenant') {
+                const currentUrl = encodeURIComponent(window.location.pathname + window.location.search);
+                window.location.href = `/tenants/register?redirectUrl=` + currentUrl;
+            }
+        });
+
         $('#propertyId').on('change', function() {
             const propertyId = $(this).val();
             const unitSelect = $('#unitId');

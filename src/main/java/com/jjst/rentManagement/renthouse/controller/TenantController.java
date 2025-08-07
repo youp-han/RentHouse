@@ -35,7 +35,9 @@ public class TenantController {
     }
 
     @GetMapping("/register")
-    public String registerTenantForm() {
+    public String registerTenantForm(@RequestParam(value = "redirectUrl", required = false) String redirectUrl, Model model) {
+    //public String registerTenantForm() {
+        model.addAttribute("redirectUrl", redirectUrl);
         return "tenant/register";
     }
 
@@ -47,6 +49,17 @@ public class TenantController {
             return ResponseEntity.ok(entityConverter.convertToDto(tenant, TenantDto.class));
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/save")
+    public String saveTenant(@ModelAttribute TenantDto tenantDto, @RequestParam(value = "redirectUrl", required = false) String redirectUrl) {
+        Tenant tenant = entityConverter.convertToEntity(tenantDto, Tenant.class);
+        tenantService.saveTenant(tenant);
+        if (redirectUrl != null && !redirectUrl.isEmpty()) {
+            return "redirect:" + redirectUrl;
+        } else {
+            return "redirect:/tenants";
         }
     }
 

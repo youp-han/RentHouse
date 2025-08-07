@@ -10,13 +10,19 @@ RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 
 - **청구 및 결제 관리:** 임대료 청구서 자동 생성, 결제 내역 관리
 - **관리자 기능:** 전체 시스템 현황 모니터링, 사용자 관리, 시스템 설정
 
-## 최근 업데이트 내용 (2025-08-05)
+## 최근 업데이트 내용 (2025-08-07)
 
-- **API 기능 추가:**
-    - 여러 개의 부동산, 유닛, 회원, 임차인 정보를 한 번의 요청으로 생성할 수 있는 API 엔드포인트를 추가했습니다. (`/api/properties`, `/api/units`, `/api/members`, `/api/tenants`)
-    - `api-data.http` 파일에 새로운 API를 테스트할 수 있는 샘플 요청을 추가했습니다.
-- **보안 설정 변경:**
-    - API 엔드포인트 (`/api/**`)에 대한 접근을 허용하도록 Spring Security 설정을 변경했습니다.
+- **임대 관리 기능 강화:**
+    - 임대차 계약 목록 (`lease/leaseList.ftl`)에서 상세 보기, 수정, 삭제 기능 구현.
+    - 임대차 계약 등록 (`lease/register.ftl`) 시 임차인 신규 등록 연동 기능 추가.
+    - 임대차 계약 수정 (`lease/edit.ftl`) 화면 구현.
+    - 임대차 계약 상태 (`LeaseStatus`) 관리 기능 추가 (기본값 `PENDING`).
+- **코드 정리:**
+    - 사용하지 않는 `admin/adminHome.ftl` 및 `admin/applyList.ftl` 파일 삭제.
+    - `PropertyController`의 `getUnit` 메소드 경로 변경 (`/property/property/detail/{id}` -> `/property/detail/{id}`).
+    - `Unit` 및 `Property` 엔티티의 순환 참조 문제 해결 (`@JsonManagedReference`, `@JsonBackReference` 적용).
+    - `EntityConverter`에서 `LeaseDto` 변환 시 `tenantName`, `propertyName`, `unitNumber` 필드 매핑 추가.
+    - `javax.annotation.PostConstruct` 관련 컴파일 오류 해결 (`jakarta.annotation-api` 의존성 추가 및 import 변경).
 
 ## 기술 스택
 

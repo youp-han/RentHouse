@@ -9,7 +9,6 @@
 - `admin/memberList.ftl`: 회원 목록 (모든 프로그램 사용자)
 - `member/settings.ftl`: 회원 정보 설정 (개인 정보 수정, 비밀번호 변경)
 - `member/profile.ftl`: 내 프로필 (회원 탈퇴)
-- `admin/applyList.ftl`: 신규 회원 신청 목록
 
 ### 개발 할 일:
 - **회원 상세 정보/수정 화면:** (완료 - `admin/memberList.ftl`에서 모달 창을 통해 상세 정보 조회 및 수정 기능 구현)
@@ -51,14 +50,17 @@
 
 ### 현재 화면:
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
+- `lease/leaseList.ftl`: 임대 계약 목록
+- `lease/register.ftl`: 임대 계약 등록
+- `lease/edit.ftl`: 임대 계약 수정
 
 ### 개발 할 일:
 - **UI 개선:** (완료)
     - `admin/tenantsList.ftl` 화면의 데이터 테이블 하단에 '세입자 등록' 버튼을 추가했습니다.
-- **임대 계약 목록 화면:** (백엔드 로직 구현 완료, 프론트엔드 화면 구현 완료 - `lease/leaseList.ftl`)
-- **임대 계약 등록/수정 화면:** (백엔드 로직 구현 완료, 프론트엔드 화면 구현 완료 - `lease/register.ftl`)
-- **임대 계약 상세 화면:** (미구현)
-- **임대 계약 상태 변경 기능:** (미구현)
+- **임대 계약 목록 화면:** (완료 - `lease/leaseList.ftl` 구현 및 상세/수정/삭제 기능 연결)
+- **임대 계약 등록 화면:** (완료 - `lease/register.ftl` 구현 및 임차인 신규 등록 연동)
+- **임대 계약 수정 화면:** (완료 - `lease/edit.ftl` 구현 및 상세/수정/삭제 기능 구현)
+- **임대 계약 상태 변경 기능:** (완료 - `lease/edit.ftl`에서 상태 변경 가능)
 - **임대료 계산 및 알림:** (미구현)
 
 ## 4. 청구 및 결제 관리 (Bill Module)
@@ -76,15 +78,12 @@
 ## 5. 관리자 기능 (Admin Module)
 
 ### 현재 화면:
-- `admin/adminHome.ftl`: 관리자 홈
-- `admin/applyList.ftl`: 신청 목록 (신규 회원 승인/거절)
 - `admin/tenantsList.ftl`: 세입자 목록 (임대 계약자 목록)
 - `admin/memberList.ftl`: 전체 회원 목록
 
 ### 개발 할 일:
 - **관리자 대시보드 강화:**
   - 주요 통계, 최신 활동, 알림 등 대시보드 위젯 추가 (미구현)
-- **신청 관리 기능 강화:** (완료 - `admin/applyList.ftl`에서 신규 회원 승인/거절 기능 구현)
 - **세입자 관리 기능 강화:** (완료 - `TenantController` 및 관련 REST 컨트롤러 구현)
 - **사용자 권한 관리:**
   - 사용자 역할(ADMIN, MEMBER 등)을 관리할 수 있는 화면 및 기능 (미구현)
@@ -100,7 +99,7 @@
 - **사용자 친화적인 URL:** (일부 RESTful API 구현됨)
 - **성능 최적화:** (미구현)
 - **코드 정리:** (완료)
-    - 사용하지 않는 `.ftl` 파일(`common/layout-sample.ftl`, `sample.ftl`, `tenant/detail.ftl`, `tenant/register.ftl`, `tenant/tenantList.ftl`)을 삭제하여 프로젝트 구조를 정리했습니다.
+    - 사용하지 않는 `.ftl` 파일(`common/layout-sample.ftl`, `sample.ftl`, `tenant/detail.ftl`, `tenant/register.ftl`, `tenant/tenantList.ftl`, `admin/adminHome.ftl`, `admin/applyList.ftl`)을 삭제하여 프로젝트 구조를 정리했습니다.
 
 ## 7. API 개발
 

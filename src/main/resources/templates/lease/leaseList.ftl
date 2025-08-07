@@ -38,7 +38,7 @@
                                 <td>${lease.leaseType.name()}</td>
                                 <td>${lease.leaseStatus.name()}</td>
                                 <td>
-                                    <a href="/leases/${lease.id}" class="btn btn-info btn-sm">상세</a>
+                                    <a href="/leases/edit/${lease.id!}" class="btn btn-info btn-sm">상세</a>
                                 </td>
                             </tr>
                         </#list>
@@ -55,4 +55,10 @@
     <a href="/leases/register" class="btn btn-primary">임대차 계약 등록</a>
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
 </#macro>

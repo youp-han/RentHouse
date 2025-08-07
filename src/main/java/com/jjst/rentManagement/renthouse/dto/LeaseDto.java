@@ -18,6 +18,10 @@ public class LeaseDto {
     private String contractNotes;
     private LeaseType leaseType;  // "MONTHLY", "YEARLY", "JEONSE" 등의 문자열 값
     private LeaseStatus leaseStatus;
+    private String unitNumber;
+    private String propertyName;
+    private String tenantName;
+    private Long propertyId;
 }
 
 

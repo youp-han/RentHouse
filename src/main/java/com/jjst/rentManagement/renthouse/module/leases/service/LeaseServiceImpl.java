@@ -65,4 +65,31 @@ public class LeaseServiceImpl implements LeaseService {
         leaseRepository.save(lease);
     }
 
+    @Override
+    public Lease getLeaseById(Long id) throws Exception {
+        return leaseRepository.findById(id).orElseThrow(() -> new Exception("Lease not found"));
+    }
+
+    @Transactional
+    @Override
+    public Lease updateLease(Long id, LeaseDto leaseDto) throws Exception {
+        Lease existingLease = leaseRepository.findById(id).orElseThrow(() -> new Exception("Lease not found"));
+
+        existingLease.setStartDate(Utility.formatStringToLocalDate(leaseDto.getStartDate()));
+        existingLease.setEndDate(Utility.formatStringToLocalDate(leaseDto.getEndDate()));
+        existingLease.setDeposit(leaseDto.getDeposit());
+        existingLease.setMonthlyRent(leaseDto.getMonthlyRent());
+        existingLease.setContractNotes(leaseDto.getContractNotes());
+        existingLease.setLeaseStatus(leaseDto.getLeaseStatus());
+        return leaseRepository.save(existingLease);
+    }
+
+    @Override
+    public void deleteLease(Long id) throws Exception {
+        if (!leaseRepository.existsById(id)) {
+            throw new Exception("Lease not found");
+        }
+        leaseRepository.deleteById(id);
+    }
+
 }

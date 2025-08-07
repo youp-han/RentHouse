@@ -12,7 +12,8 @@
             <h6 class="m-0 font-weight-bold text-primary">신규 세입자 정보</h6>
         </div>
         <div class="card-body">
-            <form id="registerTenantForm">
+            <form action="/tenants/save" method="post">
+                <input type="hidden" name="redirectUrl" value="${redirectUrl!}">
                 <div class="form-group">
                     <label for="tenantName">이름</label>
                     <input type="text" class="form-control" id="tenantName" name="name" required>
@@ -40,38 +41,4 @@
     </div>
 
 </div>
-
-<script>
-    $(document).ready(function() {
-        $('#registerTenantForm').on('submit', function(e) {
-            e.preventDefault();
-
-            const tenantData = {
-                name: $('#tenantName').val(),
-                phone: $('#tenantPhone').val(),
-                email: $('#tenantEmail').val(),
-                socialNo: $('#tenantSocialNo').val(),
-                currentAddress: $('#tenantCurrentAddress').val()
-            };
-
-            fetch('/tenants', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(tenantData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('세입자가 성공적으로 등록되었습니다.');
-                    window.location.href = '/tenants';
-                } else {
-                    alert('세입자 등록에 실패했습니다.');
-                }
-            })
-            .catch(error => console.error('Error creating tenant:', error));
-        });
-    });
-</script>
 </#macro>
-

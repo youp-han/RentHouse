@@ -65,4 +65,54 @@ public class LeaseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    @GetMapping("/edit/{id}")
+    public String editLeaseForm(@PathVariable Long id, Model model) {
+        try {
+            Lease lease = leaseService.getLeaseById(id);
+            model.addAttribute("lease", entityConverter.convertToDto(lease, LeaseDto.class));
+            model.addAttribute("tenants", tenantService.getAllTenants());
+            model.addAttribute("properties", propertyService.getAllProperties());
+            model.addAttribute("leaseTypes", LeaseType.values());
+            model.addAttribute("leaseStatusTypes", com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus.values());
+            return "lease/edit";
+        } catch (Exception e) {
+            // Handle error, e.g., redirect to lease list with an error message
+            return "redirect:/leases";
+        }
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<LeaseDto> getLeaseById(@PathVariable Long id) {
+        try {
+            Lease lease = leaseService.getLeaseById(id);
+            return ResponseEntity.ok(entityConverter.convertToDto(lease, LeaseDto.class));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<LeaseDto> updateLease(@PathVariable Long id, @RequestBody LeaseDto leaseDto) {
+        try {
+            Lease updatedLease = leaseService.updateLease(id, leaseDto);
+            return ResponseEntity.ok(entityConverter.convertToDto(updatedLease, LeaseDto.class));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteLease(@PathVariable Long id) {
+        try {
+            leaseService.deleteLease(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
+
