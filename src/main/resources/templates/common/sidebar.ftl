@@ -41,6 +41,8 @@
                 <a class="collapse-item" href="/member/members">Member</a>
                 <a class="collapse-item" href="/tenants">Tenant</a>
                 <a class="collapse-item" href="/leases">Lease</a>
+                <a class="collapse-item" href="/billings">Billing</a>
+                <a class="collapse-item" href="/bills">Bill Management</a>
                 <a class="collapse-item" href="/property/propertyList">Property</a>
             </div>
         </div>

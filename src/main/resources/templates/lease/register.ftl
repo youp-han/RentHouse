@@ -131,13 +131,22 @@
             })
             .then(response => {
                 if (response.ok) {
-                    alert('임대차 계약이 성공적으로 등록되었습니다.');
-                    window.location.href = '/leases';
+                    if (confirm('등록이 완료되었습니다. 다음 계약을 계속 등록하시겠습니까?')) {
+                        // Reset the form for another entry
+                        $('#registerLeaseForm')[0].reset();
+                        $('#unitId').empty().append('<option value="">부동산을 먼저 선택하세요</option>');
+                    } else {
+                        // Redirect to the lease list
+                        window.location.href = '/leases';
+                    }
                 } else {
                     alert('임대차 계약 등록에 실패했습니다.');
                 }
             })
-            .catch(error => console.error('Error creating lease:', error));
+            .catch(error => {
+                console.error('Error creating lease:', error);
+                alert('임대차 계약 등록 중 오류가 발생했습니다.');
+            });
         });
     });
 </script>

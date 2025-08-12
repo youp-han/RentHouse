@@ -1,10 +1,12 @@
 package com.jjst.rentManagement.renthouse.module.leases.service;
 
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.module.tenants.entity.Tenant;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
+import com.jjst.rentManagement.renthouse.service.BillingService;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.TenantService;
 import com.jjst.rentManagement.renthouse.util.EntityConverter;
@@ -30,6 +32,9 @@ public class LeaseServiceImpl implements LeaseService {
     private TenantService tenantService;
 
     @Autowired
+    private BillingService billingService;
+
+    @Autowired
     private EntityConverter entityConverter;
 
     @Override
@@ -47,6 +52,20 @@ public class LeaseServiceImpl implements LeaseService {
             throw new Exception("Tenant or Unit not found");
         }
 
+        if (unit.getRentStatus()) {
+            throw new Exception("Unit is already rented");
+        }
+
+        // Update tenant's address
+        Property property = unit.getProperty();
+        String newAddress = property.getAddress() + ", " + unit.getUnitNumber();
+        tenant.setCurrentAddress(newAddress);
+        tenantService.saveTenant(tenant);
+
+        // Update unit's rent status
+        unit.setRentStatus(true);
+        propertyService.saveUnit(unit);
+
         Lease lease = new Lease();
         lease.setTenant(tenant);
         lease.setUnit(unit);
@@ -58,7 +77,11 @@ public class LeaseServiceImpl implements LeaseService {
         lease.setLeaseType(leaseDto.getLeaseType());
         lease.setLeaseStatus(com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus.PENDING);
 
-        return leaseRepository.save(lease);
+        Lease savedLease = leaseRepository.save(lease);
+
+        billingService.generateMonthlyBillingsForLease(savedLease);
+
+        return savedLease;
     }
 
     void save (Lease lease) throws Exception{
