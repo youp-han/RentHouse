@@ -26,6 +26,18 @@ RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 
     - `EntityConverter`에서 `LeaseDto` 변환 시 `tenantName`, `propertyName`, `unitNumber` 필드 매핑 추가.
     - `javax.annotation.PostConstruct` 관련 컴파일 오류 해결 (`jakarta.annotation-api` 의존성 추가 및 import 변경).
 
+## 최근 업데이트 내용 (2025-08-13)
+
+- **청구 항목 관리 기능 개선:**
+    - `billList.ftl`에서 청구 항목 삭제 버튼 제거.
+    - 청구 항목 수정/업데이트/삭제 기능 구현:
+        - `BillService` 인터페이스에 `updateBill` 및 `deleteBill` 메서드 추가.
+        - `BillServiceImpl.java`에 `updateBill` 및 `deleteBill` 메서드 구현.
+        - `BillController.java`에 청구 항목 수정 (`/bills/edit/{id}`), 업데이트 (`/bills/update`), 삭제 (`/bills/delete/{id}`) 엔드포인트 추가.
+        - `BillController.java`의 `createBill` 메서드를 폼 제출 방식에 맞게 `@ModelAttribute`를 사용하도록 변경.
+        - `register.ftl`을 등록 및 수정 겸용 화면으로 개선 (필드 자동 채움, 동적 폼 액션, 업데이트/삭제 버튼 추가).
+        - `register.ftl`의 금액 필드에서 쉼표 제거 및 숫자 형식 통일.
+
 ## 기술 스택
 
 - **Backend:** Java, Spring Boot, Spring Security
