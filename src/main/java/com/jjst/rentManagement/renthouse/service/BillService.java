@@ -9,5 +9,7 @@ public interface BillService {
     List<BillDto> getAllBills();
     BillDto createBill(BillDto billDto);
     Bill getBillById(Long id) throws Exception;
+    BillDto updateBill(BillDto billDto);
+    void deleteBill(Long id);
     List<Bill> getAllBillEntities();
 }

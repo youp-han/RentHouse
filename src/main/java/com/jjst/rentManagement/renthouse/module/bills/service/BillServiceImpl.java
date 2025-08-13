@@ -54,4 +54,23 @@ public class BillServiceImpl implements BillService {
     public List<Bill> getAllBillEntities() {
         return billRepository.findAll();
     }
+
+    @Override
+    public BillDto updateBill(BillDto billDto) {
+        Bill existingBill = billRepository.findById(billDto.getId())
+                .orElseThrow(() -> new RuntimeException("Bill not found for ID: " + billDto.getId()));
+
+        existingBill.setName(billDto.getName());
+        existingBill.setCategory(billDto.getCategory());
+        existingBill.setAmount(billDto.getAmount());
+        existingBill.setDescription(billDto.getDescription());
+
+        Bill updatedBill = billRepository.save(existingBill);
+        return convertToDto(updatedBill);
+    }
+
+    @Override
+    public void deleteBill(Long id) {
+        billRepository.deleteById(id);
+    }
 }

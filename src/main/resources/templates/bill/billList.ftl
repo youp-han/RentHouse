@@ -33,7 +33,7 @@
                             <td>${bill.description}</td>
                             <td>
                                 <a href="/bills/edit/${bill.id}" class="btn btn-primary btn-sm">수정</a>
-                                <a href="/bills/delete/${bill.id}" class="btn btn-danger btn-sm">삭제</a>
+                                
                             </td>
                         </tr>
                         </#list>
