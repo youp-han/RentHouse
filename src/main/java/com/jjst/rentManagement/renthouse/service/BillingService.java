@@ -1,11 +1,7 @@
 package com.jjst.rentManagement.renthouse.service;
 
-import com.jjst.rentManagement.renthouse.dto.BillingDto;
-import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
-
-import java.util.List;
+import java.util.Map;
 
 public interface BillingService {
-    List<BillingDto> getAllBillings();
-    void generateMonthlyBillingsForLease(Lease lease);
+    Map<String, Double> getMonthlyIncomeForLastSixMonths();
 }

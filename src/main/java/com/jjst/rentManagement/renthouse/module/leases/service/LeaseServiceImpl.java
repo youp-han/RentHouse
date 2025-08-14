@@ -13,14 +13,21 @@ import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.util.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.jjst.rentManagement.renthouse.module.activity.ActivityLogService;
+import com.jjst.rentManagement.renthouse.module.activity.ActivityType;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class LeaseServiceImpl implements LeaseService {
+
+    private final LeaseRepository leaseRepository;
+    private final TenantRepository tenantRepository;
+    private final UnitRepository unitRepository;
+    private final ActivityLogService activityLogService;
 
     @Autowired
     private LeaseRepository leaseRepository;
@@ -78,6 +85,14 @@ public class LeaseServiceImpl implements LeaseService {
         lease.setLeaseStatus(com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus.PENDING);
 
         Lease savedLease = leaseRepository.save(lease);
+
+        String description = String.format("%s, '%s %s호' 신규 계약",
+                savedLease.getTenant().getName(),
+                savedLease.getUnit().getProperty().getName(),
+                savedLease.getUnit().getUnitNumber());
+        activityLogService.logActivity(ActivityType.NEW_LEASE, description, savedLease.getId());
+
+        return savedLease;
 
         billingService.generateMonthlyBillingsForLease(savedLease);
 

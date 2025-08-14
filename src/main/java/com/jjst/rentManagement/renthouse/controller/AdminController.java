@@ -1,13 +1,16 @@
 package com.jjst.rentManagement.renthouse.controller;
 
-import com.jjst.rentManagement.renthouse.module.bills.repository.BillingRepository;
+import com.jjst.rentManagement.renthouse.module.activity.ActivityLog;
+import com.jjst.rentManagement.renthouse.service.BillingService;
 import com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
 import com.jjst.rentManagement.renthouse.module.properties.repository.UnitRepository;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.MemberService;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
-import jakarta.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +36,12 @@ public class AdminController {
 
     @Autowired
     private BillingRepository billingRepository;
+
+    @Autowired
+    private ActivityLogService activityLogService;
+
+    @Autowired
+    private BillingService billingService;
 
     @Autowired
     private UnitRepository unitRepository;
@@ -72,6 +81,13 @@ public class AdminController {
         long expiringLeaseCount = leaseRepository.countByLeaseStatusAndEndDateBetween(LeaseStatus.ACTIVE, today, thirtyDaysFromNow);
 
         model.addAttribute("expiringLeaseCount", expiringLeaseCount);
+
+        List<ActivityLog> recentActivities = activityLogService.getRecentActivities();
+        model.addAttribute("recentActivities", recentActivities);
+
+        Map<String, Double> monthlyIncome = billingService.getMonthlyIncomeForLastSixMonths();
+        model.addAttribute("monthlyIncomeLabels", new ArrayList<>(monthlyIncome.keySet()));
+        model.addAttribute("monthlyIncomeData", new ArrayList<>(monthlyIncome.values()));
 
         return "admin/dashboard";
     }
