@@ -8,6 +8,24 @@
                     class="fas fa-download fa-sm text-white-50"></i> 보고서 생성</a>
         </div>
 
+        <!-- Quick Action Buttons -->
+        <div class="row mb-4">
+            <div class="col-lg-12">
+                <a href="/leases/register" class="btn btn-primary btn-icon-split mr-2 mb-2">
+                    <span class="icon text-white-50"><i class="fas fa-file-contract"></i></span>
+                    <span class="text">신규 임대 계약 등록</span>
+                </a>
+                <a href="/property/register" class="btn btn-success btn-icon-split mr-2 mb-2">
+                    <span class="icon text-white-50"><i class="fas fa-building"></i></span>
+                    <span class="text">신규 부동산 등록</span>
+                </a>
+                <a href="/tenants/register" class="btn btn-info btn-icon-split mr-2 mb-2">
+                    <span class="icon text-white-50"><i class="fas fa-user-plus"></i></span>
+                    <span class="text">신규 임차인 등록</span>
+                </a>
+            </div>
+        </div>
+
         <!-- 1. 주요 통계 (Key Statistics) -->
         <div class="row">
             <!-- 총 부동산/세대 수 -->
@@ -151,7 +169,7 @@
                 }
 
                         // Bar Chart Example
-                        var ctx = document.getElementById("monthlyIncomeChart");
+                        var ctx = $("#monthlyIncomeChart")[0];
                         var monthlyIncomeChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
