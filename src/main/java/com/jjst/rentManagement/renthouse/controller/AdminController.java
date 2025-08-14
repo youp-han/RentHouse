@@ -1,7 +1,7 @@
 package com.jjst.rentManagement.renthouse.controller;
 
-import com.jjst.rentManagement.renthouse.module.activity.ActivityLog;
-import com.jjst.rentManagement.renthouse.module.activity.ActivityLogService;
+import com.jjst.rentManagement.renthouse.module.activity.entity.ActivityLog;
+import com.jjst.rentManagement.renthouse.service.ActivityLogService;
 import com.jjst.rentManagement.renthouse.module.bills.repository.BillingRepository;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.service.BillingService;

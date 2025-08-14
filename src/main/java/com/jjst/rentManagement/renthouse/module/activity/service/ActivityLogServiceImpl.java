@@ -1,5 +1,9 @@
-package com.jjst.rentManagement.renthouse.module.activity;
+package com.jjst.rentManagement.renthouse.module.activity.service;
 
+import com.jjst.rentManagement.renthouse.module.activity.repository.ActivityLogRepository;
+import com.jjst.rentManagement.renthouse.service.ActivityLogService;
+import com.jjst.rentManagement.renthouse.module.activity.entity.ActivityLog;
+import com.jjst.rentManagement.renthouse.module.activity.entity.ActivityType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +29,6 @@ public class ActivityLogServiceImpl implements ActivityLogService {
 
     @Override
     public List<ActivityLog> getRecentActivities() {
-        return activityLogRepository.findTop10ByOrderByCreatedAtDesc();
+        return activityLogRepository.findTop10ByOrderByCreateTimeDesc();
     }
 }

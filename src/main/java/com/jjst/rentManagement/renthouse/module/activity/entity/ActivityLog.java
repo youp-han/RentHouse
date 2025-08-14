@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.module.activity;
+package com.jjst.rentManagement.renthouse.module.activity.entity;
 
 import com.jjst.rentManagement.renthouse.module.common.entity.BaseEntity;
 import jakarta.persistence.*;

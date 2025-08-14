@@ -1,4 +1,4 @@
-package com.jjst.rentManagement.renthouse.module.activity;
+package com.jjst.rentManagement.renthouse.module.activity.entity;
 
 public enum ActivityType {
     NEW_LEASE("신규 계약"),

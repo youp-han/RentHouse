@@ -1,5 +1,6 @@
-package com.jjst.rentManagement.renthouse.module.activity;
+package com.jjst.rentManagement.renthouse.module.activity.repository;
 
+import com.jjst.rentManagement.renthouse.module.activity.entity.ActivityLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

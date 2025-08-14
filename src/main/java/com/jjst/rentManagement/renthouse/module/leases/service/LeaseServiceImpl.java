@@ -2,12 +2,10 @@ package com.jjst.rentManagement.renthouse.module.leases.service;
 
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
-import com.jjst.rentManagement.renthouse.module.properties.repository.UnitRepository;
 import com.jjst.rentManagement.renthouse.module.tenants.entity.Tenant;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
-import com.jjst.rentManagement.renthouse.module.tenants.repository.TenantRepository;
 import com.jjst.rentManagement.renthouse.service.BillingService;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.TenantService;
@@ -16,12 +14,11 @@ import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.util.Utility;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.jjst.rentManagement.renthouse.module.activity.ActivityLogService;
-import com.jjst.rentManagement.renthouse.module.activity.ActivityType;
+import com.jjst.rentManagement.renthouse.service.ActivityLogService;
+import com.jjst.rentManagement.renthouse.module.activity.entity.ActivityType;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
