@@ -55,7 +55,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         // Define public paths that do not require authentication.
                         .requestMatchers("/", "/login/**", "/error**", "/member/**", "/tenants/**", "/leases/**", "/property/**").permitAll()
-                        //.requestMatchers("/admin/**").hasRole("ADMIN")  // Restrict admin paths to ADMIN role.
+                        //.requestMatchers("/admin/**").hasAnyRole("ADMIN", "LANDLORD")  // Restrict admin paths to ADMIN role.
                         .requestMatchers("/api/**").permitAll()
                         // Allow access to static resources.
                         .requestMatchers(
