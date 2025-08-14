@@ -66,15 +66,15 @@
 ## 4. 청구 및 결제 관리 (Bill Module)
 
 ### 현재 화면:
-- `billing/billingList.ftl`: 청구서 목록
-- `bill/billList.ftl`: 청구 항목 관리 목록
+- `billing/billingList.ftl`: 청구서 (Billing) 목록
+- `bill/billList.ftl`: 청구 항목 (Bill) 관리 목록
 
 ### 개발 할 일:
-- **청구서 목록 화면:** (완료 - `billing/billingList.ftl` 및 `BillingController` 구현됨)
-- **청구서 생성/수정 화면:** (완료 - `BillService`에 관련 메소드 존재, `billList.ftl`에 수정 링크 있음)
-- **청구서 상세 화면:** (미구현)
-- **결제 처리 기능:** (일부 구현됨 - `Billing` 엔티티에 `paid` 필드 존재)
-- **자동 청구서 생성:** (백엔드 로직 존재하나 `BillingServiceImpl`에서 `TODO` 상태)
+- **청구서 (Billing) 목록 화면:** (완료 - `billing/billingList.ftl` 및 `BillingController` 구현됨)
+- **청구 항목 (Bill) 생성/수정 화면:** (완료 - `BillService`에 관련 메소드 존재, `billList.ftl`에 수정 링크 있음)
+- **청구서 (Billing) 상세 화면:** (미구현)
+- **청구서 (Billing) 결제 처리 기능:** (일부 구현됨 - `Billing` 엔티티에 `paid` 필드 존재)
+- **자동 청구서 (Billing) 생성:** (백엔드 로직 존재하나 `BillingServiceImpl`에서 `TODO` 상태)
 
 ## 5. 관리자 기능 (Admin Module)
 
