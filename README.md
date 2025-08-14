@@ -8,7 +8,23 @@ RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 
 - **부동산 관리:** 부동산 정보(주소, 유형, 층수 등) 등록, 수정, 삭제 및 유닛(세대) 관리
 - **임대 관리:** 임대 계약 등록, 수정, 삭제 및 계약 상태 관리
 - **청구 및 결제 관리:** 임대료 청구서 자동 생성, 결제 내역 관리
-- **관리자 기능:** 전체 시스템 현황 모니터링, 사용자 관리, 시스템 설정
+- **관리자 대시보드:** 시스템의 핵심 현황을 시각적으로 모니터링
+
+## 최근 업데이트 내용 (2025-08-14)
+
+- **관리자 대시보드 기능 추가:**
+    - 관리자가 시스템의 주요 지표를 한눈에 파악할 수 있는 대시보드 화면 (`/admin/dashboard`)을 추가했습니다.
+    - **주요 통계 위젯 구현:**
+        - **총 부동산/세대 수:** 관리 중인 전체 부동산과 세대(유닛)의 수를 표시합니다.
+        - **공실률:** 전체 세대 대비 임대 계약이 없는 세대의 비율과 수를 계산하여 표시합니다.
+        - **연체된 임대료:** 납부 기한이 지나고 미납 상태인 청구 건의 총액과 건수를 표시합니다.
+        - **계약 만료 예정:** 30일 이내에 계약이 만료되는 활성 임대 계약의 수를 표시합니다.
+
+## 최근 업데이트 내용 (2025-08-13)
+
+- **청구 항목 관리 기능 개선:**
+    - `billList.ftl`에서 청구 항목 삭제 버튼 제거.
+    - 청구 항목 수정/업데이트/삭제 기능 구현.
 
 ## 최근 업데이트 내용 (2025-08-12)
 
@@ -16,27 +32,8 @@ RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 
     - 청구서 생성 및 관리 기능이 추가되었습니다.
 - **임대 관리 기능 강화:**
     - 임대차 계약 목록 (`lease/leaseList.ftl`)에서 상세 보기, 수정, 삭제 기능 구현.
-    - 임대차 계약 등록 (`lease/register.ftl`) 시 임차인 신규 등록 연동 기능 추가.
-    - 임대차 계약 수정 (`lease/edit.ftl`) 화면 구현.
-    - 임대차 계약 상태 (`LeaseStatus`) 관리 기능 추가 (기본값 `PENDING`).
 - **코드 정리:**
     - 사용하지 않는 `admin/adminHome.ftl` 및 `admin/applyList.ftl` 파일 삭제.
-    - `PropertyController`의 `getUnit` 메소드 경로 변경 (`/property/property/detail/{id}` -> `/property/detail/{id}`).
-    - `Unit` 및 `Property` 엔티티의 순환 참조 문제 해결 (`@JsonManagedReference`, `@JsonBackReference` 적용).
-    - `EntityConverter`에서 `LeaseDto` 변환 시 `tenantName`, `propertyName`, `unitNumber` 필드 매핑 추가.
-    - `javax.annotation.PostConstruct` 관련 컴파일 오류 해결 (`jakarta.annotation-api` 의존성 추가 및 import 변경).
-
-## 최근 업데이트 내용 (2025-08-13)
-
-- **청구 항목 관리 기능 개선:**
-    - `billList.ftl`에서 청구 항목 삭제 버튼 제거.
-    - 청구 항목 수정/업데이트/삭제 기능 구현:
-        - `BillService` 인터페이스에 `updateBill` 및 `deleteBill` 메서드 추가.
-        - `BillServiceImpl.java`에 `updateBill` 및 `deleteBill` 메서드 구현.
-        - `BillController.java`에 청구 항목 수정 (`/bills/edit/{id}`), 업데이트 (`/bills/update`), 삭제 (`/bills/delete/{id}`) 엔드포인트 추가.
-        - `BillController.java`의 `createBill` 메서드를 폼 제출 방식에 맞게 `@ModelAttribute`를 사용하도록 변경.
-        - `register.ftl`을 등록 및 수정 겸용 화면으로 개선 (필드 자동 채움, 동적 폼 액션, 업데이트/삭제 버튼 추가).
-        - `register.ftl`의 금액 필드에서 쉼표 제거 및 숫자 형식 통일.
 
 ## 기술 스택
 
