@@ -117,7 +117,7 @@
                                 <#list recentActivities as activity>
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <span>${activity.description}</span>
-                                        <small class="text-muted">${activity.createdAt?string("MM-dd HH:mm")}</small>
+                                        <small class="text-muted">${activity.createTime?string("MM-dd HH:mm")}</small>
                                     </li>
                                 </#list>
                             </ul>

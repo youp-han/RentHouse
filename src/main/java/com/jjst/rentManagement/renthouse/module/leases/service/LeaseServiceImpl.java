@@ -2,20 +2,24 @@ package com.jjst.rentManagement.renthouse.module.leases.service;
 
 import com.jjst.rentManagement.renthouse.dto.LeaseDto;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
+import com.jjst.rentManagement.renthouse.module.properties.repository.UnitRepository;
 import com.jjst.rentManagement.renthouse.module.tenants.entity.Tenant;
 import com.jjst.rentManagement.renthouse.module.properties.entity.Unit;
 import com.jjst.rentManagement.renthouse.module.leases.entity.Lease;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
+import com.jjst.rentManagement.renthouse.module.tenants.repository.TenantRepository;
 import com.jjst.rentManagement.renthouse.service.BillingService;
 import com.jjst.rentManagement.renthouse.service.LeaseService;
 import com.jjst.rentManagement.renthouse.service.TenantService;
 import com.jjst.rentManagement.renthouse.util.EntityConverter;
 import com.jjst.rentManagement.renthouse.service.PropertyService;
 import com.jjst.rentManagement.renthouse.util.Utility;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.jjst.rentManagement.renthouse.module.activity.ActivityLogService;
 import com.jjst.rentManagement.renthouse.module.activity.ActivityType;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LeaseServiceImpl implements LeaseService {
 
-    private final LeaseRepository leaseRepository;
-    private final TenantRepository tenantRepository;
-    private final UnitRepository unitRepository;
-    private final ActivityLogService activityLogService;
+    @Autowired
+    private ActivityLogService activityLogService;
 
     @Autowired
     private LeaseRepository leaseRepository;
@@ -91,8 +93,6 @@ public class LeaseServiceImpl implements LeaseService {
                 savedLease.getUnit().getProperty().getName(),
                 savedLease.getUnit().getUnitNumber());
         activityLogService.logActivity(ActivityType.NEW_LEASE, description, savedLease.getId());
-
-        return savedLease;
 
         billingService.generateMonthlyBillingsForLease(savedLease);
 

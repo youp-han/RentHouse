@@ -1,6 +1,9 @@
 package com.jjst.rentManagement.renthouse.controller;
 
 import com.jjst.rentManagement.renthouse.module.activity.ActivityLog;
+import com.jjst.rentManagement.renthouse.module.activity.ActivityLogService;
+import com.jjst.rentManagement.renthouse.module.bills.repository.BillingRepository;
+import com.jjst.rentManagement.renthouse.module.properties.entity.Property;
 import com.jjst.rentManagement.renthouse.service.BillingService;
 import com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus;
 import com.jjst.rentManagement.renthouse.module.leases.repository.LeaseRepository;
@@ -11,6 +14,8 @@ import com.jjst.rentManagement.renthouse.service.PropertyService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface BillingRepository extends JpaxRepository<Billing, Long> {
+public interface BillingRepository extends JpaRepository<Billing, Long> {
 
     long countByPaidIsFalseAndDueDateBefore(LocalDate today);
 
