@@ -38,6 +38,11 @@ public class PropertyServiceImpl implements PropertyService {
         return unitRepository.findByPropertyId(propertyId);
     }
 
+    @Override
+    public List<Unit> getAvailableUnitsByPropertyId(Long propertyId) {
+        return unitRepository.findByPropertyIdAndRentStatusIsFalse(propertyId);
+    }
+
     public Unit getUnitById(Long id) {
         return unitRepository.findById(id).orElseThrow(() ->
                 new RuntimeException("Unit not found"));

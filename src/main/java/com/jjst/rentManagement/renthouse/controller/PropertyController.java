@@ -249,10 +249,11 @@ public class PropertyController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
     @GetMapping("/getUnitList/{propertyId}")
     @ResponseBody
     public List<Unit> getUnitList(@PathVariable Long propertyId) {
-        return propertyService.getUnitsByPropertyId(propertyId);
+        return propertyService.getAvailableUnitsByPropertyId(propertyId);
     }
 
 

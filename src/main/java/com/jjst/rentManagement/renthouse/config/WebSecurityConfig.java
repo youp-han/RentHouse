@@ -54,7 +54,12 @@ public class WebSecurityConfig {
                 .csrf().disable() // Disable CSRF protection for simplicity (not recommended for production).
                 .authorizeHttpRequests((requests) -> requests
                         // Define public paths that do not require authentication.
+                                                // Define public paths that do not require authentication.
                         .requestMatchers("/", "/login/**", "/error**", "/member/**", "/tenants/**", "/leases/**", "/property/**").permitAll()
+                        // TODO: 추후 ADMIN, LANDLORD 역할에만 대시보드 접근 권한을 부여해야 합니다. 현재는 개발 편의를 위해 주석 처리합니다.
+                        //.requestMatchers("/admin/**").hasAnyRole("ADMIN", "LANDLORD")
+                        .requestMatchers("/api/**").permitAll()
+                        // Allow access to static resources.
                         //.requestMatchers("/admin/**").hasAnyRole("ADMIN", "LANDLORD")  // Restrict admin paths to ADMIN role.
                         .requestMatchers("/api/**").permitAll()
                         // Allow access to static resources.

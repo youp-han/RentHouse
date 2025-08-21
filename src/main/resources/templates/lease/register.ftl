@@ -108,6 +108,16 @@
             }
         });
 
+        $('#startDate').on('change', function() {
+            const startDate = $(this).val();
+            if (startDate) {
+                const startDateObj = new Date(startDate);
+                startDateObj.setFullYear(startDateObj.getFullYear() + 2);
+                const endDate = startDateObj.toISOString().split('T')[0];
+                $('#endDate').val(endDate);
+            }
+        });
+
         $('#registerLeaseForm').on('submit', function(e) {
             e.preventDefault();
 
