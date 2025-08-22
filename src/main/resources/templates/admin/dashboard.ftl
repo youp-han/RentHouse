@@ -5,8 +5,8 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">대시보드</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> 보고서 생성</a>
+            <a href="/reports/monthly-revenue.pdf" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> 월별 수익보고서 다운로드 (PDF)</a>
         </div>
 
         <!-- Quick Action Buttons -->

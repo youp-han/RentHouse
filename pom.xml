@@ -126,6 +126,13 @@
 			<version>6.4.4.Final</version> <!-- 또는 현재 Hibernate 버전에 맞는 버전 -->
 		</dependency>
 
+		<!-- For PDF Report Generation -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>layout</artifactId>
+			<version>7.2.5</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
