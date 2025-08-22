@@ -32,4 +32,18 @@ public class ReportController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(new InputStreamResource(in));
     }
+
+    @GetMapping("/tenant-status.pdf")
+    public ResponseEntity<InputStreamResource> downloadTenantStatusReport() {
+        ByteArrayInputStream in = reportService.generateTenantStatusReport();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=tenant-status.pdf");
+
+        return ResponseEntity
+                .ok()
+                .headers(headers)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(new InputStreamResource(in));
+    }
 }

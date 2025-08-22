@@ -4,4 +4,5 @@ import java.io.ByteArrayInputStream;
 
 public interface ReportService {
     ByteArrayInputStream generateMonthlyRevenueReport();
+    ByteArrayInputStream generateTenantStatusReport();
 }
