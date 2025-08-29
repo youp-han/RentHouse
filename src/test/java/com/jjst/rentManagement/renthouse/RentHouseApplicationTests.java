@@ -1,13 +1,15 @@
 package com.jjst.rentManagement.renthouse;
 
-import org.springframework.test.context.ActiveProfiles;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 
-@ActiveProfiles("local")
 @SpringBootTest
 class RentHouseApplicationTests {
+
+	@MockBean
+	private ClientRegistrationRepository clientRegistrationRepository;
 
 	@Test
 	void contextLoads() {
