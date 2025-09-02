@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface LeaseRepository extends JpaRepository<Lease, Long> {
     List<Lease> findAllByEndDate(LocalDate endDate);
+    List<Lease> findAllByLeaseStatus(LeaseStatus leaseStatus);
     List<Lease> findAll();
     long countByLeaseStatus(LeaseStatus leaseStatus);
 

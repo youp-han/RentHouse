@@ -15,6 +15,10 @@ public interface BillingRepository extends JpaRepository<Billing, Long> {
 
     long countByPaidIsFalseAndDueDateBefore(LocalDate today);
 
+    List<Billing> findByPaidFalseAndDueDateBefore(LocalDate today);
+
+    boolean existsByLeaseAndDueDateBetween(com.jjst.rentManagement.renthouse.module.leases.entity.Lease lease, LocalDate start, LocalDate end);
+
     @Query("SELECT SUM(b.totalAmount) FROM Billing b WHERE b.paid = false AND b.dueDate < :today")
     BigDecimal findOverdueAmount(@Param("today") LocalDate today);
 

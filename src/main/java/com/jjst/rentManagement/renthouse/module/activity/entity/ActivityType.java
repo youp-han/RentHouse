@@ -5,6 +5,7 @@ public enum ActivityType {
     RENT_PAID("임대료 납부"),
     NEW_PROPERTY("신규 부동산 등록"),
     NEW_TENANT("신규 임차인 등록"),
+    OVERDUE_RENT("월세 미납"),
     NEW_MEMBER("신규 회원 가입");
 
     private final String description;

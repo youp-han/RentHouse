@@ -68,6 +68,20 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public void generateMonthlyBillingsForLease(Lease lease) {
-        // TODO: Implement this method
+        LocalDate today = LocalDate.now();
+        LocalDate startOfMonth = today.withDayOfMonth(1);
+        LocalDate endOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+
+        boolean billExists = billingRepository.existsByLeaseAndDueDateBetween(lease, startOfMonth, endOfMonth);
+
+        if (!billExists) {
+            Billing billing = new Billing();
+            billing.setLease(lease);
+            billing.setTotalAmount(lease.getMonthlyRent());
+            billing.setDueDate(endOfMonth);
+            billing.setIssueDate(today);
+            billing.setPaid(false);
+            billingRepository.save(billing);
+        }
     }
 }

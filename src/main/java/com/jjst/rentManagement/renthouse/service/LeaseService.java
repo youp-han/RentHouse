@@ -14,4 +14,5 @@ public interface LeaseService {
     Lease getLeaseById(Long id) throws Exception;
     Lease updateLease(Long id, LeaseDto leaseDto) throws Exception;
     void deleteLease(Long id) throws Exception;
+    List<Lease> getActiveLeases();
 }

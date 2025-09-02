@@ -127,4 +127,9 @@ public class LeaseServiceImpl implements LeaseService {
         leaseRepository.deleteById(id);
     }
 
+    @Override
+    public List<Lease> getActiveLeases() {
+        return leaseRepository.findAllByLeaseStatus(com.jjst.rentManagement.renthouse.module.common.enums.LeaseStatus.ACTIVE);
+    }
+
 }
