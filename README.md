@@ -2,7 +2,8 @@
 
 RentHouse는 부동산 임대 관리를 위한 웹 애플리케이션입니다. 임대인, 임차인, 관리자 등 다양한 사용자가 시스템을 통해 부동산, 유닛, 임대 계약, 결제 등을 효율적으로 관리할 수 있습니다.
 
-https://youtu.be/jcXF12t93vw 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/jcXF12t93vw/0.jpg)](https://www.youtube.com/watch?v=jcXF12t93vw)
+
 
 ## 주요 기능
 
